@@ -5,7 +5,6 @@ import net.minecraft.nbt.NbtLongArray;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.ppvr.artery.Artery;
 import net.ppvr.artery.blocks.OrganBlock;
 import net.ppvr.artery.blocks.entity.OrganBlockEntity;
 
