@@ -22,5 +22,11 @@ public class ArteryBlockTagProvider extends FabricTagProvider<Block> {
                         ArteryBlocks.VENTRICLE,
                         ArteryBlocks.ATRIUM
                 );
+        getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
+                .add(
+                        ArteryBlocks.ERYTHRITE_ORE,
+                        ArteryBlocks.DEEPSLATE_ERYTHRITE_ORE,
+                        ArteryBlocks.ERYTHRITE_BLOCK
+                );
     }
 }

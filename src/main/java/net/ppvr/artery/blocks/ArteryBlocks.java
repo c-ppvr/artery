@@ -1,7 +1,6 @@
 package net.ppvr.artery.blocks;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
+import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -10,6 +9,7 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.intprovider.ConstantIntProvider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,11 +18,12 @@ import java.util.function.Function;
 import static net.ppvr.artery.Artery.MOD_ID;
 
 public class ArteryBlocks {
+    public static final List<BlockItem> BLOCK_ITEMS = new ArrayList<>();
+
     public static void initialize() {
     }
 
-    public static final List<BlockItem> BLOCK_ITEMS = new ArrayList<>();
-    public static final Block ATRIUM = Builder.withId("atrium")
+    public static final Block ATRIUM = Builder.create("atrium")
             .factory(AtriumBlock::new)
             .configure(settings ->
                     settings.requiresTool()
@@ -33,7 +34,7 @@ public class ArteryBlocks {
             .shouldRegisterItem()
             .register();
 
-    public static final Block VENTRICLE = Builder.withId("ventricle")
+    public static final Block VENTRICLE = Builder.create("ventricle")
             .factory(VentricleBlock::new)
             .configure(settings ->
                     settings.requiresTool()
@@ -43,6 +44,32 @@ public class ArteryBlocks {
             )
             .shouldRegisterItem()
             .register();
+
+    public static final Block ERYTHRITE_ORE = Builder.create("erythrite_ore")
+            .factory(settings -> new ExperienceDroppingBlock(ConstantIntProvider.create(0), settings))
+            .settings(AbstractBlock.Settings.copy(Blocks.IRON_ORE))
+            .setBlockKey()
+            .shouldRegisterItem()
+            .register();
+
+    public static final Block DEEPSLATE_ERYTHRITE_ORE = Builder.create("deepslate_erythrite_ore")
+            .factory(settings -> new ExperienceDroppingBlock(ConstantIntProvider.create(0), settings))
+            .settings(AbstractBlock.Settings.copy(ERYTHRITE_ORE).mapColor(MapColor.DEEPSLATE_GRAY).strength(4.5f, 3.0f).sounds(BlockSoundGroup.DEEPSLATE))
+            .setBlockKey()
+            .shouldRegisterItem()
+            .register();
+
+    public static final Block ERYTHRITE_BLOCK = Builder.create("erythrite_block")
+            .factory(Block::new)
+            .configure(settings ->
+                    settings.mapColor(MapColor.RED)
+                            .requiresTool()
+                            .strength(3.0f, 6.0f)
+                            .sounds(BlockSoundGroup.SCULK)
+            )
+            .shouldRegisterItem()
+            .register();
+
 
     /**
      * A builder to make block registering easier.
@@ -60,7 +87,7 @@ public class ArteryBlocks {
          * @param id The ID of the block. The registry key of the {@link Block} and {@link BlockItem} (if registered) defaults to using this.
          * @return A {@link Builder}.
          */
-        public static Builder withId(String id) {
+        public static Builder create(String id) {
             return new Builder(id);
         }
 

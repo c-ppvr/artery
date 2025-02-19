@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.client.data.*;
 import net.minecraft.state.property.Properties;
 import net.ppvr.artery.blocks.ArteryBlocks;
+import net.ppvr.artery.items.ArteryItems;
 
 public class ArteryModelProvider extends FabricModelProvider {
     public ArteryModelProvider(FabricDataOutput output) {
@@ -80,9 +81,12 @@ public class ArteryModelProvider extends FabricModelProvider {
                                         )
                         )
         );
+        blockStateModelGenerator.registerSimpleCubeAll(ArteryBlocks.ERYTHRITE_ORE);
+        blockStateModelGenerator.registerSimpleCubeAll(ArteryBlocks.DEEPSLATE_ERYTHRITE_ORE);
     }
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
+        itemModelGenerator.register(ArteryItems.ERYTHRITE, Models.GENERATED);
     }
 }
