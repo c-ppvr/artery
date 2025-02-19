@@ -29,6 +29,7 @@ public class ArteryRecipeProvider extends FabricRecipeProvider {
                 offerInfusion(Items.ROTTEN_FLESH, Items.BONE, 25);
                 offerSmelting(ERYTHRITE_ORES, RecipeCategory.MISC, ArteryItems.ERYTHRITE, 0.7F, 200, "erythrite");
                 offerBlasting(ERYTHRITE_ORES, RecipeCategory.MISC, ArteryItems.ERYTHRITE, 0.7F, 100, "erythrite");
+                offerCompactingRecipe(RecipeCategory.MISC, ArteryBlocks.ERYTHRITE_BLOCK.asItem(), ArteryItems.ERYTHRITE);
             }
 
             public void offerInfusion(ItemConvertible output, ItemConvertible input, int infusedAmount) {
