@@ -10,6 +10,7 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.intprovider.ConstantIntProvider;
+import net.minecraft.util.math.intprovider.UniformIntProvider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,14 +47,14 @@ public class ArteryBlocks {
             .register();
 
     public static final Block ERYTHRITE_ORE = Builder.create("erythrite_ore")
-            .factory(settings -> new ExperienceDroppingBlock(ConstantIntProvider.create(0), settings))
+            .factory(settings -> new ExperienceDroppingBlock(UniformIntProvider.create(2, 5), settings))
             .settings(AbstractBlock.Settings.copy(Blocks.IRON_ORE))
             .setBlockKey()
             .shouldRegisterItem()
             .register();
 
     public static final Block DEEPSLATE_ERYTHRITE_ORE = Builder.create("deepslate_erythrite_ore")
-            .factory(settings -> new ExperienceDroppingBlock(ConstantIntProvider.create(0), settings))
+            .factory(settings -> new ExperienceDroppingBlock(UniformIntProvider.create(2, 5), settings))
             .settings(AbstractBlock.Settings.copy(ERYTHRITE_ORE).mapColor(MapColor.DEEPSLATE_GRAY).strength(4.5f, 3.0f).sounds(BlockSoundGroup.DEEPSLATE))
             .setBlockKey()
             .shouldRegisterItem()
