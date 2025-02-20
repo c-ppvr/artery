@@ -22,6 +22,10 @@ import static net.ppvr.artery.Artery.MOD_ID;
 public class ArteryItems {
     public static final List<Item> ITEMS = new ArrayList<>();
     public static final Item ERYTHRITE = register("erythrite");
+    public static final Item RAW_LEUKIUM = register("raw_leukium");
+    public static final Item LEUKIUM_INGOT = register("leukium_ingot");
+    public static final Item RAW_THROMBIUM = register("raw_thrombium");
+    public static final Item THROMBIUM_INGOT = register("thrombium_ingot");
 
     public static void initialize() {
         Registry.register(Registries.ITEM_GROUP, ARTERY_ITEM_GROUP_KEY, ARTERY_ITEM_GROUP);

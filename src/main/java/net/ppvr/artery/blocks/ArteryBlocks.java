@@ -1,6 +1,7 @@
 package net.ppvr.artery.blocks;
 
 import net.minecraft.block.*;
+import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
@@ -71,6 +72,75 @@ public class ArteryBlocks {
             .shouldRegisterItem()
             .register();
 
+    public static final Block LEUKIUM_ORE = Builder.create("leukium_ore")
+            .factory(settings -> new ExperienceDroppingBlock(ConstantIntProvider.create(0), settings))
+            .settings(AbstractBlock.Settings.copy(Blocks.IRON_ORE))
+            .setBlockKey()
+            .shouldRegisterItem()
+            .register();
+
+    public static final Block DEEPSLATE_LEUKIUM_ORE = Builder.create("deepslate_leukium_ore")
+            .factory(settings -> new ExperienceDroppingBlock(ConstantIntProvider.create(0), settings))
+            .settings(AbstractBlock.Settings.copy(LEUKIUM_ORE).mapColor(MapColor.DEEPSLATE_GRAY).strength(4.5f, 3.0f).sounds(BlockSoundGroup.DEEPSLATE))
+            .setBlockKey()
+            .shouldRegisterItem()
+            .register();
+
+    public static final Block RAW_LEUKIUM_BLOCK = Builder.create("raw_leukium_block")
+            .factory(Block::new)
+            .configure(settings ->
+                    settings.mapColor(MapColor.CYAN)
+                            .instrument(NoteBlockInstrument.BASEDRUM)
+                            .requiresTool()
+                            .strength(5.0f, 6.0f))
+            .shouldRegisterItem()
+            .register();
+
+    public static final Block LEUKIUM_BLOCK = Builder.create("leukium_block")
+            .factory(Block::new)
+            .configure(settings ->
+                    settings.mapColor(MapColor.CYAN)
+                            .requiresTool()
+                            .strength(3.0f, 6.0f)
+                            .sounds(BlockSoundGroup.METAL)
+            )
+            .shouldRegisterItem()
+            .register();
+
+    public static final Block THROMBIUM_ORE = Builder.create("thrombium_ore")
+            .factory(settings -> new ExperienceDroppingBlock(ConstantIntProvider.create(0), settings))
+            .settings(AbstractBlock.Settings.copy(Blocks.IRON_ORE))
+            .setBlockKey()
+            .shouldRegisterItem()
+            .register();
+
+    public static final Block DEEPSLATE_THROMBIUM_ORE = Builder.create("deepslate_thrombium_ore")
+            .factory(settings -> new ExperienceDroppingBlock(ConstantIntProvider.create(0), settings))
+            .settings(AbstractBlock.Settings.copy(THROMBIUM_ORE).mapColor(MapColor.DEEPSLATE_GRAY).strength(4.5f, 3.0f).sounds(BlockSoundGroup.DEEPSLATE))
+            .setBlockKey()
+            .shouldRegisterItem()
+            .register();
+
+    public static final Block RAW_THROMBIUM_BLOCK = Builder.create("raw_thrombium_block")
+            .factory(Block::new)
+            .configure(settings ->
+                    settings.mapColor(MapColor.CYAN)
+                            .instrument(NoteBlockInstrument.BASEDRUM)
+                            .requiresTool()
+                            .strength(5.0f, 6.0f))
+            .shouldRegisterItem()
+            .register();
+
+    public static final Block THROMBIUM_BLOCK = Builder.create("thrombium_block")
+            .factory(Block::new)
+            .configure(settings ->
+                    settings.mapColor(MapColor.CYAN)
+                            .requiresTool()
+                            .strength(5.0f, 6.0f)
+                            .sounds(BlockSoundGroup.SCULK)
+            )
+            .shouldRegisterItem()
+            .register();
 
     /**
      * A builder to make block registering easier.

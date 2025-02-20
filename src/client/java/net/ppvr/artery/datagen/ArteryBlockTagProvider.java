@@ -20,13 +20,46 @@ public class ArteryBlockTagProvider extends FabricTagProvider<Block> {
         getOrCreateTagBuilder(BlockTags.HOE_MINEABLE)
                 .add(
                         ArteryBlocks.VENTRICLE,
-                        ArteryBlocks.ATRIUM
+                        ArteryBlocks.ATRIUM,
+                        ArteryBlocks.ERYTHRITE_BLOCK,
+                        ArteryBlocks.LEUKIUM_BLOCK,
+                        ArteryBlocks.THROMBIUM_BLOCK
                 );
         getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
                 .add(
                         ArteryBlocks.ERYTHRITE_ORE,
                         ArteryBlocks.DEEPSLATE_ERYTHRITE_ORE,
+                        ArteryBlocks.ERYTHRITE_BLOCK,
+                        ArteryBlocks.LEUKIUM_ORE,
+                        ArteryBlocks.DEEPSLATE_LEUKIUM_ORE,
+                        ArteryBlocks.RAW_LEUKIUM_BLOCK,
+                        ArteryBlocks.LEUKIUM_BLOCK,
+                        ArteryBlocks.THROMBIUM_ORE,
+                        ArteryBlocks.DEEPSLATE_THROMBIUM_ORE,
+                        ArteryBlocks.RAW_THROMBIUM_BLOCK,
+                        ArteryBlocks.THROMBIUM_BLOCK
+                );
+        getOrCreateTagBuilder(BlockTags.BEACON_BASE_BLOCKS)
+                .add(
+                        ArteryBlocks.LEUKIUM_BLOCK,
+                        ArteryBlocks.THROMBIUM_BLOCK
+                );
+        getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL)
+                .add(
+                        ArteryBlocks.ERYTHRITE_ORE,
+                        ArteryBlocks.DEEPSLATE_ERYTHRITE_ORE,
                         ArteryBlocks.ERYTHRITE_BLOCK
+                );
+        getOrCreateTagBuilder(BlockTags.NEEDS_IRON_TOOL)
+                .add(
+                        ArteryBlocks.LEUKIUM_ORE,
+                        ArteryBlocks.DEEPSLATE_LEUKIUM_ORE,
+                        ArteryBlocks.RAW_LEUKIUM_BLOCK,
+                        ArteryBlocks.LEUKIUM_BLOCK,
+                        ArteryBlocks.THROMBIUM_ORE,
+                        ArteryBlocks.DEEPSLATE_THROMBIUM_ORE,
+                        ArteryBlocks.RAW_THROMBIUM_BLOCK,
+                        ArteryBlocks.THROMBIUM_BLOCK
                 );
     }
 }
