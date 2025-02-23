@@ -33,17 +33,17 @@ public class ArteryRecipeProvider extends FabricRecipeProvider {
 
                 offerSmelting(ERYTHRITE_ORES, RecipeCategory.MISC, ArteryItems.ERYTHRITE, 0.7F, 200, "erythrite");
                 offerBlasting(ERYTHRITE_ORES, RecipeCategory.MISC, ArteryItems.ERYTHRITE, 0.7F, 100, "erythrite");
-                offerCompactingRecipe(RecipeCategory.MISC, ArteryBlocks.ERYTHRITE_BLOCK, ArteryItems.ERYTHRITE);
+                offerReversibleCompactingRecipes(RecipeCategory.MISC, ArteryItems.ERYTHRITE, RecipeCategory.BUILDING_BLOCKS,  ArteryBlocks.ERYTHRITE_BLOCK);
 
                 offerSmelting(LEUKIUM_ORES, RecipeCategory.MISC, ArteryItems.LEUKIUM_INGOT, 0.7F, 200, "leukium_ingot");
                 offerBlasting(LEUKIUM_ORES, RecipeCategory.MISC, ArteryItems.LEUKIUM_INGOT, 0.7F, 100, "leukium_ingot");
-                offerCompactingRecipe(RecipeCategory.MISC, ArteryBlocks.RAW_LEUKIUM_BLOCK, ArteryItems.RAW_LEUKIUM);
-                offerCompactingRecipe(RecipeCategory.MISC, ArteryBlocks.LEUKIUM_BLOCK, ArteryItems.LEUKIUM_INGOT);
+                offerReversibleCompactingRecipes(RecipeCategory.MISC, ArteryItems.RAW_LEUKIUM, RecipeCategory.BUILDING_BLOCKS, ArteryBlocks.RAW_LEUKIUM_BLOCK);
+                offerReversibleCompactingRecipes(RecipeCategory.MISC, ArteryItems.LEUKIUM_INGOT, RecipeCategory.BUILDING_BLOCKS, ArteryBlocks.LEUKIUM_BLOCK);
 
                 offerSmelting(THROMBIUM_ORES, RecipeCategory.MISC, ArteryItems.THROMBIUM_INGOT, 0.7F, 200, "thrombium_ingot");
                 offerBlasting(THROMBIUM_ORES, RecipeCategory.MISC, ArteryItems.THROMBIUM_INGOT, 0.7F, 100, "thrombium_ingot");
-                offerCompactingRecipe(RecipeCategory.MISC, ArteryBlocks.RAW_THROMBIUM_BLOCK, ArteryItems.RAW_THROMBIUM);
-                offerCompactingRecipe(RecipeCategory.MISC, ArteryBlocks.THROMBIUM_BLOCK, ArteryItems.THROMBIUM_INGOT);
+                offerReversibleCompactingRecipes(RecipeCategory.MISC, ArteryItems.RAW_THROMBIUM, RecipeCategory.BUILDING_BLOCKS, ArteryBlocks.RAW_THROMBIUM_BLOCK);
+                offerReversibleCompactingRecipes(RecipeCategory.MISC, ArteryItems.THROMBIUM_INGOT, RecipeCategory.BUILDING_BLOCKS, ArteryBlocks.THROMBIUM_BLOCK);
             }
 
             public void offerInfusion(ItemConvertible output, ItemConvertible input, int infusedAmount) {
