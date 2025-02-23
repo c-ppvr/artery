@@ -4,8 +4,6 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
-import net.ppvr.artery.datagen.feature.ArteryOreConfiguredFeatures;
-import net.ppvr.artery.datagen.feature.ArteryOrePlacedFeatures;
 
 import java.util.concurrent.CompletableFuture;
 
