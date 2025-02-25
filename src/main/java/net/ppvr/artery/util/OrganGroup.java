@@ -40,6 +40,7 @@ public class OrganGroup {
         if (world.getBlockEntity(pos) instanceof OrganBlockEntity blockEntity) {
             blockEntity.setGroup(this);
             posSet.add(pos);
+            world.setBlockState(pos, world.getBlockState(pos).with(OrganBlock.ACTIVE, sanguinity != 0));
             modified = true;
         }
     }
