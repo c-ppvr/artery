@@ -9,7 +9,6 @@ import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.ppvr.artery.Artery;
 import net.ppvr.artery.blocks.ArteryBlocks;
 
 import java.util.ArrayList;
@@ -37,7 +36,6 @@ public class ArteryItems  {
             }
             for (Item item : ITEMS) {
                 itemGroup.add(item);
-                Artery.LOGGER.info("{}, {}", item, item.getComponents());
             }
         });
     }
