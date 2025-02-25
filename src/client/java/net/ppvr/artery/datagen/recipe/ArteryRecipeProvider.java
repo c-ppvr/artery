@@ -11,6 +11,7 @@ import net.minecraft.recipe.Ingredient;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
 import net.ppvr.artery.blocks.ArteryBlocks;
+import net.ppvr.artery.items.ArteryItemTags;
 import net.ppvr.artery.items.ArteryItems;
 
 import java.util.concurrent.CompletableFuture;
@@ -44,6 +45,23 @@ public class ArteryRecipeProvider extends FabricRecipeProvider {
                 offerBlasting(THROMBIUM_ORES, RecipeCategory.MISC, ArteryItems.THROMBIUM_INGOT, 0.7F, 100, "thrombium_ingot");
                 offerReversibleCompactingRecipes(RecipeCategory.MISC, ArteryItems.RAW_THROMBIUM, RecipeCategory.BUILDING_BLOCKS, ArteryBlocks.RAW_THROMBIUM_BLOCK);
                 offerReversibleCompactingRecipes(RecipeCategory.MISC, ArteryItems.THROMBIUM_INGOT, RecipeCategory.BUILDING_BLOCKS, ArteryBlocks.THROMBIUM_BLOCK);
+
+                createShaped(RecipeCategory.TOOLS, ArteryItems.LEUKIUM_AXE)
+                        .input('#', Items.STICK)
+                        .input('X', ArteryItemTags.LEUKIUM_TOOL_MATERIALS)
+                        .pattern("XX")
+                        .pattern("X#")
+                        .pattern(" #")
+                        .criterion("has_leukium_ingot", conditionsFromTag(ArteryItemTags.LEUKIUM_TOOL_MATERIALS))
+                        .offerTo(exporter);
+                createShaped(RecipeCategory.COMBAT, ArteryItems.LEUKIUM_SWORD)
+                        .input('#', Items.STICK)
+                        .input('X', ArteryItemTags.LEUKIUM_TOOL_MATERIALS)
+                        .pattern("X")
+                        .pattern("X")
+                        .pattern("#")
+                        .criterion("has_leukium_ingot", conditionsFromTag(ArteryItemTags.LEUKIUM_TOOL_MATERIALS))
+                        .offerTo(exporter);
             }
 
             public void offerInfusion(ItemConvertible output, ItemConvertible input, int infusedAmount) {
