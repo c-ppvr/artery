@@ -4,8 +4,10 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "HungerManagerMixin",
+    "ItemStackMixin",
     "LivingEntityMixin",
-    "PlayerEntityMixin"
+    "PlayerEntityMixin",
+    "ToolMaterialMixin"
   ],
   "injectors": {
     "defaultRequire": 1
