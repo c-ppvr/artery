@@ -3,6 +3,7 @@ package net.ppvr.artery.items;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.*;
+import net.minecraft.item.equipment.EquipmentType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -19,6 +20,7 @@ import static net.ppvr.artery.Artery.MOD_ID;
 
 public class ArteryItems  {
     public static final Identifier BASE_TRANSFUSION_RATE_MODIFIER_ID = Identifier.of(MOD_ID, "base_transfusion_rate");
+    public static final Identifier BASE_COAGULATION_RATE_MODIFIER_ID = Identifier.of(MOD_ID, "base_coagulation_rate");
 
     public static final List<Item> ITEMS = new ArrayList<>();
     public static final Item ERYTHRITE = register("erythrite");
@@ -26,8 +28,13 @@ public class ArteryItems  {
     public static final Item LEUKIUM_INGOT = register("leukium_ingot");
     public static final Item RAW_THROMBIUM = register("raw_thrombium");
     public static final Item THROMBIUM_INGOT = register("thrombium_ingot");
+
     public static final Item LEUKIUM_SWORD = register("leukium_sword", settings -> new SwordItem(ArteryToolMaterial.LEUKIUM, 4.0f, -2.4f, settings));
     public static final Item LEUKIUM_AXE = register("leukium_axe", settings -> new AxeItem(ArteryToolMaterial.LEUKIUM, 6.0f, -2.8f, settings));
+    public static final Item THROBIUM_HELMET = register("throbium_helmet", settings -> new ArmorItem(ArteryArmorMaterial.THROMBIUM, EquipmentType.HELMET, settings));
+    public static final Item THROBIUM_CHESTPLATE = register("throbium_chestplate", settings -> new ArmorItem(ArteryArmorMaterial.THROMBIUM, EquipmentType.CHESTPLATE, settings));
+    public static final Item THROBIUM_LEGGINGS = register("throbium_leggings", settings -> new ArmorItem(ArteryArmorMaterial.THROMBIUM, EquipmentType.LEGGINGS, settings));
+    public static final Item THROBIUM_BOOTS = register("throbium_boots", settings -> new ArmorItem(ArteryArmorMaterial.THROMBIUM, EquipmentType.BOOTS, settings));
 
     public static void initialize() {
         Registry.register(Registries.ITEM_GROUP, ARTERY_ITEM_GROUP_KEY, ARTERY_ITEM_GROUP);

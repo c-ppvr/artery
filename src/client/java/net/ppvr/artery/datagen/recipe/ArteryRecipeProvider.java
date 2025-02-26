@@ -62,6 +62,33 @@ public class ArteryRecipeProvider extends FabricRecipeProvider {
                         .pattern("#")
                         .criterion("has_leukium_ingot", conditionsFromTag(ArteryItemTags.LEUKIUM_TOOL_MATERIALS))
                         .offerTo(exporter);
+
+                createShaped(RecipeCategory.COMBAT, ArteryItems.THROBIUM_HELMET)
+                        .input('X', ArteryItems.THROMBIUM_INGOT)
+                        .pattern("XXX")
+                        .pattern("X X")
+                        .criterion("has_thrombium_ingot", conditionsFromItem(ArteryItems.THROMBIUM_INGOT))
+                        .offerTo(exporter);
+                createShaped(RecipeCategory.COMBAT, ArteryItems.THROBIUM_CHESTPLATE)
+                        .input('X', ArteryItems.THROMBIUM_INGOT)
+                        .pattern("X X")
+                        .pattern("XXX")
+                        .pattern("XXX")
+                        .criterion("has_thrombium_ingot", conditionsFromItem(ArteryItems.THROMBIUM_INGOT))
+                        .offerTo(exporter);
+                createShaped(RecipeCategory.COMBAT, ArteryItems.THROBIUM_LEGGINGS)
+                        .input('X', ArteryItems.THROMBIUM_INGOT)
+                        .pattern("XXX")
+                        .pattern("X X")
+                        .pattern("X X")
+                        .criterion("has_thrombium_ingot", conditionsFromItem(ArteryItems.THROMBIUM_INGOT))
+                        .offerTo(exporter);
+                createShaped(RecipeCategory.COMBAT, ArteryItems.THROBIUM_BOOTS)
+                        .input('X', ArteryItems.THROMBIUM_INGOT)
+                        .pattern("X X")
+                        .pattern("X X")
+                        .criterion("has_thrombium_ingot", conditionsFromItem(ArteryItems.THROMBIUM_INGOT))
+                        .offerTo(exporter);
             }
 
             public void offerInfusion(ItemConvertible output, ItemConvertible input, int infusedAmount) {

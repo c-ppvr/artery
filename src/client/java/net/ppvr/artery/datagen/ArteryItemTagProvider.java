@@ -18,5 +18,6 @@ public class ArteryItemTagProvider extends FabricTagProvider<Item> {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
         getOrCreateTagBuilder(ArteryItemTags.LEUKIUM_TOOL_MATERIALS).add(ArteryItems.LEUKIUM_INGOT);
+        getOrCreateTagBuilder(ArteryItemTags.REPAIRS_THROMBIUM_ARMOR).add(ArteryItems.THROMBIUM_INGOT);
     }
 }
