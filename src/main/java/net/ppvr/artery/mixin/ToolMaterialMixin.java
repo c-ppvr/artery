@@ -5,6 +5,7 @@ import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.ToolMaterial;
 import net.ppvr.artery.ArteryEntityAttributes;
+import net.ppvr.artery.items.ArteryItems;
 import net.ppvr.artery.items.ArteryToolMaterial;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -34,7 +35,7 @@ public abstract class ToolMaterialMixin {
             builder.add(
                     ArteryEntityAttributes.TRANSFUSION_RATE,
                     new EntityAttributeModifier(
-                            ArteryToolMaterial.BASE_TRANSFUSION_RATE_MODIFIER_ID,
+                            ArteryItems.BASE_TRANSFUSION_RATE_MODIFIER_ID,
                             amount,
                             EntityAttributeModifier.Operation.ADD_VALUE
                     ),
