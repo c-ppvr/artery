@@ -27,7 +27,7 @@ public abstract class InGameHudMixin {
     @Inject(method = "renderStatusBars", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiler/Profiler;pop()V"))
     public void renderSanguinity(DrawContext context, CallbackInfo ci, @Local PlayerEntity playerEntity) {
         Profilers.get().swap("sanguinity");
-        int sanguinity = (int) Math.ceil(playerEntity.artery$getSanguinity());
+        int sanguinity = (int) playerEntity.artery$getSanguinity();
         int maxSanguinity = (int) playerEntity.getAttributeValue(MAX_SANGUINITY);
         int rows = maxSanguinity/80;
         int fullRows = sanguinity/80;
