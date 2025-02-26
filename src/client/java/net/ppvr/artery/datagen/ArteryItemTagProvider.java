@@ -19,5 +19,13 @@ public class ArteryItemTagProvider extends FabricTagProvider<Item> {
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
         getOrCreateTagBuilder(ArteryItemTags.LEUKIUM_TOOL_MATERIALS).add(ArteryItems.LEUKIUM_INGOT);
         getOrCreateTagBuilder(ArteryItemTags.REPAIRS_THROMBIUM_ARMOR).add(ArteryItems.THROMBIUM_INGOT);
+
+        getOrCreateTagBuilder(ItemTags.SWORDS).add(ArteryItems.LEUKIUM_SWORD);
+        getOrCreateTagBuilder(ItemTags.AXES).add(ArteryItems.LEUKIUM_AXE);
+
+        getOrCreateTagBuilder(ItemTags.HEAD_ARMOR).add(ArteryItems.THROBIUM_HELMET);
+        getOrCreateTagBuilder(ItemTags.CHEST_ARMOR).add(ArteryItems.THROBIUM_CHESTPLATE);
+        getOrCreateTagBuilder(ItemTags.LEG_ARMOR).add(ArteryItems.THROBIUM_LEGGINGS);
+        getOrCreateTagBuilder(ItemTags.FOOT_ARMOR).add(ArteryItems.THROBIUM_BOOTS);
     }
 }
