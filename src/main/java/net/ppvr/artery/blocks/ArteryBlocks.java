@@ -137,7 +137,7 @@ public class ArteryBlocks {
                     settings.mapColor(MapColor.CYAN)
                             .requiresTool()
                             .strength(5.0f, 6.0f)
-                            .sounds(BlockSoundGroup.SCULK)
+                            .sounds(BlockSoundGroup.METAL)
             )
             .shouldRegisterItem()
             .register();
