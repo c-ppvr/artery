@@ -44,6 +44,15 @@ public class ArteryRecipeProvider extends FabricRecipeProvider {
                 offerBlasting(THROMBIUM_ORES, RecipeCategory.MISC, ArteryItems.THROMBIUM_INGOT, 0.7F, 100, "thrombium_ingot");
                 offerReversibleCompactingRecipes(RecipeCategory.MISC, ArteryItems.RAW_THROMBIUM, RecipeCategory.BUILDING_BLOCKS, ArteryBlocks.RAW_THROMBIUM_BLOCK);
                 offerReversibleCompactingRecipes(RecipeCategory.MISC, ArteryItems.THROMBIUM_INGOT, RecipeCategory.BUILDING_BLOCKS, ArteryBlocks.THROMBIUM_BLOCK);
+
+                createShaped(RecipeCategory.MISC, ArteryItems.HEMOGLOBIUM)
+                        .input('E', ArteryItems.ERYTHRITE)
+                        .input('I', Items.IRON_INGOT)
+                        .pattern("EI")
+                        .pattern("IE")
+                        .criterion(hasItem(ArteryItems.ERYTHRITE), conditionsFromItem(ArteryItems.ERYTHRITE))
+                        .offerTo(exporter);
+                offerReversibleCompactingRecipes(RecipeCategory.MISC, ArteryItems.HEMOGLOBIUM, RecipeCategory.BUILDING_BLOCKS, ArteryBlocks.HEMOGLOBIUM_BLOCK);
             }
 
             public void offerInfusion(ItemConvertible output, ItemConvertible input, int infusedAmount) {

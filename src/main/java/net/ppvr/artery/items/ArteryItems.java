@@ -26,6 +26,8 @@ public class ArteryItems {
     public static final Item LEUKIUM_INGOT = register("leukium_ingot");
     public static final Item RAW_THROMBIUM = register("raw_thrombium");
     public static final Item THROMBIUM_INGOT = register("thrombium_ingot");
+    public static final Item HEMOGLOBIUM = register("hemoglobium");
+    public static final Item FLESH = register("flesh");
 
     public static void initialize() {
         Registry.register(Registries.ITEM_GROUP, ARTERY_ITEM_GROUP_KEY, ARTERY_ITEM_GROUP);
