@@ -53,6 +53,24 @@ public class ArteryRecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(ArteryItems.ERYTHRITE), conditionsFromItem(ArteryItems.ERYTHRITE))
                         .offerTo(exporter);
                 offerReversibleCompactingRecipes(RecipeCategory.MISC, ArteryItems.HEMOGLOBIUM, RecipeCategory.BUILDING_BLOCKS, ArteryBlocks.HEMOGLOBIUM_BLOCK);
+
+                createShaped(RecipeCategory.DECORATIONS, ArteryBlocks.ATRIUM)
+                        .input('#', ArteryItems.HEMOGLOBIUM)
+                        .input('C', Items.CHEST)
+                        .pattern("###")
+                        .pattern("#C#")
+                        .pattern("###")
+                        .criterion(hasItem(ArteryItems.HEMOGLOBIUM), conditionsFromItem(ArteryItems.HEMOGLOBIUM))
+                        .offerTo(exporter);
+                createShaped(RecipeCategory.DECORATIONS, ArteryBlocks.VENTRICLE)
+                        .input('#', ArteryItems.HEMOGLOBIUM)
+                        .input('D', Items.DISPENSER)
+                        .pattern("###")
+                        .pattern("#D#")
+                        .pattern("###")
+                        .criterion(hasItem(ArteryItems.HEMOGLOBIUM), conditionsFromItem(ArteryItems.HEMOGLOBIUM))
+                        .offerTo(exporter);
+
             }
 
             public void offerInfusion(ItemConvertible output, ItemConvertible input, int infusedAmount) {
