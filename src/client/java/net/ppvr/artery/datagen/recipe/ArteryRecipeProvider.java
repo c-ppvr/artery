@@ -29,7 +29,8 @@ public class ArteryRecipeProvider extends FabricRecipeProvider {
 
             @Override
             public void generate() {
-                offerInfusion(Items.ROTTEN_FLESH, Items.BONE, 25);
+                offerInfusion(Items.ROTTEN_FLESH, Items.BONE, 10);
+                offerInfusion(ArteryItems.FLESH, Items.ROTTEN_FLESH, 25);
 
                 offerSmelting(ERYTHRITE_ORES, RecipeCategory.MISC, ArteryItems.ERYTHRITE, 0.7F, 200, "erythrite");
                 offerBlasting(ERYTHRITE_ORES, RecipeCategory.MISC, ArteryItems.ERYTHRITE, 0.7F, 100, "erythrite");
