@@ -27,13 +27,14 @@ public abstract class OrganBlock extends BlockWithEntity {
 
     @Override
     protected void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
-        super.onBlockAdded(state, world, pos, oldState, notify);
-        OrganGroup.merge((ServerWorld) world,
-                Arrays.stream(DIRECTIONS)
-                        .map(d -> world.getBlockEntity(pos.offset(d)) instanceof OrganBlockEntity blockEntity ? blockEntity.getGroup() : null)
-                        .filter(Objects::nonNull)
-                        .collect(Collectors.toSet())
-        ).add(pos);
+        if (!oldState.isOf(state.getBlock())) {
+            OrganGroup.merge((ServerWorld) world,
+                    Arrays.stream(DIRECTIONS)
+                            .map(d -> world.getBlockEntity(pos.offset(d)) instanceof OrganBlockEntity blockEntity ? blockEntity.getGroup() : null)
+                            .filter(Objects::nonNull)
+                            .collect(Collectors.toSet())
+            ).add(pos);
+        }
     }
 
     @Override
