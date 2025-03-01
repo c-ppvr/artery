@@ -15,6 +15,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import net.ppvr.artery.blocks.FibroblasterBlock;
 import net.ppvr.artery.screen.FibroblasterScreenHandler;
 import org.jetbrains.annotations.Nullable;
 
@@ -73,21 +74,24 @@ public class FibroblasterBlockEntity extends OrganBlockEntity implements NamedSc
 
     public static void tick(World world, BlockPos pos, BlockState state, FibroblasterBlockEntity blockEntity) {
         ItemStack itemStack = blockEntity.getStack(0);
-        if (blockEntity.getGroup().getSanguinity() > 0 && itemStack.isDamaged() && ++blockEntity.repairTimer >= blockEntity.repairTime) {
-            blockEntity.getGroup().addSanguinity(-1);
-            if (++blockEntity.progress >= 2) {
-                itemStack.setDamage(itemStack.getDamage() - 1);
-                blockEntity.progress = 0;
-            }
-            blockEntity.repairTimer = 0;
+        if (blockEntity.getGroup().getSanguinity() > 0 && itemStack.isDamaged()) {
+            world.setBlockState(pos, state.with(FibroblasterBlock.LIT, true));
+            if (++blockEntity.repairTimer >= blockEntity.repairTime) {
+                blockEntity.getGroup().addSanguinity(-1);
+                if (++blockEntity.progress >= 2) {
+                    itemStack.setDamage(itemStack.getDamage() - 1);
+                    blockEntity.progress = 0;
+                }
+                blockEntity.repairTimer = 0;
 
-            if (blockEntity.repairTime > 1 && ++blockEntity.accelerationTimer >= 12) {
-                --blockEntity.repairTime;
-                blockEntity.accelerationTimer = 0;
-
+                if (blockEntity.repairTime > 1 && ++blockEntity.accelerationTimer >= 12) {
+                    --blockEntity.repairTime;
+                    blockEntity.accelerationTimer = 0;
+                }
             }
             markDirty(world, pos, state);
-        } else if (blockEntity.getGroup().getSanguinity() == 0 || itemStack.isEmpty()){
+        } else {
+            world.setBlockState(pos, state.with(FibroblasterBlock.LIT, false));
             blockEntity.repairTime = 8;
             blockEntity.repairTimer = 0;
             blockEntity.accelerationTimer = 0;

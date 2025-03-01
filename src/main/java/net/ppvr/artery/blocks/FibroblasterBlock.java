@@ -1,12 +1,16 @@
 package net.ppvr.artery.blocks;
 
 import com.mojang.serialization.MapCodec;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -17,8 +21,11 @@ import net.ppvr.artery.blocks.entity.OrganBlockEntity;
 import org.jetbrains.annotations.Nullable;
 
 public class FibroblasterBlock extends OrganBlock{
+    public static final BooleanProperty LIT = Properties.LIT;
+
     public FibroblasterBlock(Settings settings) {
         super(settings);
+        this.setDefaultState(getDefaultState().with(LIT, false));
     }
 
     @Override
@@ -42,5 +49,11 @@ public class FibroblasterBlock extends OrganBlock{
     @Override
     protected MapCodec<? extends BlockWithEntity> getCodec() {
         return createCodec(FibroblasterBlock::new);
+    }
+
+    @Override
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        super.appendProperties(builder);
+        builder.add(LIT);
     }
 }
