@@ -21,6 +21,7 @@ public class ArteryBlockTagProvider extends FabricTagProvider<Block> {
                 .add(
                         ArteryBlocks.VENTRICLE,
                         ArteryBlocks.ATRIUM,
+                        ArteryBlocks.FIBROBLASTER,
                         ArteryBlocks.ERYTHRITE_BLOCK,
                         ArteryBlocks.LEUKIUM_BLOCK,
                         ArteryBlocks.THROMBIUM_BLOCK
