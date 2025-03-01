@@ -1,16 +1,15 @@
 package net.ppvr.artery.mixin;
 
+import net.minecraft.advancement.criterion.PlayerHurtEntityCriterion;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.world.ServerWorld;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.Redirect;
 
 
 @Mixin(LivingEntity.class)
@@ -19,13 +18,12 @@ public abstract class LivingEntityMixin extends Entity {
         super(type, world);
     }
 
-    @Inject(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/advancement/criterion/PlayerHurtEntityCriterion;trigger(Lnet/minecraft/server/network/ServerPlayerEntity;Lnet/minecraft/entity/Entity;Lnet/minecraft/entity/damage/DamageSource;FFZ)V"))
-    private void damage(ServerWorld world, DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-        PlayerEntity attacker = (PlayerEntity) source.getAttacker();
+    @Redirect(method = "damage", at = @At(value = "INVOKE", target = "Lnet/minecraft/advancement/criterion/PlayerHurtEntityCriterion;trigger(Lnet/minecraft/server/network/ServerPlayerEntity;Lnet/minecraft/entity/Entity;Lnet/minecraft/entity/damage/DamageSource;FFZ)V"))
+    private void damage(PlayerHurtEntityCriterion instance, ServerPlayerEntity player, Entity entity, DamageSource damage, float dealt, float taken, boolean blocked) {
         double falloff = 1.0;
-        if (!source.isDirect()) {
-            falloff = Math.max(1.0, distanceTo(source.getAttacker())/4.0);
+        if (!damage.isDirect()) {
+            falloff = Math.max(1.0, distanceTo(damage.getAttacker())/4.0);
         }
-        attacker.artery$addUnconvertedSanguinity((float) (amount / attacker.artery$getTransfusionRate() / falloff));
+        player.artery$addUnconvertedSanguinity((float) (taken / player.artery$getTransfusionRate() / falloff));
     }
 }
