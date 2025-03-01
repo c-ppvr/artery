@@ -51,6 +51,7 @@ public class ArteryBlocks {
             .factory(FibroblasterBlock::new)
             .configure(settings ->
                     settings.requiresTool()
+                            .strength(1.5f)
                             .sounds(BlockSoundGroup.SCULK)
                             .luminance(OrganBlock.getLuminanceSupplier(3))
             )
