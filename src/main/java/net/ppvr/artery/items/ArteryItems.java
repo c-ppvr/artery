@@ -31,10 +31,10 @@ public class ArteryItems  {
 
     public static final Item LEUKIUM_SWORD = register("leukium_sword", settings -> new SwordItem(ArteryToolMaterial.LEUKIUM, 4.0f, -2.4f, settings));
     public static final Item LEUKIUM_AXE = register("leukium_axe", settings -> new AxeItem(ArteryToolMaterial.LEUKIUM, 6.0f, -2.8f, settings));
-    public static final Item THROBIUM_HELMET = register("throbium_helmet", settings -> new ArmorItem(ArteryArmorMaterial.THROMBIUM, EquipmentType.HELMET, settings));
-    public static final Item THROBIUM_CHESTPLATE = register("throbium_chestplate", settings -> new ArmorItem(ArteryArmorMaterial.THROMBIUM, EquipmentType.CHESTPLATE, settings));
-    public static final Item THROBIUM_LEGGINGS = register("throbium_leggings", settings -> new ArmorItem(ArteryArmorMaterial.THROMBIUM, EquipmentType.LEGGINGS, settings));
-    public static final Item THROBIUM_BOOTS = register("throbium_boots", settings -> new ArmorItem(ArteryArmorMaterial.THROMBIUM, EquipmentType.BOOTS, settings));
+    public static final Item THROMBIUM_HELMET = register("thrombium_helmet", settings -> new ArmorItem(ArteryArmorMaterial.THROMBIUM, EquipmentType.HELMET, settings));
+    public static final Item THROMBIUM_CHESTPLATE = register("thrombium_chestplate", settings -> new ArmorItem(ArteryArmorMaterial.THROMBIUM, EquipmentType.CHESTPLATE, settings));
+    public static final Item THROMBIUM_LEGGINGS = register("thrombium_leggings", settings -> new ArmorItem(ArteryArmorMaterial.THROMBIUM, EquipmentType.LEGGINGS, settings));
+    public static final Item THROMBIUM_BOOTS = register("thrombium_boots", settings -> new ArmorItem(ArteryArmorMaterial.THROMBIUM, EquipmentType.BOOTS, settings));
 
     public static void initialize() {
         Registry.register(Registries.ITEM_GROUP, ARTERY_ITEM_GROUP_KEY, ARTERY_ITEM_GROUP);

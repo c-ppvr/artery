@@ -106,9 +106,9 @@ public class ArteryModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ArteryItems.LEUKIUM_SWORD, Models.HANDHELD);
         itemModelGenerator.register(ArteryItems.LEUKIUM_AXE, Models.HANDHELD);
 
-        itemModelGenerator.registerArmor(ArteryItems.THROBIUM_HELMET, ArteryEquipmentAssetKeys.THROMBIUM, "helmet", false);
-        itemModelGenerator.registerArmor(ArteryItems.THROBIUM_CHESTPLATE, ArteryEquipmentAssetKeys.THROMBIUM, "chestplate", false);
-        itemModelGenerator.registerArmor(ArteryItems.THROBIUM_LEGGINGS, ArteryEquipmentAssetKeys.THROMBIUM, "leggings", false);
-        itemModelGenerator.registerArmor(ArteryItems.THROBIUM_BOOTS, ArteryEquipmentAssetKeys.THROMBIUM, "boots", false);
+        itemModelGenerator.registerArmor(ArteryItems.THROMBIUM_HELMET, ArteryEquipmentAssetKeys.THROMBIUM, "helmet", false);
+        itemModelGenerator.registerArmor(ArteryItems.THROMBIUM_CHESTPLATE, ArteryEquipmentAssetKeys.THROMBIUM, "chestplate", false);
+        itemModelGenerator.registerArmor(ArteryItems.THROMBIUM_LEGGINGS, ArteryEquipmentAssetKeys.THROMBIUM, "leggings", false);
+        itemModelGenerator.registerArmor(ArteryItems.THROMBIUM_BOOTS, ArteryEquipmentAssetKeys.THROMBIUM, "boots", false);
     }
 }

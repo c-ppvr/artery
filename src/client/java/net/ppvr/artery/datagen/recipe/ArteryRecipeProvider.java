@@ -63,27 +63,27 @@ public class ArteryRecipeProvider extends FabricRecipeProvider {
                         .criterion("has_leukium_ingot", conditionsFromTag(ArteryItemTags.LEUKIUM_TOOL_MATERIALS))
                         .offerTo(exporter);
 
-                createShaped(RecipeCategory.COMBAT, ArteryItems.THROBIUM_HELMET)
+                createShaped(RecipeCategory.COMBAT, ArteryItems.THROMBIUM_HELMET)
                         .input('X', ArteryItems.THROMBIUM_INGOT)
                         .pattern("XXX")
                         .pattern("X X")
                         .criterion("has_thrombium_ingot", conditionsFromItem(ArteryItems.THROMBIUM_INGOT))
                         .offerTo(exporter);
-                createShaped(RecipeCategory.COMBAT, ArteryItems.THROBIUM_CHESTPLATE)
+                createShaped(RecipeCategory.COMBAT, ArteryItems.THROMBIUM_CHESTPLATE)
                         .input('X', ArteryItems.THROMBIUM_INGOT)
                         .pattern("X X")
                         .pattern("XXX")
                         .pattern("XXX")
                         .criterion("has_thrombium_ingot", conditionsFromItem(ArteryItems.THROMBIUM_INGOT))
                         .offerTo(exporter);
-                createShaped(RecipeCategory.COMBAT, ArteryItems.THROBIUM_LEGGINGS)
+                createShaped(RecipeCategory.COMBAT, ArteryItems.THROMBIUM_LEGGINGS)
                         .input('X', ArteryItems.THROMBIUM_INGOT)
                         .pattern("XXX")
                         .pattern("X X")
                         .pattern("X X")
                         .criterion("has_thrombium_ingot", conditionsFromItem(ArteryItems.THROMBIUM_INGOT))
                         .offerTo(exporter);
-                createShaped(RecipeCategory.COMBAT, ArteryItems.THROBIUM_BOOTS)
+                createShaped(RecipeCategory.COMBAT, ArteryItems.THROMBIUM_BOOTS)
                         .input('X', ArteryItems.THROMBIUM_INGOT)
                         .pattern("X X")
                         .pattern("X X")
