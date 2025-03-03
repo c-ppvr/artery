@@ -10,15 +10,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import net.ppvr.artery.items.ArteryItems;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
 @Mixin(LivingEntity.class)
 abstract public class LivingEntityMixin extends Entity {
+    @Unique boolean paid;
 
     public LivingEntityMixin(EntityType<?> type, World world) {
         super(type, world);
@@ -35,11 +36,31 @@ abstract public class LivingEntityMixin extends Entity {
     }
 
     @Redirect(method = "tryUseDeathProtector", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;decrement(I)V"))
-    private void tryUseDeathProtector(ItemStack itemStack, int amount, @Local Hand hand) {
-        if (itemStack.isDamageable()) {
-            itemStack.damage(1, (LivingEntity) (Object) this, LivingEntity.getSlotForHand(hand));
+    private void tryUseDeathProtector(ItemStack itemStack, int amount, @Local Hand hand, @Local(ordinal = 0) ItemStack usedStack) {
+        paid = false;
+        if (itemStack.isOf(ArteryItems.TOTEM_OF_REVIVAL)) {
+            if ((LivingEntity) (Object) this instanceof PlayerEntity playerEntity && playerEntity.artery$getSanguinity() >= 1) {
+                itemStack.damage(1, playerEntity, LivingEntity.getSlotForHand(hand));
+                playerEntity.artery$addSanguinity(-1);
+                paid = true;
+            }
         } else {
             itemStack.decrement(amount);
+            paid = true;
+        }
+    }
+
+    @Inject(method = "tryUseDeathProtector", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerPlayerEntity;incrementStat(Lnet/minecraft/stat/Stat;)V"), cancellable = true)
+    private void doNotIncrementIfUnpaid(DamageSource source, CallbackInfoReturnable<Boolean> cir) {
+        if (!paid) {
+            cir.setReturnValue(false);
+        }
+    }
+
+    @Inject(method = "tryUseDeathProtector", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;setHealth(F)V"), cancellable = true)
+    private void doNotReviveIfUnpaid(DamageSource source, CallbackInfoReturnable<Boolean> cir) {
+        if (!paid) {
+            cir.setReturnValue(false);
         }
     }
 }
