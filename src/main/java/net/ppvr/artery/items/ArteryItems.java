@@ -23,7 +23,6 @@ import static net.ppvr.artery.Artery.MOD_ID;
 
 public class ArteryItems  {
     public static final Identifier BASE_TRANSFUSION_RATE_MODIFIER_ID = Identifier.of(MOD_ID, "base_transfusion_rate");
-    public static final Identifier BASE_COAGULATION_RATE_MODIFIER_ID = Identifier.of(MOD_ID, "base_coagulation_rate");
 
     public static final List<Item> ITEMS = new ArrayList<>();
     public static final Item ERYTHRITE = register("erythrite");

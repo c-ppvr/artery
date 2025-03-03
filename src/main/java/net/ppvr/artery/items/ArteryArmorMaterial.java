@@ -19,8 +19,10 @@ public class ArteryArmorMaterial {
     }), 16, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0.0F, 0.0F, ArteryItemTags.REPAIRS_THROMBIUM_ARMOR, ArteryEquipmentAssetKeys.THROMBIUM);
 
     public static final Map<Object, Double> COAGULATION_RATE_MAP = new HashMap<>();
+    public static final Map<Object, Double> MAX_SANGUINITY_MAP = new HashMap<>();
 
     static {
         COAGULATION_RATE_MAP.put(THROMBIUM, -0.5);
+        MAX_SANGUINITY_MAP.put(THROMBIUM, 80.0);
     }
 }

@@ -26,7 +26,8 @@ public class ItemStackMixin {
 
     @Inject(method = "appendAttributeModifierTooltip", at = @At("HEAD"))
     public void appendAttributeModifierTooltip(Consumer<Text> textConsumer, @Nullable PlayerEntity player, RegistryEntry<EntityAttribute> attribute, EntityAttributeModifier modifier, CallbackInfo ci) {
-        shouldFlipColor = modifier.idMatches(ArteryItems.BASE_TRANSFUSION_RATE_MODIFIER_ID) || modifier.idMatches(ArteryItems.BASE_COAGULATION_RATE_MODIFIER_ID);
+        String id = modifier.id().toString();
+        shouldFlipColor = id.endsWith("coagulation_rate") || modifier.idMatches(ArteryItems.BASE_TRANSFUSION_RATE_MODIFIER_ID);
     }
 
     @ModifyArg(method = "appendAttributeModifierTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/attribute/EntityAttribute;getFormatting(Z)Lnet/minecraft/util/Formatting;"))
