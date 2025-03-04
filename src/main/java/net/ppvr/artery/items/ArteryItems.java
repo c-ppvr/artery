@@ -38,7 +38,7 @@ public class ArteryItems  {
     public static final Item THROMBIUM_LEGGINGS = register("thrombium_leggings", settings -> new ArmorItem(ArteryArmorMaterial.THROMBIUM, EquipmentType.LEGGINGS, settings));
     public static final Item THROMBIUM_BOOTS = register("thrombium_boots", settings -> new ArmorItem(ArteryArmorMaterial.THROMBIUM, EquipmentType.BOOTS, settings));
 
-    public static final Item TOTEM_OF_REVIVAL = register("totem_of_revival", new Item.Settings().rarity(Rarity.UNCOMMON).maxDamage(32).component(DataComponentTypes.DEATH_PROTECTION, DeathProtectionComponent.TOTEM_OF_UNDYING));
+    public static final Item TOTEM_OF_REVIVAL = register("totem_of_revival", new Item.Settings().rarity(Rarity.UNCOMMON).maxDamage(32).artery$maxPressure(1440).component(DataComponentTypes.DEATH_PROTECTION, DeathProtectionComponent.TOTEM_OF_UNDYING));
 
     public static void initialize() {
         Registry.register(Registries.ITEM_GROUP, ARTERY_ITEM_GROUP_KEY, ARTERY_ITEM_GROUP);

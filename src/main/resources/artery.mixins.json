@@ -5,6 +5,8 @@
   "mixins": [
     "ArmorMaterialMixin",
     "HungerManagerMixin",
+    "ItemMixin",
+    "ItemMixin$Settings",
     "ItemStackMixin",
     "LivingEntityMixin",
     "PlayerEntityMixin",
