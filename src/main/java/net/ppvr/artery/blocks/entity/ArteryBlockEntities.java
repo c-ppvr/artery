@@ -17,6 +17,7 @@ public class ArteryBlockEntities {
 
     public static final BlockEntityType<AtriumBlockEntity> ATRIUM_BLOCK_ENTITY = register("atrium", AtriumBlockEntity::new, ArteryBlocks.ATRIUM);
     public static final BlockEntityType<VentricleBlockEntity> VENTRICLE_BLOCK_ENTITY = register("ventricle", VentricleBlockEntity::new, ArteryBlocks.VENTRICLE);
+    public static final BlockEntityType<FibroblasterBlockEntity> FIBROBLASTER_BLOCK_ENTITY = register("fibroblaster", FibroblasterBlockEntity::new, ArteryBlocks.FIBROBLASTER);
 
     private static <T extends BlockEntity> BlockEntityType<T> register(String id, FabricBlockEntityTypeBuilder.Factory<? extends T> factory, Block... blocks) {
         return Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(MOD_ID, id), FabricBlockEntityTypeBuilder.<T>create(factory, blocks).build());

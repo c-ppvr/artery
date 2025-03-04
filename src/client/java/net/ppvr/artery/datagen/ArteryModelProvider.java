@@ -81,6 +81,51 @@ public class ArteryModelProvider extends FabricModelProvider {
                                         )
                         )
         );
+        blockStateModelGenerator.blockStateCollector.accept(
+                VariantsBlockStateSupplier.create(ArteryBlocks.FIBROBLASTER)
+                        .coordinate(
+                                BlockStateVariantMap.create(Properties.LIT, Properties.ACTIVE)
+                                        .register(false, true,
+                                                BlockStateVariant.create().put(
+                                                        VariantSettings.MODEL,
+                                                        TexturedModel.CUBE_COLUMN.upload(ArteryBlocks.FIBROBLASTER, blockStateModelGenerator.modelCollector)
+                                                )
+                                        )
+                                        .register(true, true,
+                                                BlockStateVariant.create().put(
+                                                        VariantSettings.MODEL,
+                                                        TexturedModel.CUBE_COLUMN
+                                                                .get(ArteryBlocks.FIBROBLASTER)
+                                                                .textures(textureMap -> textureMap
+                                                                        .put(TextureKey.SIDE, TextureMap.getSubId(ArteryBlocks.FIBROBLASTER, "_side_on"))
+                                                                )
+                                                                .upload(ArteryBlocks.FIBROBLASTER, "_on", blockStateModelGenerator.modelCollector)
+                                                )
+                                        )
+                                        .register(false, false,
+                                                BlockStateVariant.create().put(
+                                                        VariantSettings.MODEL,
+                                                        TexturedModel.CUBE_COLUMN
+                                                                .get(ArteryBlocks.FIBROBLASTER)
+                                                                .textures(textureMap -> textureMap
+                                                                        .put(TextureKey.SIDE, TextureMap.getSubId(ArteryBlocks.FIBROBLASTER, "_side_empty"))
+                                                                )
+                                                                .upload(ArteryBlocks.FIBROBLASTER, "_empty", blockStateModelGenerator.modelCollector)
+                                                )
+                                        )
+                                        .register(true, false,
+                                                BlockStateVariant.create().put(
+                                                        VariantSettings.MODEL,
+                                                        TexturedModel.CUBE_COLUMN
+                                                                .get(ArteryBlocks.FIBROBLASTER)
+                                                                .textures(textureMap -> textureMap
+                                                                        .put(TextureKey.SIDE, TextureMap.getSubId(ArteryBlocks.FIBROBLASTER, "_side_on_empty"))
+                                                                )
+                                                                .upload(ArteryBlocks.FIBROBLASTER, "_on_empty", blockStateModelGenerator.modelCollector)
+                                                )
+                                        )
+                        )
+        );
         blockStateModelGenerator.registerSimpleCubeAll(ArteryBlocks.ERYTHRITE_ORE);
         blockStateModelGenerator.registerSimpleCubeAll(ArteryBlocks.DEEPSLATE_ERYTHRITE_ORE);
         blockStateModelGenerator.registerSimpleCubeAll(ArteryBlocks.ERYTHRITE_BLOCK);
