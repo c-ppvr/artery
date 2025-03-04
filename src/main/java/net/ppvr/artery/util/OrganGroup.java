@@ -129,18 +129,23 @@ public class OrganGroup {
 
     public void initializeSanguinity(int sanguinity) {
         this.sanguinity = sanguinity;
+        refreshBlockStates();
     }
 
     public void setSanguinity(int sanguinity) {
         this.sanguinity = Math.min(sanguinity, getCapacity());
-        for (BlockPos pos : new HashSet<>(posSet)) {
-            world.setBlockState(pos, world.getBlockState(pos).with(OrganBlock.ACTIVE, this.sanguinity != 0));
-        }
+        refreshBlockStates();
         OrganGroupState.get(world).markDirty();
     }
 
     public void addSanguinity(int amount) {
         setSanguinity(sanguinity + amount);
+    }
+
+    private void refreshBlockStates() {
+        for (BlockPos pos : new HashSet<>(posSet)) {
+            world.setBlockState(pos, world.getBlockState(pos).with(OrganBlock.ACTIVE, this.sanguinity != 0));
+        }
     }
 
     public int getCapacity() {
