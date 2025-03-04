@@ -39,9 +39,9 @@ abstract public class LivingEntityMixin extends Entity {
     private void tryUseDeathProtector(ItemStack itemStack, int amount, @Local Hand hand, @Local(ordinal = 0) ItemStack usedStack) {
         paid = false;
         if (itemStack.isOf(ArteryItems.TOTEM_OF_REVIVAL)) {
-            if ((LivingEntity) (Object) this instanceof PlayerEntity playerEntity && playerEntity.artery$getSanguinity() >= 1) {
+            if ((LivingEntity) (Object) this instanceof PlayerEntity playerEntity && playerEntity.artery$getSanguinity() >= 240) {
                 itemStack.damage(1, playerEntity, LivingEntity.getSlotForHand(hand));
-                playerEntity.artery$addSanguinity(-1);
+                playerEntity.artery$addSanguinity(-240);
                 paid = true;
             }
         } else {
