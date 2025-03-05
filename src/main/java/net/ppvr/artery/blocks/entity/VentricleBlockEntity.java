@@ -55,10 +55,13 @@ public class VentricleBlockEntity extends OrganBlockEntity implements NamedScree
             switch (index) {
                 case 0:
                     VentricleBlockEntity.this.getGroup().setSanguinity(value);
+                    break;
                 case 2:
                     VentricleBlockEntity.this.infuseAmountDone = value;
+                    break;
                 case 3:
                     VentricleBlockEntity.this.infuseTotalAmount = value;
+                    break;
             }
         }
 
