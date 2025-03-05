@@ -1,6 +1,5 @@
 package net.ppvr.artery.blocks.entity;
 
-import net.fabricmc.fabric.api.screenhandler.v1.FabricScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -13,7 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.ppvr.artery.screen.AtriumScreenHandler;
 import org.jetbrains.annotations.Nullable;
 
-public class AtriumBlockEntity extends OrganBlockEntity implements NamedScreenHandlerFactory, FabricScreenHandlerFactory {
+public class AtriumBlockEntity extends OrganBlockEntity implements NamedScreenHandlerFactory {
     public AtriumBlockEntity(BlockPos pos, BlockState state) {
         super(ArteryBlockEntities.ATRIUM_BLOCK_ENTITY, pos, state);
     }
