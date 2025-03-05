@@ -21,7 +21,7 @@ import net.ppvr.artery.blocks.entity.FibroblasterBlockEntity;
 import net.ppvr.artery.blocks.entity.OrganBlockEntity;
 import org.jetbrains.annotations.Nullable;
 
-public class FibroblasterBlock extends OrganBlock{
+public class FibroblasterBlock extends OrganBlock {
     public static final BooleanProperty LIT = Properties.LIT;
 
     public FibroblasterBlock(Settings settings) {
