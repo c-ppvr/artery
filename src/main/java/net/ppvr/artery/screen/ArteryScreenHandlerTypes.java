@@ -18,6 +18,7 @@ public class ArteryScreenHandlerTypes {
 
     public static final ScreenHandlerType<AtriumScreenHandler> ATRIUM_SCREEN_HANDLER = register("atrium", ((syncId, playerInventory) -> new AtriumScreenHandler(syncId, playerInventory.player, new ArrayPropertyDelegate(2), ScreenHandlerContext.EMPTY)));
     public static final ScreenHandlerType<VentricleScreenHandler> VENTRICLE_SCREEN_HANDLER = register("ventricle", (syncId, playerInventory) -> new VentricleScreenHandler(syncId, playerInventory, new SimpleInventory(2), new ArrayPropertyDelegate(4)));
+    public static final ScreenHandlerType<PressorScreenHandler> PRESSOR_SCREEN_HANDLER = register("pressor", (syncId, playerInventory) -> new PressorScreenHandler(syncId, playerInventory, new SimpleInventory(2), new ArrayPropertyDelegate(4)));
 
     private static <T extends ScreenHandler> ScreenHandlerType<T> register(String id, ScreenHandlerType.Factory<T> factory) {
         return Registry.register(Registries.SCREEN_HANDLER, Identifier.of(MOD_ID, id), new ScreenHandlerType<>(factory, FeatureFlags.VANILLA_FEATURES));

@@ -7,5 +7,6 @@ public class ArteryScreens {
     public static void initialize() {
         HandledScreens.register(ArteryScreenHandlerTypes.ATRIUM_SCREEN_HANDLER, AtriumScreen::new);
         HandledScreens.register(ArteryScreenHandlerTypes.VENTRICLE_SCREEN_HANDLER, VentricleScreen::new);
+        HandledScreens.register(ArteryScreenHandlerTypes.PRESSOR_SCREEN_HANDLER, PressorScreen::new);
     }
 }
