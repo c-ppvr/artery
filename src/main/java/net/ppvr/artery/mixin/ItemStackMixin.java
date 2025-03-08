@@ -4,7 +4,6 @@ package net.ppvr.artery.mixin;
 
 import net.minecraft.component.ComponentHolder;
 import net.minecraft.component.ComponentType;
-import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
@@ -54,7 +53,7 @@ public abstract class ItemStackMixin implements ComponentHolder, ItemStackHooks 
     }
 
     public void artery$setPressure(int amount) {
-        set(DataComponentTypes.DAMAGE, MathHelper.clamp(amount, 0, artery$getMaxPressure()));
+        set(ArteryDataComponentTypes.PRESSURE, MathHelper.clamp(amount, 0, artery$getMaxPressure()));
     }
 
     public void artery$addPressure(int amount) {
