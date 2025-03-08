@@ -22,6 +22,7 @@ public class PressorBlock extends OrganBlock {
 
     public PressorBlock(Settings settings) {
         super(settings);
+        setDefaultState(getDefaultState().with(LIT, false));
     }
 
     @Override
@@ -41,6 +42,7 @@ public class PressorBlock extends OrganBlock {
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        super.appendProperties(builder);
         builder.add(LIT);
     }
 }
