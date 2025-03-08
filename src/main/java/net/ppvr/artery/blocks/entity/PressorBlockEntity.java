@@ -3,8 +3,14 @@ package net.ppvr.artery.blocks.entity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventories;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
@@ -13,6 +19,8 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import net.ppvr.artery.Artery;
+import net.ppvr.artery.blocks.PressorBlock;
 import net.ppvr.artery.screen.PressorScreenHandler;
 import org.jetbrains.annotations.Nullable;
 
@@ -59,7 +67,72 @@ public class PressorBlockEntity extends OrganBlockEntity implements NamedScreenH
         super(ArteryBlockEntities.PRESSOR_BLOCK_ENTITY, pos, state);
     }
 
+    private boolean isBurning() {
+        return this.litTimeRemaining > 0;
+    }
+
+    private static boolean isPressurizable(ItemStack item) {
+        return item.artery$getMaxPressure() > 0 && item.artery$getPressure() < item.artery$getMaxPressure();
+    }
+    @Override
+    protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        inventory = DefaultedList.ofSize(size(), ItemStack.EMPTY);
+        Inventories.readNbt(nbt, inventory, registries);
+        litTimeRemaining = nbt.getShort("lit_time_remaining");
+        litTotalTime = nbt.getShort("lit_total_time");
+    }
+
+    @Override
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        nbt.putShort("lit_time_remaining", (short) litTimeRemaining);
+        nbt.putShort("lit_total_time", (short) litTotalTime);
+        Inventories.writeNbt(nbt, inventory, registries);
+    }
+
     public static void tick(World world, BlockPos pos, BlockState state, PressorBlockEntity blockEntity) {
+        boolean wasBurning = blockEntity.isBurning();
+        boolean dirty = false;
+
+        if (blockEntity.isBurning()) {
+            --blockEntity.litTimeRemaining;
+        }
+
+        ItemStack inputStack = blockEntity.getStack(INPUT_SLOT_INDEX);
+        ItemStack fuelStack = blockEntity.getStack(FUEL_SLOT_INDEX);
+        Artery.LOGGER.info("{}, {}/{}, {}/{}, {}/{}", blockEntity.isBurning(), blockEntity.litTimeRemaining, blockEntity.litTotalTime, inputStack.getDamage(), inputStack.getMaxDamage(), inputStack.artery$getPressure(), inputStack.artery$getMaxPressure());
+        if (blockEntity.isBurning() || !inputStack.isEmpty() && !fuelStack.isEmpty()) {
+            if (!blockEntity.isBurning() && isPressurizable(inputStack) && blockEntity.getGroup().getSanguinity() > 0) {
+                blockEntity.litTimeRemaining = blockEntity.getFuelTime(fuelStack);
+                blockEntity.litTotalTime = blockEntity.litTimeRemaining;
+                if (blockEntity.isBurning()) {
+                    dirty = true;
+                    if (!fuelStack.isEmpty()) {
+                        Item item = fuelStack.getItem();
+                        fuelStack.decrement(1);
+                        if (fuelStack.isEmpty()) {
+                            blockEntity.setStack(FUEL_SLOT_INDEX, item.getRecipeRemainder());
+                        }
+                    }
+                }
+            }
+
+
+            if (blockEntity.isBurning() && isPressurizable(inputStack) && blockEntity.getGroup().getSanguinity() > 0) {
+                int amount = blockEntity.getGroup().getSanguinity() == 1 ? 1 : 2;
+                blockEntity.getGroup().addSanguinity(-amount);
+                inputStack.artery$addPressure(amount);
+                dirty = true;
+            }
+        }
+
+        if (wasBurning != blockEntity.isBurning()) {
+            dirty = true;
+            world.setBlockState(pos, state.with(PressorBlock.LIT, blockEntity.isBurning()));
+        }
+
+        if (dirty) {
+            markDirty(world, pos, state);
+        }
     }
 
     @Override
@@ -72,54 +145,75 @@ public class PressorBlockEntity extends OrganBlockEntity implements NamedScreenH
         return Text.translatable("container.artery.pressor");
     }
 
+    private int getFuelTime(ItemStack stack) {
+        return world.getFuelRegistry().getFuelTicks(stack)/2;
+    }
+
     @Override
     public int[] getAvailableSlots(Direction side) {
-        return new int[0];
+        if (side == Direction.UP) {
+            return new int[]{INPUT_SLOT_INDEX};
+        } else if (side == Direction.DOWN) {
+            return new int[]{INPUT_SLOT_INDEX, FUEL_SLOT_INDEX};
+        }
+        else {
+            return new int[]{FUEL_SLOT_INDEX};
+        }
     }
 
     @Override
     public boolean canInsert(int slot, ItemStack stack, @Nullable Direction dir) {
-        return false;
+        if (slot == INPUT_SLOT_INDEX) {
+            return true;
+        } else {
+            return world.getFuelRegistry().isFuel(stack);
+        }
     }
 
     @Override
     public boolean canExtract(int slot, ItemStack stack, Direction dir) {
-        return false;
+        return dir != Direction.DOWN || stack.isOf(Items.BUCKET);
     }
 
     @Override
     public int size() {
-        return 0;
+        return inventory.size();
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return inventory.isEmpty();
     }
 
     @Override
     public ItemStack getStack(int slot) {
-        return null;
+        return inventory.get(slot);
     }
 
     @Override
     public ItemStack removeStack(int slot, int amount) {
-        return null;
+        ItemStack itemStack = Inventories.splitStack(inventory, slot, amount);
+        if (!itemStack.isEmpty()) {
+            markDirty();
+        }
+
+        return itemStack;
     }
 
     @Override
     public ItemStack removeStack(int slot) {
-        return null;
+        return Inventories.removeStack(inventory, slot);
     }
+
 
     @Override
     public void setStack(int slot, ItemStack stack) {
-
+        inventory.set(slot, stack);
     }
 
     @Override
     public boolean canPlayerUse(PlayerEntity player) {
-        return false;
+        return Inventory.canPlayerUse(this, player);
     }
 
     @Override
@@ -129,6 +223,6 @@ public class PressorBlockEntity extends OrganBlockEntity implements NamedScreenH
 
     @Override
     public void clear() {
-
+        inventory.clear();
     }
 }

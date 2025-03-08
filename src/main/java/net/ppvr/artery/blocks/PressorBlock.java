@@ -7,9 +7,12 @@ import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.ppvr.artery.blocks.entity.ArteryBlockEntities;
@@ -28,6 +31,14 @@ public class PressorBlock extends OrganBlock {
     @Override
     public OrganBlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return new PressorBlockEntity(pos, state);
+    }
+
+    @Override
+    protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+        if (!world.isClient && world.getBlockEntity(pos) instanceof PressorBlockEntity blockEntity) {
+            player.openHandledScreen(blockEntity);
+        }
+        return ActionResult.SUCCESS;
     }
 
     @Override
