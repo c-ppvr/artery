@@ -19,7 +19,6 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import net.ppvr.artery.Artery;
 import net.ppvr.artery.blocks.PressorBlock;
 import net.ppvr.artery.screen.PressorScreenHandler;
 import org.jetbrains.annotations.Nullable;
@@ -99,7 +98,6 @@ public class PressorBlockEntity extends OrganBlockEntity implements NamedScreenH
 
         ItemStack inputStack = blockEntity.getStack(INPUT_SLOT_INDEX);
         ItemStack fuelStack = blockEntity.getStack(FUEL_SLOT_INDEX);
-        Artery.LOGGER.info("{}, {}/{}, {}/{}, {}/{}", blockEntity.isBurning(), blockEntity.litTimeRemaining, blockEntity.litTotalTime, inputStack.getDamage(), inputStack.getMaxDamage(), inputStack.artery$getPressure(), inputStack.artery$getMaxPressure());
         if (blockEntity.isBurning() || !inputStack.isEmpty() && !fuelStack.isEmpty()) {
             if (!blockEntity.isBurning() && isPressurizable(inputStack) && blockEntity.getGroup().getSanguinity() > 0) {
                 blockEntity.litTimeRemaining = blockEntity.getFuelTime(fuelStack);
@@ -118,9 +116,8 @@ public class PressorBlockEntity extends OrganBlockEntity implements NamedScreenH
 
 
             if (blockEntity.isBurning() && isPressurizable(inputStack) && blockEntity.getGroup().getSanguinity() > 0) {
-                int amount = blockEntity.getGroup().getSanguinity() == 1 ? 1 : 2;
-                blockEntity.getGroup().addSanguinity(-amount);
-                inputStack.artery$addPressure(amount);
+                blockEntity.getGroup().addSanguinity(-1);
+                inputStack.artery$addPressure(1);
                 dirty = true;
             }
         }
@@ -146,7 +143,7 @@ public class PressorBlockEntity extends OrganBlockEntity implements NamedScreenH
     }
 
     private int getFuelTime(ItemStack stack) {
-        return world.getFuelRegistry().getFuelTicks(stack)/2;
+        return world.getFuelRegistry().getFuelTicks(stack)/10;
     }
 
     @Override
