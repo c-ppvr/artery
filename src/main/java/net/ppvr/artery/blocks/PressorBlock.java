@@ -66,7 +66,7 @@ public class PressorBlock extends OrganBlock {
 
     @Override
     protected MapCodec<? extends BlockWithEntity> getCodec() {
-        return null;
+        return createCodec(PressorBlock::new);
     }
 
     @Override
