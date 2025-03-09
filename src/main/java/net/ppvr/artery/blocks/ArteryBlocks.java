@@ -52,8 +52,8 @@ public class ArteryBlocks {
             .configure(settings ->
                     settings.requiresTool()
                             .strength(1.0f)
-                            .sounds(BlockSoundGroup.SCULK)
-                            .luminance(OrganBlock.getLuminanceSupplier(3))
+                            .sounds(BlockSoundGroup.METAL)
+                            .luminance(PressorBlock.getLuminanceSupplier(3))
             )
             .shouldRegisterItem()
             .register();

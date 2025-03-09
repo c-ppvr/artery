@@ -26,6 +26,8 @@ import net.ppvr.artery.blocks.entity.OrganBlockEntity;
 import net.ppvr.artery.blocks.entity.PressorBlockEntity;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.function.ToIntFunction;
+
 public class PressorBlock extends OrganBlock {
     public static final BooleanProperty LIT = Properties.LIT;
     public static final EnumProperty<Direction> FACING = HorizontalFacingBlock.FACING;
@@ -46,6 +48,10 @@ public class PressorBlock extends OrganBlock {
             player.openHandledScreen(blockEntity);
         }
         return ActionResult.SUCCESS;
+    }
+
+    public static ToIntFunction<BlockState> getLuminanceSupplier(int luminance) {
+        return state -> state.get(Properties.LIT) ? 13 : state.get(Properties.ACTIVE) ? luminance : 0;
     }
 
     @Override
