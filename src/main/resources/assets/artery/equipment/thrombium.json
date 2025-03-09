@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "artery:thrombium"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "artery:thrombium"
+      }
+    ]
+  }
+}

@@ -15,6 +15,7 @@ public class ArteryDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(ArteryRecipeProvider::new);
         pack.addProvider(ArteryBlockLootTableProvider::new);
         pack.addProvider(ArteryBlockTagProvider::new);
+        pack.addProvider(ArteryItemTagProvider::new);
         pack.addProvider(ArteryModelProvider::new);
         pack.addProvider(ArteryDynamicRegistriesProvider::new);
     }
