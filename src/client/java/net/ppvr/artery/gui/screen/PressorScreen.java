@@ -4,6 +4,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
@@ -20,6 +21,12 @@ public class PressorScreen extends HandledScreen<PressorScreenHandler> {
     }
 
     @Override
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        super.render(context, mouseX, mouseY, delta);
+        drawMouseoverTooltip(context, mouseX, mouseY);
+    }
+
+    @Override
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
         context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x, y, 0.0f, 0.0f, backgroundWidth, backgroundHeight, 256, 256);
         if (handler.isBurning()) {
@@ -31,6 +38,11 @@ public class PressorScreen extends HandledScreen<PressorScreenHandler> {
     @Override
     protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
         super.drawForeground(context, mouseX, mouseY);
+        ItemStack itemStack =  handler.getSlot(0).getStack();
+        if (!itemStack.isEmpty()) {
+            Text pressureText = Text.of("%d/%d".formatted(itemStack.artery$getPressure(), itemStack.artery$getMaxPressure()));
+            context.drawText(textRenderer, pressureText,  backgroundWidth - 12 - textRenderer.getWidth(pressureText), handler.getSlot(0).y + 9 , 0xFF000000, false);
+        }
         Text sanguinityText = Text.of("%d/%d".formatted(handler.getSanguinity(), handler.getCapacity()));
         context.drawText(textRenderer, sanguinityText, backgroundWidth - 12 - textRenderer.getWidth(sanguinityText), playerInventoryTitleY - 12, 0xFF000000, false);
     }
