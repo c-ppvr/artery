@@ -46,30 +46,31 @@ public class ArteryRecipeProvider extends FabricRecipeProvider {
                 offerReversibleCompactingRecipes(RecipeCategory.MISC, ArteryItems.RAW_THROMBIUM, RecipeCategory.BUILDING_BLOCKS, ArteryBlocks.RAW_THROMBIUM_BLOCK);
                 offerReversibleCompactingRecipes(RecipeCategory.MISC, ArteryItems.THROMBIUM_INGOT, RecipeCategory.BUILDING_BLOCKS, ArteryBlocks.THROMBIUM_BLOCK);
 
-                createShaped(RecipeCategory.MISC, ArteryItems.HEMOGLOBIUM)
+                createShaped(RecipeCategory.MISC, ArteryItems.HEMOGLOBIUM_INGOT)
                         .input('E', ArteryItems.ERYTHRITE)
                         .input('I', Items.IRON_INGOT)
                         .pattern("EI")
                         .pattern("IE")
                         .criterion(hasItem(ArteryItems.ERYTHRITE), conditionsFromItem(ArteryItems.ERYTHRITE))
                         .offerTo(exporter);
-                offerReversibleCompactingRecipes(RecipeCategory.MISC, ArteryItems.HEMOGLOBIUM, RecipeCategory.BUILDING_BLOCKS, ArteryBlocks.HEMOGLOBIUM_BLOCK);
-
+                offerReversibleCompactingRecipesWithReverseRecipeGroup(
+                        RecipeCategory.MISC, ArteryItems.HEMOGLOBIUM_INGOT, RecipeCategory.BUILDING_BLOCKS, ArteryBlocks.HEMOGLOBIUM_BLOCK, "hemoglobium_ingot_from_hemoglobium_block", "hemoglobium_ingot"
+                );
                 createShaped(RecipeCategory.DECORATIONS, ArteryBlocks.ATRIUM)
-                        .input('#', ArteryItems.HEMOGLOBIUM)
+                        .input('#', ArteryItems.HEMOGLOBIUM_INGOT)
                         .input('C', Items.CHEST)
                         .pattern("###")
                         .pattern("#C#")
                         .pattern("###")
-                        .criterion(hasItem(ArteryItems.HEMOGLOBIUM), conditionsFromItem(ArteryItems.HEMOGLOBIUM))
+                        .criterion(hasItem(ArteryItems.HEMOGLOBIUM_INGOT), conditionsFromItem(ArteryItems.HEMOGLOBIUM_INGOT))
                         .offerTo(exporter);
                 createShaped(RecipeCategory.DECORATIONS, ArteryBlocks.VENTRICLE)
-                        .input('#', ArteryItems.HEMOGLOBIUM)
+                        .input('#', ArteryItems.HEMOGLOBIUM_INGOT)
                         .input('D', Items.DISPENSER)
                         .pattern("###")
                         .pattern("#D#")
                         .pattern("###")
-                        .criterion(hasItem(ArteryItems.HEMOGLOBIUM), conditionsFromItem(ArteryItems.HEMOGLOBIUM))
+                        .criterion(hasItem(ArteryItems.HEMOGLOBIUM_INGOT), conditionsFromItem(ArteryItems.HEMOGLOBIUM_INGOT))
                         .offerTo(exporter);
 
             }

@@ -102,7 +102,7 @@ public class ArteryModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ArteryItems.LEUKIUM_INGOT, Models.GENERATED);
         itemModelGenerator.register(ArteryItems.RAW_THROMBIUM, Models.GENERATED);
         itemModelGenerator.register(ArteryItems.THROMBIUM_INGOT, Models.GENERATED);
-        itemModelGenerator.register(ArteryItems.HEMOGLOBIUM, Models.GENERATED);
+        itemModelGenerator.register(ArteryItems.HEMOGLOBIUM_INGOT, Models.GENERATED);
         itemModelGenerator.register(ArteryItems.FLESH, Models.GENERATED);
     }
 }
