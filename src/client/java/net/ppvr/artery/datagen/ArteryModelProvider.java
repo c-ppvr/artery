@@ -110,5 +110,7 @@ public class ArteryModelProvider extends FabricModelProvider {
         itemModelGenerator.registerArmor(ArteryItems.THROMBIUM_CHESTPLATE, ArteryEquipmentAssetKeys.THROMBIUM, "chestplate", false);
         itemModelGenerator.registerArmor(ArteryItems.THROMBIUM_LEGGINGS, ArteryEquipmentAssetKeys.THROMBIUM, "leggings", false);
         itemModelGenerator.registerArmor(ArteryItems.THROMBIUM_BOOTS, ArteryEquipmentAssetKeys.THROMBIUM, "boots", false);
+
+        itemModelGenerator.register(ArteryItems.TOTEM_OF_REVIVAL, Models.GENERATED);
     }
 }
