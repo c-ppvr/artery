@@ -3,9 +3,12 @@
   "package": "net.ppvr.artery.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "ArmorMaterialMixin",
     "HungerManagerMixin",
+    "ItemStackMixin",
     "LivingEntityMixin",
-    "PlayerEntityMixin"
+    "PlayerEntityMixin",
+    "ToolMaterialMixin"
   ],
   "injectors": {
     "defaultRequire": 1

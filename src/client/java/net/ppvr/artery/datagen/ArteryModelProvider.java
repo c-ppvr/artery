@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.client.data.*;
 import net.minecraft.state.property.Properties;
 import net.ppvr.artery.blocks.ArteryBlocks;
+import net.ppvr.artery.items.ArteryEquipmentAssetKeys;
 import net.ppvr.artery.items.ArteryItems;
 
 public class ArteryModelProvider extends FabricModelProvider {
@@ -146,5 +147,15 @@ public class ArteryModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ArteryItems.LEUKIUM_INGOT, Models.GENERATED);
         itemModelGenerator.register(ArteryItems.RAW_THROMBIUM, Models.GENERATED);
         itemModelGenerator.register(ArteryItems.THROMBIUM_INGOT, Models.GENERATED);
+
+        itemModelGenerator.register(ArteryItems.LEUKIUM_SWORD, Models.HANDHELD);
+        itemModelGenerator.register(ArteryItems.LEUKIUM_AXE, Models.HANDHELD);
+
+        itemModelGenerator.registerArmor(ArteryItems.THROMBIUM_HELMET, ArteryEquipmentAssetKeys.THROMBIUM, "helmet", false);
+        itemModelGenerator.registerArmor(ArteryItems.THROMBIUM_CHESTPLATE, ArteryEquipmentAssetKeys.THROMBIUM, "chestplate", false);
+        itemModelGenerator.registerArmor(ArteryItems.THROMBIUM_LEGGINGS, ArteryEquipmentAssetKeys.THROMBIUM, "leggings", false);
+        itemModelGenerator.registerArmor(ArteryItems.THROMBIUM_BOOTS, ArteryEquipmentAssetKeys.THROMBIUM, "boots", false);
+
+        itemModelGenerator.register(ArteryItems.TOTEM_OF_REVIVAL, Models.GENERATED);
     }
 }
