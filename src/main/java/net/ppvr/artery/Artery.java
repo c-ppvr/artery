@@ -10,6 +10,7 @@ import net.ppvr.artery.network.TransferSanguinityC2SPayload;
 import net.ppvr.artery.recipe.ArteryRecipes;
 import net.ppvr.artery.screen.ArteryScreenHandlerTypes;
 import net.ppvr.artery.screen.AtriumScreenHandler;
+import net.ppvr.artery.sound.ArterySoundEvents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,6 +27,7 @@ public class Artery implements ModInitializer {
         ArteryBlockEntities.initialize();
         ArteryScreenHandlerTypes.initialize();
         ArteryRecipes.initialize();
+        ArterySoundEvents.initialize();
 
         PayloadTypeRegistry.playC2S().register(TransferSanguinityC2SPayload.ID, TransferSanguinityC2SPayload.CODEC);
         ServerPlayNetworking.registerGlobalReceiver(TransferSanguinityC2SPayload.ID, (payload, context) -> {

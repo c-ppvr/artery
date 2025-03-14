@@ -127,6 +127,54 @@ public class ArteryModelProvider extends FabricModelProvider {
                                         )
                         )
         );
+        blockStateModelGenerator.blockStateCollector.accept(
+                VariantsBlockStateSupplier.create(ArteryBlocks.PRESSOR)
+                        .coordinate(
+                                BlockStateVariantMap.create(Properties.LIT, Properties.ACTIVE)
+                                        .register(false, true,
+                                                BlockStateVariant.create().put(
+                                                        VariantSettings.MODEL,
+                                                        TexturedModel.ORIENTABLE.upload(ArteryBlocks.PRESSOR, blockStateModelGenerator.modelCollector)
+                                                )
+                                        )
+                                        .register(true, true,
+                                                BlockStateVariant.create().put(
+                                                        VariantSettings.MODEL,
+                                                        TexturedModel.ORIENTABLE
+                                                                .get(ArteryBlocks.PRESSOR)
+                                                                .textures(textureMap -> textureMap
+                                                                        .put(TextureKey.FRONT, TextureMap.getSubId(ArteryBlocks.PRESSOR, "_front_on"))
+                                                                )
+                                                                .upload(ArteryBlocks.PRESSOR, "_on", blockStateModelGenerator.modelCollector)
+                                                )
+                                        )
+                                        .register(false, false,
+                                                BlockStateVariant.create().put(
+                                                        VariantSettings.MODEL,
+                                                        TexturedModel.ORIENTABLE
+                                                                .get(ArteryBlocks.PRESSOR)
+                                                                .textures(textureMap -> textureMap
+                                                                        .put(TextureKey.SIDE, TextureMap.getSubId(ArteryBlocks.PRESSOR, "_side_empty"))
+                                                                        .put(TextureKey.FRONT, TextureMap.getSubId(ArteryBlocks.PRESSOR, "_front_empty"))
+                                                                )
+                                                                .upload(ArteryBlocks.PRESSOR, "_empty", blockStateModelGenerator.modelCollector)
+                                                )
+                                        )
+                                        .register(true, false,
+                                                BlockStateVariant.create().put(
+                                                        VariantSettings.MODEL,
+                                                        TexturedModel.ORIENTABLE
+                                                                .get(ArteryBlocks.PRESSOR)
+                                                                .textures(textureMap -> textureMap
+                                                                        .put(TextureKey.SIDE, TextureMap.getSubId(ArteryBlocks.PRESSOR, "_side_empty"))
+                                                                        .put(TextureKey.FRONT, TextureMap.getSubId(ArteryBlocks.PRESSOR, "_front_on_empty"))
+                                                                )
+                                                                .upload(ArteryBlocks.PRESSOR, "_on_empty", blockStateModelGenerator.modelCollector)
+                                                )
+                                        )
+                        )
+                        .coordinate(BlockStateModelGenerator.createNorthDefaultHorizontalRotationStates())
+        );
         blockStateModelGenerator.registerSimpleCubeAll(ArteryBlocks.ERYTHRITE_ORE);
         blockStateModelGenerator.registerSimpleCubeAll(ArteryBlocks.DEEPSLATE_ERYTHRITE_ORE);
         blockStateModelGenerator.registerSimpleCubeAll(ArteryBlocks.ERYTHRITE_BLOCK);

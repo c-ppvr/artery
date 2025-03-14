@@ -8,5 +8,6 @@ public class ArteryScreens {
         HandledScreens.register(ArteryScreenHandlerTypes.ATRIUM_SCREEN_HANDLER, AtriumScreen::new);
         HandledScreens.register(ArteryScreenHandlerTypes.VENTRICLE_SCREEN_HANDLER, VentricleScreen::new);
         HandledScreens.register(ArteryScreenHandlerTypes.FIBROBLASTER_SCREEN_HANDLER, FibroblasterScreen::new);
+        HandledScreens.register(ArteryScreenHandlerTypes.PRESSOR_SCREEN_HANDLER, PressorScreen::new);
     }
 }

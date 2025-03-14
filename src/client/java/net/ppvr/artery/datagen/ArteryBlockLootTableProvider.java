@@ -27,6 +27,7 @@ public class ArteryBlockLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ArteryBlocks.ATRIUM);
         addDrop(ArteryBlocks.VENTRICLE, nameableContainerDrops(ArteryBlocks.VENTRICLE));
         addDrop(ArteryBlocks.FIBROBLASTER, nameableContainerDrops(ArteryBlocks.FIBROBLASTER));
+        addDrop(ArteryBlocks.PRESSOR, nameableContainerDrops(ArteryBlocks.PRESSOR));
         addDrop(ArteryBlocks.ERYTHRITE_ORE, this::erythriteOreDrops);
         addDrop(ArteryBlocks.DEEPSLATE_ERYTHRITE_ORE, this::erythriteOreDrops);
         addDrop(ArteryBlocks.ERYTHRITE_BLOCK);

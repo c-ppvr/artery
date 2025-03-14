@@ -58,6 +58,17 @@ public class ArteryBlocks {
             .shouldRegisterItem()
             .register();
 
+    public static final Block PRESSOR = Builder.create("pressor")
+            .factory(PressorBlock::new)
+            .configure(settings ->
+                    settings.requiresTool()
+                            .strength(1.0f)
+                            .sounds(BlockSoundGroup.METAL)
+                            .luminance(PressorBlock.getLuminanceSupplier(3))
+            )
+            .shouldRegisterItem()
+            .register();
+
     public static final Block ERYTHRITE_ORE = Builder.create("erythrite_ore")
             .factory(settings -> new ExperienceDroppingBlock(UniformIntProvider.create(2, 5), settings))
             .settings(AbstractBlock.Settings.copy(Blocks.IRON_ORE))
