@@ -1,18 +1,20 @@
 package net.ppvr.artery.blocks.entity;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.text.Text;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.ppvr.artery.screen.AtriumScreenHandler;
-import org.jetbrains.annotations.Nullable;
 
 public class AtriumBlockEntity extends OrganBlockEntity implements NamedScreenHandlerFactory {
+    private final DefaultedList<ItemStack> inventory = DefaultedList.of();
+
     public AtriumBlockEntity(BlockPos pos, BlockState state) {
         super(ArteryBlockEntities.ATRIUM_BLOCK_ENTITY, pos, state);
     }
@@ -23,8 +25,17 @@ public class AtriumBlockEntity extends OrganBlockEntity implements NamedScreenHa
     }
 
     @Override
-    public Text getDisplayName() {
+    protected Text getContainerName() {
         return Text.translatable("container.artery.atrium");
+    }
+
+    @Override
+    protected DefaultedList<ItemStack> getHeldStacks() {
+        return inventory;
+    }
+
+    @Override
+    protected void setHeldStacks(DefaultedList<ItemStack> inventory) {
     }
 
     private final PropertyDelegate propertyDelegate = new PropertyDelegate() {
@@ -50,9 +61,13 @@ public class AtriumBlockEntity extends OrganBlockEntity implements NamedScreenHa
         }
     };
 
-    @Nullable
     @Override
-    public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
-        return new AtriumScreenHandler(syncId, player, this.propertyDelegate, ScreenHandlerContext.create(world, pos));
+    protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
+        return new AtriumScreenHandler(syncId, playerInventory.player, this.propertyDelegate, ScreenHandlerContext.create(world, pos));
+    }
+
+    @Override
+    public int size() {
+        return 0;
     }
 }

@@ -1,17 +1,15 @@
 package net.ppvr.artery.blocks.entity;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
@@ -19,7 +17,7 @@ import net.ppvr.artery.blocks.FibroblasterBlock;
 import net.ppvr.artery.screen.FibroblasterScreenHandler;
 import org.jetbrains.annotations.Nullable;
 
-public class FibroblasterBlockEntity extends OrganBlockEntity implements NamedScreenHandlerFactory, SidedInventory {
+public class FibroblasterBlockEntity extends OrganBlockEntity implements SidedInventory {
     private ItemStack inventoryStack = ItemStack.EMPTY;
     int repairTime;
     int repairTimer;
@@ -136,6 +134,9 @@ public class FibroblasterBlockEntity extends OrganBlockEntity implements NamedSc
 
     @Override
     public ItemStack removeStack(int slot, int amount) {
+        if (slot != 0) {
+            return ItemStack.EMPTY;
+        }
         ItemStack itemStack = inventoryStack.split(amount);
         if (!itemStack.isEmpty()) {
             this.markDirty();
@@ -157,17 +158,22 @@ public class FibroblasterBlockEntity extends OrganBlockEntity implements NamedSc
     }
 
     @Override
-    public boolean canPlayerUse(PlayerEntity player) {
-        return Inventory.canPlayerUse(this, player);
-    }
-
-    @Override
-    public Text getDisplayName() {
+    public Text getContainerName() {
         return Text.translatable("container.artery.fibroblaster");
     }
 
     @Override
-    public @Nullable ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
+    protected DefaultedList<ItemStack> getHeldStacks() {
+        return DefaultedList.ofSize(1, inventoryStack);
+    }
+
+    @Override
+    protected void setHeldStacks(DefaultedList<ItemStack> inventory) {
+        this.inventoryStack = inventory.getFirst();
+    }
+
+    @Override
+    protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
         return new FibroblasterScreenHandler(syncId, playerInventory, this, propertyDelegate);
     }
 

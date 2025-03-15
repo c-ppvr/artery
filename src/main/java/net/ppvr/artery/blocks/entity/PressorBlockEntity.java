@@ -1,10 +1,8 @@
 package net.ppvr.artery.blocks.entity;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -138,8 +136,18 @@ public class PressorBlockEntity extends OrganBlockEntity implements NamedScreenH
     }
 
     @Override
-    public Text getDisplayName() {
+    public Text getContainerName() {
         return Text.translatable("container.artery.pressor");
+    }
+
+    @Override
+    protected DefaultedList<ItemStack> getHeldStacks() {
+        return inventory;
+    }
+
+    @Override
+    protected void setHeldStacks(DefaultedList<ItemStack> inventory) {
+        this.inventory = inventory;
     }
 
     private int getFuelTime(ItemStack stack) {
@@ -178,48 +186,7 @@ public class PressorBlockEntity extends OrganBlockEntity implements NamedScreenH
     }
 
     @Override
-    public boolean isEmpty() {
-        return inventory.isEmpty();
-    }
-
-    @Override
-    public ItemStack getStack(int slot) {
-        return inventory.get(slot);
-    }
-
-    @Override
-    public ItemStack removeStack(int slot, int amount) {
-        ItemStack itemStack = Inventories.splitStack(inventory, slot, amount);
-        if (!itemStack.isEmpty()) {
-            markDirty();
-        }
-
-        return itemStack;
-    }
-
-    @Override
-    public ItemStack removeStack(int slot) {
-        return Inventories.removeStack(inventory, slot);
-    }
-
-
-    @Override
-    public void setStack(int slot, ItemStack stack) {
-        inventory.set(slot, stack);
-    }
-
-    @Override
-    public boolean canPlayerUse(PlayerEntity player) {
-        return Inventory.canPlayerUse(this, player);
-    }
-
-    @Override
-    public @Nullable ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
+    protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
         return new PressorScreenHandler(syncId, playerInventory, this, propertyDelegate);
-    }
-
-    @Override
-    public void clear() {
-        inventory.clear();
     }
 }

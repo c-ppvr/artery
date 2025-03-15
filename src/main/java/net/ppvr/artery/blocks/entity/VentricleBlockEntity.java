@@ -1,10 +1,8 @@
 package net.ppvr.artery.blocks.entity;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
@@ -84,12 +82,22 @@ public class VentricleBlockEntity extends OrganBlockEntity implements NamedScree
     }
 
     @Override
-    public Text getDisplayName() {
+    public Text getContainerName() {
         return Text.translatable("container.artery.ventricle");
     }
 
     @Override
-    public ScreenHandler createMenu(int syncId, PlayerInventory playerInventory, PlayerEntity player) {
+    protected DefaultedList<ItemStack> getHeldStacks() {
+        return inventory;
+    }
+
+    @Override
+    protected void setHeldStacks(DefaultedList<ItemStack> inventory) {
+        this.inventory = inventory;
+    }
+
+    @Override
+    protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
         return new VentricleScreenHandler(syncId, playerInventory, this, propertyDelegate);
     }
 
@@ -221,30 +229,6 @@ public class VentricleBlockEntity extends OrganBlockEntity implements NamedScree
     }
 
     @Override
-    public boolean isEmpty() {
-        return inventory.stream().allMatch(ItemStack::isEmpty);
-    }
-
-    @Override
-    public ItemStack getStack(int slot) {
-        return inventory.get(slot);
-    }
-
-    @Override
-    public ItemStack removeStack(int slot, int amount) {
-        ItemStack itemStack = Inventories.splitStack(inventory, slot, amount);
-        if (!itemStack.isEmpty()) {
-            this.markDirty();
-        }
-        return itemStack;
-    }
-
-    @Override
-    public ItemStack removeStack(int slot) {
-        return Inventories.removeStack(inventory, slot);
-    }
-
-    @Override
     public void setStack(int slot, ItemStack stack) {
         ItemStack itemStack = inventory.get(slot);
         boolean stacked = !stack.isEmpty() && ItemStack.areItemsAndComponentsEqual(itemStack, stack);
@@ -256,16 +240,6 @@ public class VentricleBlockEntity extends OrganBlockEntity implements NamedScree
             this.infuseTotalAmount = getInfuseTime(serverWorld, this);
             markDirty();
         }
-    }
-
-    @Override
-    public boolean canPlayerUse(PlayerEntity player) {
-        return Inventory.canPlayerUse(this, player);
-    }
-
-    @Override
-    public void clear() {
-        inventory.clear();
     }
 
     @Override
