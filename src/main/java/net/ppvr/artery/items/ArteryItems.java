@@ -12,6 +12,8 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.ppvr.artery.blocks.ArteryBlocks;
+import net.ppvr.artery.items.components.ArteryConsumableComponents;
+import net.ppvr.artery.items.components.ArteryFoodComponents;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +29,7 @@ public class ArteryItems {
     public static final Item RAW_THROMBIUM = register("raw_thrombium");
     public static final Item THROMBIUM_INGOT = register("thrombium_ingot");
     public static final Item HEMOGLOBIUM_INGOT = register("hemoglobium_ingot");
-    public static final Item FLESH = register("flesh");
+    public static final Item FLESH = register("flesh", new Item.Settings().food(ArteryFoodComponents.FLESH, ArteryConsumableComponents.FLESH));
 
     public static void initialize() {
         Registry.register(Registries.ITEM_GROUP, ARTERY_ITEM_GROUP_KEY, ARTERY_ITEM_GROUP);
@@ -54,6 +56,10 @@ public class ArteryItems {
 
     public static Item register(String id) {
         return register(keyOf(id), Item::new, new Item.Settings());
+    }
+
+    public static Item register(String id, Item.Settings settings) {
+        return register(keyOf(id), Item::new, settings);
     }
 
     public static Item register(RegistryKey<Item> key, Function<Item.Settings, Item> factory, Item.Settings settings) {
