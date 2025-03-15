@@ -30,7 +30,8 @@ public class ArteryRecipeProvider extends FabricRecipeProvider {
 
             @Override
             public void generate() {
-                offerInfusion(Items.ROTTEN_FLESH, Items.BONE, 25);
+                offerInfusion(Items.ROTTEN_FLESH, Items.BONE, 10);
+                offerInfusion(ArteryItems.FLESH, Items.ROTTEN_FLESH, 25);
 
                 offerSmelting(ERYTHRITE_ORES, RecipeCategory.MISC, ArteryItems.ERYTHRITE, 0.7F, 200, "erythrite");
                 offerBlasting(ERYTHRITE_ORES, RecipeCategory.MISC, ArteryItems.ERYTHRITE, 0.7F, 100, "erythrite");
@@ -89,6 +90,34 @@ public class ArteryRecipeProvider extends FabricRecipeProvider {
                         .pattern("X X")
                         .criterion("has_thrombium_ingot", conditionsFromItem(ArteryItems.THROMBIUM_INGOT))
                         .offerTo(exporter);
+
+                createShaped(RecipeCategory.MISC, ArteryItems.HEMOGLOBIUM_INGOT)
+                        .input('E', ArteryItems.ERYTHRITE)
+                        .input('I', Items.IRON_INGOT)
+                        .pattern("EI")
+                        .pattern("IE")
+                        .criterion(hasItem(ArteryItems.ERYTHRITE), conditionsFromItem(ArteryItems.ERYTHRITE))
+                        .offerTo(exporter);
+                offerReversibleCompactingRecipesWithReverseRecipeGroup(
+                        RecipeCategory.MISC, ArteryItems.HEMOGLOBIUM_INGOT, RecipeCategory.BUILDING_BLOCKS, ArteryBlocks.HEMOGLOBIUM_BLOCK, "hemoglobium_ingot_from_hemoglobium_block", "hemoglobium_ingot"
+                );
+                createShaped(RecipeCategory.DECORATIONS, ArteryBlocks.ATRIUM)
+                        .input('#', ArteryItems.HEMOGLOBIUM_INGOT)
+                        .input('C', Items.CHEST)
+                        .pattern("###")
+                        .pattern("#C#")
+                        .pattern("###")
+                        .criterion(hasItem(ArteryItems.HEMOGLOBIUM_INGOT), conditionsFromItem(ArteryItems.HEMOGLOBIUM_INGOT))
+                        .offerTo(exporter);
+                createShaped(RecipeCategory.DECORATIONS, ArteryBlocks.VENTRICLE)
+                        .input('#', ArteryItems.HEMOGLOBIUM_INGOT)
+                        .input('D', Items.DISPENSER)
+                        .pattern("###")
+                        .pattern("#D#")
+                        .pattern("###")
+                        .criterion(hasItem(ArteryItems.HEMOGLOBIUM_INGOT), conditionsFromItem(ArteryItems.HEMOGLOBIUM_INGOT))
+                        .offerTo(exporter);
+
             }
 
             public void offerInfusion(ItemConvertible output, ItemConvertible input, int infusedAmount) {

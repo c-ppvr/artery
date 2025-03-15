@@ -153,6 +153,17 @@ public class ArteryBlocks {
             .shouldRegisterItem()
             .register();
 
+    public static final Block HEMOGLOBIUM_BLOCK = Builder.create("hemoglobium_block")
+            .factory(Block::new)
+            .configure(settings ->
+                    settings.mapColor(MapColor.PINK)
+                            .requiresTool()
+                            .strength(5.0f, 6.0f)
+                            .sounds(BlockSoundGroup.METAL)
+            )
+            .shouldRegisterItem()
+            .register();
+
     /**
      * A builder to make block registering easier.
      */
