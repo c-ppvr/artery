@@ -3,18 +3,26 @@ package net.ppvr.artery.datagen.recipe;
 import com.google.common.collect.ImmutableList;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.minecraft.data.recipe.CookingRecipeJsonBuilder;
 import net.minecraft.data.recipe.RecipeExporter;
 import net.minecraft.data.recipe.RecipeGenerator;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
-import net.minecraft.recipe.Ingredient;
+import net.minecraft.recipe.*;
 import net.minecraft.recipe.book.RecipeCategory;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.util.Identifier;
 import net.ppvr.artery.blocks.ArteryBlocks;
 import net.ppvr.artery.items.ArteryItemTags;
 import net.ppvr.artery.items.ArteryItems;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
+
+import static net.ppvr.artery.Artery.MOD_ID;
 
 public class ArteryRecipeProvider extends FabricRecipeProvider {
     public ArteryRecipeProvider(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
@@ -33,19 +41,19 @@ public class ArteryRecipeProvider extends FabricRecipeProvider {
                 offerInfusion(Items.ROTTEN_FLESH, Items.BONE, 10);
                 offerInfusion(ArteryItems.FLESH, Items.ROTTEN_FLESH, 25);
 
-                offerSmelting(ERYTHRITE_ORES, RecipeCategory.MISC, ArteryItems.ERYTHRITE, 0.7F, 200, "erythrite");
-                offerBlasting(ERYTHRITE_ORES, RecipeCategory.MISC, ArteryItems.ERYTHRITE, 0.7F, 100, "erythrite");
-                offerReversibleCompactingRecipes(RecipeCategory.MISC, ArteryItems.ERYTHRITE, RecipeCategory.BUILDING_BLOCKS,  ArteryBlocks.ERYTHRITE_BLOCK);
+                offerModSmelting(ERYTHRITE_ORES, RecipeCategory.MISC, ArteryItems.ERYTHRITE, 0.7F, 200, "erythrite");
+                offerModBlasting(ERYTHRITE_ORES, RecipeCategory.MISC, ArteryItems.ERYTHRITE, 0.7F, 100, "erythrite");
+                offerModReversibleCompactingRecipes(RecipeCategory.MISC, ArteryItems.ERYTHRITE, RecipeCategory.BUILDING_BLOCKS,  ArteryBlocks.ERYTHRITE_BLOCK);
 
-                offerSmelting(LEUKIUM_ORES, RecipeCategory.MISC, ArteryItems.LEUKIUM_INGOT, 0.7F, 200, "leukium_ingot");
-                offerBlasting(LEUKIUM_ORES, RecipeCategory.MISC, ArteryItems.LEUKIUM_INGOT, 0.7F, 100, "leukium_ingot");
-                offerReversibleCompactingRecipes(RecipeCategory.MISC, ArteryItems.RAW_LEUKIUM, RecipeCategory.BUILDING_BLOCKS, ArteryBlocks.RAW_LEUKIUM_BLOCK);
-                offerReversibleCompactingRecipes(RecipeCategory.MISC, ArteryItems.LEUKIUM_INGOT, RecipeCategory.BUILDING_BLOCKS, ArteryBlocks.LEUKIUM_BLOCK);
+                offerModSmelting(LEUKIUM_ORES, RecipeCategory.MISC, ArteryItems.LEUKIUM_INGOT, 0.7F, 200, "leukium_ingot");
+                offerModBlasting(LEUKIUM_ORES, RecipeCategory.MISC, ArteryItems.LEUKIUM_INGOT, 0.7F, 100, "leukium_ingot");
+                offerModReversibleCompactingRecipes(RecipeCategory.MISC, ArteryItems.RAW_LEUKIUM, RecipeCategory.BUILDING_BLOCKS, ArteryBlocks.RAW_LEUKIUM_BLOCK);
+                offerModReversibleCompactingRecipes(RecipeCategory.MISC, ArteryItems.LEUKIUM_INGOT, RecipeCategory.BUILDING_BLOCKS, ArteryBlocks.LEUKIUM_BLOCK);
 
-                offerSmelting(THROMBIUM_ORES, RecipeCategory.MISC, ArteryItems.THROMBIUM_INGOT, 0.7F, 200, "thrombium_ingot");
-                offerBlasting(THROMBIUM_ORES, RecipeCategory.MISC, ArteryItems.THROMBIUM_INGOT, 0.7F, 100, "thrombium_ingot");
-                offerReversibleCompactingRecipes(RecipeCategory.MISC, ArteryItems.RAW_THROMBIUM, RecipeCategory.BUILDING_BLOCKS, ArteryBlocks.RAW_THROMBIUM_BLOCK);
-                offerReversibleCompactingRecipes(RecipeCategory.MISC, ArteryItems.THROMBIUM_INGOT, RecipeCategory.BUILDING_BLOCKS, ArteryBlocks.THROMBIUM_BLOCK);
+                offerModSmelting(THROMBIUM_ORES, RecipeCategory.MISC, ArteryItems.THROMBIUM_INGOT, 0.7F, 200, "thrombium_ingot");
+                offerModBlasting(THROMBIUM_ORES, RecipeCategory.MISC, ArteryItems.THROMBIUM_INGOT, 0.7F, 100, "thrombium_ingot");
+                offerModReversibleCompactingRecipes(RecipeCategory.MISC, ArteryItems.RAW_THROMBIUM, RecipeCategory.BUILDING_BLOCKS, ArteryBlocks.RAW_THROMBIUM_BLOCK);
+                offerModReversibleCompactingRecipes(RecipeCategory.MISC, ArteryItems.THROMBIUM_INGOT, RecipeCategory.BUILDING_BLOCKS, ArteryBlocks.THROMBIUM_BLOCK);
 
                 createShaped(RecipeCategory.TOOLS, ArteryItems.LEUKIUM_AXE)
                         .input('#', Items.STICK)
@@ -98,7 +106,7 @@ public class ArteryRecipeProvider extends FabricRecipeProvider {
                         .pattern("IE")
                         .criterion(hasItem(ArteryItems.ERYTHRITE), conditionsFromItem(ArteryItems.ERYTHRITE))
                         .offerTo(exporter);
-                offerReversibleCompactingRecipesWithReverseRecipeGroup(
+                offerModReversibleCompactingRecipesWithReverseRecipeGroup(
                         RecipeCategory.MISC, ArteryItems.HEMOGLOBIUM_INGOT, RecipeCategory.BUILDING_BLOCKS, ArteryBlocks.HEMOGLOBIUM_BLOCK, "hemoglobium_ingot_from_hemoglobium_block", "hemoglobium_ingot"
                 );
                 createShaped(RecipeCategory.DECORATIONS, ArteryBlocks.ATRIUM)
@@ -151,6 +159,77 @@ public class ArteryRecipeProvider extends FabricRecipeProvider {
                 InfusionRecipeJsonBuilder.create(Ingredient.ofItem(input), output, infusedAmount)
                         .criterion(hasItem(input), conditionsFromItem(input))
                         .offerTo(exporter);
+            }
+
+            public void offerModSmelting(List<ItemConvertible> inputs, RecipeCategory category, ItemConvertible output, float experience, int cookingTime, String group) {
+                offerModMultipleOptions(RecipeSerializer.SMELTING, SmeltingRecipe::new, inputs, category, output, experience, cookingTime, group, "_from_smelting");
+            }
+
+            public void offerModBlasting(List<ItemConvertible> inputs, RecipeCategory category, ItemConvertible output, float experience, int cookingTime, String group) {
+                offerModMultipleOptions(RecipeSerializer.BLASTING, BlastingRecipe::new, inputs, category, output, experience, cookingTime, group, "_from_blasting");
+            }
+
+            public <T extends AbstractCookingRecipe> void offerModMultipleOptions(
+                    RecipeSerializer<T> serializer,
+                    AbstractCookingRecipe.RecipeFactory<T> recipeFactory,
+                    List<ItemConvertible> inputs,
+                    RecipeCategory category,
+                    ItemConvertible output,
+                    float experience,
+                    int cookingTime,
+                    String group,
+                    String suffix
+            ) {
+                for (ItemConvertible input : inputs) {
+                    CookingRecipeJsonBuilder.create(Ingredient.ofItem(input), category, output, experience, cookingTime, serializer, recipeFactory)
+                            .group(group)
+                            .criterion(hasItem(input), conditionsFromItem(input))
+                            .offerTo(exporter, MOD_ID + ":"  + getItemPath(output) + suffix + "_" + getItemPath(input));
+                }
+            }
+
+            public void offerModReversibleCompactingRecipes(
+                    RecipeCategory reverseCategory, ItemConvertible baseItem, RecipeCategory compactingCategory, ItemConvertible compactItem
+            ) {
+                offerModReversibleCompactingRecipes(
+                        reverseCategory, baseItem, compactingCategory, compactItem, getRecipeName(compactItem), null, getRecipeName(baseItem), null
+                );
+            }
+
+            public void offerModReversibleCompactingRecipesWithReverseRecipeGroup(
+                    RecipeCategory reverseCategory,
+                    ItemConvertible baseItem,
+                    RecipeCategory compactingCategory,
+                    ItemConvertible compactItem,
+                    String reverseId,
+                    String reverseGroup
+            ) {
+                offerModReversibleCompactingRecipes(reverseCategory, baseItem, compactingCategory, compactItem, getRecipeName(compactItem), null, reverseId, reverseGroup);
+            }
+
+            public void offerModReversibleCompactingRecipes(
+                    RecipeCategory reverseCategory,
+                    ItemConvertible baseItem,
+                    RecipeCategory compactingCategory,
+                    ItemConvertible compactItem,
+                    String compactingId,
+                    @Nullable String compactingGroup,
+                    String reverseId,
+                    @Nullable String reverseGroup
+            ) {
+                this.createShapeless(reverseCategory, baseItem, 9)
+                        .input(compactItem)
+                        .group(reverseGroup)
+                        .criterion(hasItem(compactItem), this.conditionsFromItem(compactItem))
+                        .offerTo(this.exporter, RegistryKey.of(RegistryKeys.RECIPE, Identifier.of(MOD_ID, reverseId)));
+                this.createShaped(compactingCategory, compactItem)
+                        .input('#', baseItem)
+                        .pattern("###")
+                        .pattern("###")
+                        .pattern("###")
+                        .group(compactingGroup)
+                        .criterion(hasItem(baseItem), this.conditionsFromItem(baseItem))
+                        .offerTo(this.exporter, RegistryKey.of(RegistryKeys.RECIPE, Identifier.of(MOD_ID, compactingId)));
             }
         };
     }
