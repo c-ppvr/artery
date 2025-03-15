@@ -19,16 +19,16 @@ import net.ppvr.artery.screen.VentricleScreenHandler;
 import java.util.List;
 
 public class InfusionRecipeBookWidget extends RecipeBookWidget<VentricleScreenHandler> {
+    public static final Text TOGGLE_INFUSIBLE_TEXT = Text.translatable("gui.artery.recipebook.toggleRecipes.infusible");
     private static final ButtonTextures TEXTURES = new ButtonTextures(
             Identifier.ofVanilla("recipe_book/filter_enabled"),
             Identifier.ofVanilla("recipe_book/filter_disabled"),
             Identifier.ofVanilla("recipe_book/filter_enabled_highlighted"),
             Identifier.ofVanilla("recipe_book/filter_disabled_highlighted")
     );
-    public static final Text TOGGLE_INFUSIBLE_TEXT = Text.translatable("gui.artery.recipebook.toggleRecipes.infusible");
     private static final List<RecipeBookWidget.Tab> TABS = List.of(
             new RecipeBookWidget.Tab(Items.COMPASS, InfusionRecipe.BOOK_CATEGORY)
-            );
+    );
 
     public InfusionRecipeBookWidget(VentricleScreenHandler handler) {
         super(handler, TABS);
@@ -36,7 +36,7 @@ public class InfusionRecipeBookWidget extends RecipeBookWidget<VentricleScreenHa
 
     @Override
     protected void setBookButtonTexture() {
-        this.toggleCraftableButton.setTextures(TEXTURES);
+        toggleCraftableButton.setTextures(TEXTURES);
     }
 
     @Override

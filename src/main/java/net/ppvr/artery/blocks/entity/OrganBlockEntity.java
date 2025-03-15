@@ -17,14 +17,14 @@ public abstract class OrganBlockEntity extends LockableContainerBlockEntity {
 
     public abstract int getCapacity();
 
-    public void setGroup(OrganGroup group) {
-        this.group = group;
-    }
-
     public OrganGroup getGroup() {
         if (this.group == null) {
             this.group = OrganGroupState.get((ServerWorld) this.getWorld()).get(pos);
         }
         return group;
+    }
+
+    public void setGroup(OrganGroup group) {
+        this.group = group;
     }
 }

@@ -14,13 +14,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(HungerManager.class)
 public class HungerManagerMixin {
-    @Shadow private int foodTickTimer;
-    @Unique private int sanguinityTickTimer;
+    @Shadow
+    private int foodTickTimer;
+    @Unique
+    private int sanguinityTickTimer;
 
     @Inject(method = "update", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/GameRules;getBoolean(Lnet/minecraft/world/GameRules$Key;)Z"))
     public void update(ServerPlayerEntity player, CallbackInfo ci) {
-        ++ this.sanguinityTickTimer;
-        if (this.sanguinityTickTimer >= 5) {
+        ++sanguinityTickTimer;
+        if (sanguinityTickTimer >= 5) {
             if (player.artery$getUnconvertedSanguinity() >= 1) {
                 player.artery$addUnconvertedSanguinity(-1);
                 player.artery$addSanguinity(1);
@@ -37,8 +39,8 @@ public class HungerManagerMixin {
         float sanguinity = player.artery$getSanguinity();
         float coagulationRate = player.artery$getCoagulationRate();
         if (sanguinity >= coagulationRate && serverWorld.getGameRules().getBoolean(GameRules.NATURAL_REGENERATION) && player.canFoodHeal()) {
-            ++this.foodTickTimer;
-            if (this.foodTickTimer >= 1600/(9*sanguinity+80)) {
+            ++foodTickTimer;
+            if (foodTickTimer >= 1600 / (9 * sanguinity + 80)) {
                 player.heal(1);
                 player.artery$addSanguinity(-coagulationRate);
                 this.foodTickTimer = 0;

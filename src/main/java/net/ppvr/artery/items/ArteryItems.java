@@ -23,7 +23,7 @@ import java.util.function.Function;
 
 import static net.ppvr.artery.Artery.MOD_ID;
 
-public class ArteryItems  {
+public class ArteryItems {
     public static final Identifier BASE_TRANSFUSION_RATE_MODIFIER_ID = Identifier.of(MOD_ID, "base_transfusion_rate");
 
     public static final List<Item> ITEMS = new ArrayList<>();
@@ -44,6 +44,13 @@ public class ArteryItems  {
 
     public static final Item TOTEM_OF_REVIVAL = register("totem_of_revival", new Item.Settings().rarity(Rarity.UNCOMMON).maxDamage(32).artery$maxPressure(1440).component(DataComponentTypes.DEATH_PROTECTION, DeathProtectionComponent.TOTEM_OF_UNDYING));
 
+    public static final RegistryKey<ItemGroup> ARTERY_ITEM_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of(MOD_ID, "item_group"));
+
+    public static final ItemGroup ARTERY_ITEM_GROUP = FabricItemGroup.builder()
+            .icon(() -> new ItemStack(ArteryBlocks.ATRIUM.asItem()))
+            .displayName(Text.translatable("itemGroup.artery.artery"))
+            .build();
+
     public static void initialize() {
         Registry.register(Registries.ITEM_GROUP, ARTERY_ITEM_GROUP_KEY, ARTERY_ITEM_GROUP);
 
@@ -56,12 +63,6 @@ public class ArteryItems  {
             }
         });
     }
-
-    public static final RegistryKey<ItemGroup> ARTERY_ITEM_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of(MOD_ID, "item_group"));
-    public static final ItemGroup ARTERY_ITEM_GROUP = FabricItemGroup.builder()
-            .icon(() -> new ItemStack(ArteryBlocks.ATRIUM.asItem()))
-            .displayName(Text.translatable("itemGroup.artery.artery"))
-            .build();
 
     private static RegistryKey<Item> keyOf(String id) {
         return RegistryKey.of(RegistryKeys.ITEM, Identifier.of(MOD_ID, id));

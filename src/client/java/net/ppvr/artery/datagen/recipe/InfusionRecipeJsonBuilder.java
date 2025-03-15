@@ -31,9 +31,9 @@ public class InfusionRecipeJsonBuilder implements CraftingRecipeJsonBuilder {
     private final Ingredient input;
     private final int infusedAmount;
     private final Map<String, AdvancementCriterion<?>> criteria = new LinkedHashMap<>();
+    private final InfusionRecipe.RecipeFactory<?> recipeFactory;
     @Nullable
     private String group;
-    private final InfusionRecipe.RecipeFactory<?> recipeFactory;
 
     private InfusionRecipeJsonBuilder(
             ItemConvertible output,
@@ -54,7 +54,7 @@ public class InfusionRecipeJsonBuilder implements CraftingRecipeJsonBuilder {
 
     @Override
     public CraftingRecipeJsonBuilder criterion(String name, AdvancementCriterion<?> criterion) {
-        this.criteria.put(name, criterion);
+        criteria.put(name, criterion);
         return this;
     }
 
@@ -66,7 +66,7 @@ public class InfusionRecipeJsonBuilder implements CraftingRecipeJsonBuilder {
 
     @Override
     public Item getOutputItem() {
-        return this.output;
+        return output;
     }
 
     @Override
@@ -82,14 +82,14 @@ public class InfusionRecipeJsonBuilder implements CraftingRecipeJsonBuilder {
                 .criterion("has_the_recipe", RecipeUnlockedCriterion.create(recipeKey))
                 .rewards(AdvancementRewards.Builder.recipe(recipeKey))
                 .criteriaMerger(AdvancementRequirements.CriterionMerger.OR);
-        this.criteria.forEach(builder::criterion);
-        InfusionRecipe recipe = this.recipeFactory
+        criteria.forEach(builder::criterion);
+        InfusionRecipe recipe = recipeFactory
                 .create(Objects.requireNonNullElse(group, ""), input, new ItemStack(output), infusedAmount);
-        exporter.accept(recipeKey, recipe, builder.build(recipeKey.getValue().withPrefixedPath("recipes/" + this.category.getName() + "/")));
+        exporter.accept(recipeKey, recipe, builder.build(recipeKey.getValue().withPrefixedPath("recipes/" + category.getName() + "/")));
     }
 
     private void validate(RegistryKey<Recipe<?>> recipeKey) {
-        if (this.criteria.isEmpty()) {
+        if (criteria.isEmpty()) {
             throw new IllegalStateException("No way of obtaining recipe " + recipeKey.getValue());
         }
     }

@@ -1,7 +1,6 @@
 package net.ppvr.artery.mixin;
 
 
-
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.component.ComponentHolder;
 import net.minecraft.component.ComponentType;

@@ -12,13 +12,13 @@ public class IntFieldWidget extends TextFieldWidget {
     public IntFieldWidget(TextRenderer textRenderer, int x, int y, int width, int height, int n, int maxInt) {
         super(textRenderer, x, y, width, height, null, Text.of("" + n));
         this.maxInt = maxInt;
-        this.setChangedListener(s -> {
+        setChangedListener(s -> {
             s = s.chars().filter(c -> (c >= '0' && c <= '9')).mapToObj(c -> "" + (char) c).collect(Collectors.joining());
             s = String.valueOf(s.isEmpty() ? 0 : Math.min(Integer.parseInt(s), this.maxInt));
-            if (s.equals(this.getText())) return;
-            this.setText(s);
+            if (s.equals(getText())) return;
+            setText(s);
         });
-        this.setInt(n);
+        setInt(n);
     }
 
     public IntFieldWidget(TextRenderer textRenderer, int x, int y, int width, int height, int n) {
@@ -26,7 +26,7 @@ public class IntFieldWidget extends TextFieldWidget {
     }
 
     public int getInt() {
-        return this.getText().isEmpty() ? 0 : Integer.parseInt(this.getText());
+        return getText().isEmpty() ? 0 : Integer.parseInt(this.getText());
     }
 
     public void setInt(int n) {

@@ -14,6 +14,28 @@ import net.ppvr.artery.screen.AtriumScreenHandler;
 
 public class AtriumBlockEntity extends OrganBlockEntity implements NamedScreenHandlerFactory {
     private final DefaultedList<ItemStack> inventory = DefaultedList.of();
+    private final PropertyDelegate propertyDelegate = new PropertyDelegate() {
+        @Override
+        public int get(int index) {
+            return switch (index) {
+                case 0 -> getGroup().getSanguinity();
+                case 1 -> getGroup().getCapacity();
+                default -> 0;
+            };
+        }
+
+        @Override
+        public void set(int index, int value) {
+            if (index == 0) {
+                getGroup().setSanguinity(value);
+            }
+        }
+
+        @Override
+        public int size() {
+            return 2;
+        }
+    };
 
     public AtriumBlockEntity(BlockPos pos, BlockState state) {
         super(ArteryBlockEntities.ATRIUM_BLOCK_ENTITY, pos, state);
@@ -38,32 +60,9 @@ public class AtriumBlockEntity extends OrganBlockEntity implements NamedScreenHa
     protected void setHeldStacks(DefaultedList<ItemStack> inventory) {
     }
 
-    private final PropertyDelegate propertyDelegate = new PropertyDelegate() {
-        @Override
-        public int get(int index) {
-            return switch (index) {
-                case 0 -> AtriumBlockEntity.this.getGroup().getSanguinity();
-                case 1 -> AtriumBlockEntity.this.getGroup().getCapacity();
-                default -> 0;
-            };
-        }
-
-        @Override
-        public void set(int index, int value) {
-            if (index == 0) {
-                AtriumBlockEntity.this.getGroup().setSanguinity(value);
-            }
-        }
-
-        @Override
-        public int size() {
-            return 2;
-        }
-    };
-
     @Override
     protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
-        return new AtriumScreenHandler(syncId, playerInventory.player, this.propertyDelegate, ScreenHandlerContext.create(world, pos));
+        return new AtriumScreenHandler(syncId, playerInventory.player, propertyDelegate, ScreenHandlerContext.create(world, pos));
     }
 
     @Override

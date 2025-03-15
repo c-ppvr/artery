@@ -43,7 +43,7 @@ public class ArteryRecipeProvider extends FabricRecipeProvider {
 
                 offerModSmelting(ERYTHRITE_ORES, RecipeCategory.MISC, ArteryItems.ERYTHRITE, 0.7F, 200, "erythrite");
                 offerModBlasting(ERYTHRITE_ORES, RecipeCategory.MISC, ArteryItems.ERYTHRITE, 0.7F, 100, "erythrite");
-                offerModReversibleCompactingRecipes(RecipeCategory.MISC, ArteryItems.ERYTHRITE, RecipeCategory.BUILDING_BLOCKS,  ArteryBlocks.ERYTHRITE_BLOCK);
+                offerModReversibleCompactingRecipes(RecipeCategory.MISC, ArteryItems.ERYTHRITE, RecipeCategory.BUILDING_BLOCKS, ArteryBlocks.ERYTHRITE_BLOCK);
 
                 offerModSmelting(LEUKIUM_ORES, RecipeCategory.MISC, ArteryItems.LEUKIUM_INGOT, 0.7F, 200, "leukium_ingot");
                 offerModBlasting(LEUKIUM_ORES, RecipeCategory.MISC, ArteryItems.LEUKIUM_INGOT, 0.7F, 100, "leukium_ingot");
@@ -184,7 +184,7 @@ public class ArteryRecipeProvider extends FabricRecipeProvider {
                     CookingRecipeJsonBuilder.create(Ingredient.ofItem(input), category, output, experience, cookingTime, serializer, recipeFactory)
                             .group(group)
                             .criterion(hasItem(input), conditionsFromItem(input))
-                            .offerTo(exporter, MOD_ID + ":"  + getItemPath(output) + suffix + "_" + getItemPath(input));
+                            .offerTo(exporter, MOD_ID + ":" + getItemPath(output) + suffix + "_" + getItemPath(input));
                 }
             }
 
@@ -217,19 +217,19 @@ public class ArteryRecipeProvider extends FabricRecipeProvider {
                     String reverseId,
                     @Nullable String reverseGroup
             ) {
-                this.createShapeless(reverseCategory, baseItem, 9)
+                createShapeless(reverseCategory, baseItem, 9)
                         .input(compactItem)
                         .group(reverseGroup)
-                        .criterion(hasItem(compactItem), this.conditionsFromItem(compactItem))
-                        .offerTo(this.exporter, RegistryKey.of(RegistryKeys.RECIPE, Identifier.of(MOD_ID, reverseId)));
-                this.createShaped(compactingCategory, compactItem)
+                        .criterion(hasItem(compactItem), conditionsFromItem(compactItem))
+                        .offerTo(exporter, RegistryKey.of(RegistryKeys.RECIPE, Identifier.of(MOD_ID, reverseId)));
+                createShaped(compactingCategory, compactItem)
                         .input('#', baseItem)
                         .pattern("###")
                         .pattern("###")
                         .pattern("###")
                         .group(compactingGroup)
-                        .criterion(hasItem(baseItem), this.conditionsFromItem(baseItem))
-                        .offerTo(this.exporter, RegistryKey.of(RegistryKeys.RECIPE, Identifier.of(MOD_ID, compactingId)));
+                        .criterion(hasItem(baseItem), conditionsFromItem(baseItem))
+                        .offerTo(exporter, RegistryKey.of(RegistryKeys.RECIPE, Identifier.of(MOD_ID, compactingId)));
             }
         };
     }

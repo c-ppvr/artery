@@ -32,6 +32,7 @@ public class VentricleBlockEntity extends OrganBlockEntity implements NamedScree
     private static final int[] INPUT_SLOTS = new int[]{0};
     public static final int[] OUTPUT_SLOTS = new int[]{1};
     private DefaultedList<ItemStack> inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
+    private final ServerRecipeManager.MatchGetter<SingleStackRecipeInput, InfusionRecipe> matchGetter;
     int infuseTimer;
     int infuseAmountDone;
     int infuseTotalAmount;
@@ -40,8 +41,8 @@ public class VentricleBlockEntity extends OrganBlockEntity implements NamedScree
         @Override
         public int get(int index) {
             return switch (index) {
-                case 0 -> VentricleBlockEntity.this.getGroup().getSanguinity();
-                case 1 -> VentricleBlockEntity.this.getGroup().getCapacity();
+                case 0 -> getGroup().getSanguinity();
+                case 1 -> getGroup().getCapacity();
                 case 2 -> infuseAmountDone;
                 case 3 -> infuseTotalAmount;
                 default -> 0;
@@ -52,13 +53,13 @@ public class VentricleBlockEntity extends OrganBlockEntity implements NamedScree
         public void set(int index, int value) {
             switch (index) {
                 case 0:
-                    VentricleBlockEntity.this.getGroup().setSanguinity(value);
+                    getGroup().setSanguinity(value);
                     break;
                 case 2:
-                    VentricleBlockEntity.this.infuseAmountDone = value;
+                    infuseAmountDone = value;
                     break;
                 case 3:
-                    VentricleBlockEntity.this.infuseTotalAmount = value;
+                    infuseTotalAmount = value;
                     break;
             }
         }
@@ -69,36 +70,10 @@ public class VentricleBlockEntity extends OrganBlockEntity implements NamedScree
         }
     };
 
-    private final ServerRecipeManager.MatchGetter<SingleStackRecipeInput, InfusionRecipe> matchGetter;
 
     public VentricleBlockEntity(BlockPos pos, BlockState state) {
         super(ArteryBlockEntities.VENTRICLE_BLOCK_ENTITY, pos, state);
         this.matchGetter = ServerRecipeManager.createCachedMatchGetter(InfusionRecipe.TYPE);
-    }
-
-    @Override
-    public int getCapacity() {
-        return 0;
-    }
-
-    @Override
-    public Text getContainerName() {
-        return Text.translatable("container.artery.ventricle");
-    }
-
-    @Override
-    protected DefaultedList<ItemStack> getHeldStacks() {
-        return inventory;
-    }
-
-    @Override
-    protected void setHeldStacks(DefaultedList<ItemStack> inventory) {
-        this.inventory = inventory;
-    }
-
-    @Override
-    protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
-        return new VentricleScreenHandler(syncId, playerInventory, this, propertyDelegate);
     }
 
     public static void tick(ServerWorld world, BlockPos pos, BlockState state, VentricleBlockEntity blockEntity) {
@@ -140,7 +115,7 @@ public class VentricleBlockEntity extends OrganBlockEntity implements NamedScree
                 return false;
             } else {
                 ItemStack outputStack = inventory.get(OUTPUT_SLOT_INDEX);
-                if (outputStack.isEmpty()){
+                if (outputStack.isEmpty()) {
                     return true;
                 } else if (!ItemStack.areItemsAndComponentsEqual(outputStack, resultStack)) {
                     return false;
@@ -185,6 +160,31 @@ public class VentricleBlockEntity extends OrganBlockEntity implements NamedScree
     }
 
     @Override
+    public int getCapacity() {
+        return 0;
+    }
+
+    @Override
+    public Text getContainerName() {
+        return Text.translatable("container.artery.ventricle");
+    }
+
+    @Override
+    protected DefaultedList<ItemStack> getHeldStacks() {
+        return inventory;
+    }
+
+    @Override
+    protected void setHeldStacks(DefaultedList<ItemStack> inventory) {
+        this.inventory = inventory;
+    }
+
+    @Override
+    protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
+        return new VentricleScreenHandler(syncId, playerInventory, this, propertyDelegate);
+    }
+
+    @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         super.writeNbt(nbt, registries);
         nbt.putShort("infuse_timer", (short) infuseTimer);
@@ -199,7 +199,7 @@ public class VentricleBlockEntity extends OrganBlockEntity implements NamedScree
         this.infuseTimer = nbt.getShort("infuse_timer");
         this.infuseAmountDone = nbt.getShort("infuse_amount_done");
         this.infuseTotalAmount = nbt.getShort("infuse_total_amount");
-        this.inventory =  DefaultedList.ofSize(2, ItemStack.EMPTY);
+        this.inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
         Inventories.readNbt(nbt, inventory, registries);
     }
 
@@ -244,7 +244,7 @@ public class VentricleBlockEntity extends OrganBlockEntity implements NamedScree
 
     @Override
     public void provideRecipeInputs(RecipeFinder finder) {
-        for (ItemStack itemStack : this.inventory) {
+        for (ItemStack itemStack : inventory) {
             finder.addInput(itemStack);
         }
     }

@@ -43,7 +43,7 @@ public class ArteryBlockLootTableProvider extends FabricBlockLootTableProvider {
     }
 
     private LootTable.Builder erythriteOreDrops(Block drop) {
-        RegistryWrapper.Impl<Enchantment> enchantments = this.registries.getOrThrow(RegistryKeys.ENCHANTMENT);
+        RegistryWrapper.Impl<Enchantment> enchantments = registries.getOrThrow(RegistryKeys.ENCHANTMENT);
         return dropsWithSilkTouch(
                 drop,
                 applyExplosionDecay(drop,

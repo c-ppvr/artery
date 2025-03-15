@@ -50,26 +50,6 @@ public class FibroblasterBlockEntity extends OrganBlockEntity implements SidedIn
         super(ArteryBlockEntities.FIBROBLASTER_BLOCK_ENTITY, pos, state);
     }
 
-    @Override
-    protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        super.readNbt(nbt, registries);
-        this.inventoryStack = ItemStack.fromNbtOrEmpty(registries, nbt.getCompound("item"));
-        this.repairTime = nbt.getShort("repair_time");
-        this.repairTimer = nbt.getShort("repair_timer");
-        this.accelerationTimer = nbt.getShort("acceleration_timer");
-        this.progress = nbt.getShort("progress");
-    }
-
-    @Override
-    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        super.writeNbt(nbt, registries);
-        nbt.putShort("repair_time", (short) repairTime);
-        nbt.putShort("repair_timer", (short) repairTimer);
-        nbt.putShort("acceleration_timer", (short) accelerationTimer);
-        nbt.putShort("progress", (short) progress);
-        nbt.put("item", inventoryStack.toNbtAllowEmpty(registries));
-    }
-
     public static void tick(World world, BlockPos pos, BlockState state, FibroblasterBlockEntity blockEntity) {
         ItemStack itemStack = blockEntity.getStack(0);
         if (blockEntity.getGroup().getSanguinity() > 0 && itemStack.isDamaged()) {
@@ -95,6 +75,26 @@ public class FibroblasterBlockEntity extends OrganBlockEntity implements SidedIn
             blockEntity.accelerationTimer = 0;
             blockEntity.progress = 0;
         }
+    }
+
+    @Override
+    protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        super.readNbt(nbt, registries);
+        this.inventoryStack = ItemStack.fromNbtOrEmpty(registries, nbt.getCompound("item"));
+        this.repairTime = nbt.getShort("repair_time");
+        this.repairTimer = nbt.getShort("repair_timer");
+        this.accelerationTimer = nbt.getShort("acceleration_timer");
+        this.progress = nbt.getShort("progress");
+    }
+
+    @Override
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        super.writeNbt(nbt, registries);
+        nbt.putShort("repair_time", (short) repairTime);
+        nbt.putShort("repair_timer", (short) repairTimer);
+        nbt.putShort("acceleration_timer", (short) accelerationTimer);
+        nbt.putShort("progress", (short) progress);
+        nbt.put("item", inventoryStack.toNbtAllowEmpty(registries));
     }
 
     @Override

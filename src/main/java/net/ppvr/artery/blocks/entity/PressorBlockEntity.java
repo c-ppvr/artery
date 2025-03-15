@@ -64,26 +64,8 @@ public class PressorBlockEntity extends OrganBlockEntity implements NamedScreenH
         super(ArteryBlockEntities.PRESSOR_BLOCK_ENTITY, pos, state);
     }
 
-    private boolean isBurning() {
-        return this.litTimeRemaining > 0;
-    }
-
     private static boolean isPressurizable(ItemStack item) {
         return item.artery$getMaxPressure() > 0 && item.artery$getPressure() < item.artery$getMaxPressure();
-    }
-    @Override
-    protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        inventory = DefaultedList.ofSize(size(), ItemStack.EMPTY);
-        Inventories.readNbt(nbt, inventory, registries);
-        litTimeRemaining = nbt.getShort("lit_time_remaining");
-        litTotalTime = nbt.getShort("lit_total_time");
-    }
-
-    @Override
-    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        nbt.putShort("lit_time_remaining", (short) litTimeRemaining);
-        nbt.putShort("lit_total_time", (short) litTotalTime);
-        Inventories.writeNbt(nbt, inventory, registries);
     }
 
     public static void tick(World world, BlockPos pos, BlockState state, PressorBlockEntity blockEntity) {
@@ -130,6 +112,25 @@ public class PressorBlockEntity extends OrganBlockEntity implements NamedScreenH
         }
     }
 
+    private boolean isBurning() {
+        return litTimeRemaining > 0;
+    }
+
+    @Override
+    protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        inventory = DefaultedList.ofSize(size(), ItemStack.EMPTY);
+        Inventories.readNbt(nbt, inventory, registries);
+        litTimeRemaining = nbt.getShort("lit_time_remaining");
+        litTotalTime = nbt.getShort("lit_total_time");
+    }
+
+    @Override
+    protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        nbt.putShort("lit_time_remaining", (short) litTimeRemaining);
+        nbt.putShort("lit_total_time", (short) litTotalTime);
+        Inventories.writeNbt(nbt, inventory, registries);
+    }
+
     @Override
     public int getCapacity() {
         return 0;
@@ -151,7 +152,7 @@ public class PressorBlockEntity extends OrganBlockEntity implements NamedScreenH
     }
 
     private int getFuelTime(ItemStack stack) {
-        return world.getFuelRegistry().getFuelTicks(stack)/10;
+        return world.getFuelRegistry().getFuelTicks(stack) / 10;
     }
 
     @Override
@@ -160,8 +161,7 @@ public class PressorBlockEntity extends OrganBlockEntity implements NamedScreenH
             return new int[]{INPUT_SLOT_INDEX};
         } else if (side == Direction.DOWN) {
             return new int[]{INPUT_SLOT_INDEX, FUEL_SLOT_INDEX};
-        }
-        else {
+        } else {
             return new int[]{FUEL_SLOT_INDEX};
         }
     }

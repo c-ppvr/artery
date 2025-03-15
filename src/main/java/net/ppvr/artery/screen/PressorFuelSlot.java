@@ -12,6 +12,11 @@ public class PressorFuelSlot extends Slot {
         super(inventory, index, x, y);
         this.handler = handler;
     }
+
+    public static boolean isBucket(ItemStack stack) {
+        return stack.isOf(Items.BUCKET);
+    }
+
     @Override
     public boolean canInsert(ItemStack stack) {
         return this.handler.isFuel(stack) || isBucket(stack);
@@ -20,9 +25,5 @@ public class PressorFuelSlot extends Slot {
     @Override
     public int getMaxItemCount(ItemStack stack) {
         return isBucket(stack) ? 1 : super.getMaxItemCount(stack);
-    }
-
-    public static boolean isBucket(ItemStack stack) {
-        return stack.isOf(Items.BUCKET);
     }
 }

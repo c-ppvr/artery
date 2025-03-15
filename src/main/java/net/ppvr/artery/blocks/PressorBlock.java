@@ -61,10 +61,6 @@ public class PressorBlock extends OrganBlock {
         super.onStateReplaced(state, world, pos, newState, moved);
     }
 
-    public static ToIntFunction<BlockState> getLuminanceSupplier(int luminance) {
-        return state -> state.get(Properties.LIT) ? 13 : state.get(Properties.ACTIVE) ? luminance : 0;
-    }
-
     @Override
     public BlockState getPlacementState(ItemPlacementContext ctx) {
         return this.getDefaultState().with(FACING, ctx.getHorizontalPlayerFacing().getOpposite());
@@ -115,5 +111,9 @@ public class PressorBlock extends OrganBlock {
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
         super.appendProperties(builder);
         builder.add(LIT, FACING);
+    }
+
+    public static ToIntFunction<BlockState> getLuminanceSupplier(int luminance) {
+        return state -> state.get(Properties.LIT) ? 13 : state.get(Properties.ACTIVE) ? luminance : 0;
     }
 }

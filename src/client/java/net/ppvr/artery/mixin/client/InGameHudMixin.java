@@ -29,34 +29,34 @@ public abstract class InGameHudMixin {
         Profilers.get().swap("sanguinity");
         int sanguinity = (int) playerEntity.artery$getSanguinity();
         int maxSanguinity = (int) playerEntity.getAttributeValue(MAX_SANGUINITY);
-        int rows = maxSanguinity/80;
-        int fullRows = sanguinity/80;
-        int progress = sanguinity%80;
+        int rows = maxSanguinity / 80;
+        int fullRows = sanguinity / 80;
+        int progress = sanguinity % 80;
 
-        int left = context.getScaledWindowWidth()/2 + 9;
+        int left = context.getScaledWindowWidth() / 2 + 9;
         int top = context.getScaledWindowHeight() - 45;
         for (int i = 0; i < rows; ++i) {
-            context.drawTexture(RenderLayer::getGuiTextured, SANGUINITY_BARS, left, top - 6*i, 0, 0, 82, 5, 256, 256);
+            context.drawTexture(RenderLayer::getGuiTextured, SANGUINITY_BARS, left, top - 6 * i, 0, 0, 82, 5, 256, 256);
             if (i < fullRows) {
-                context.drawTexture(RenderLayer::getGuiTextured, SANGUINITY_BARS, left, top - 6*i, 0, 10, 82, 5, 256, 256);
+                context.drawTexture(RenderLayer::getGuiTextured, SANGUINITY_BARS, left, top - 6 * i, 0, 10, 82, 5, 256, 256);
             } else if (i == fullRows) {
-                context.drawTexture(RenderLayer::getGuiTextured, SANGUINITY_BARS, left, top - 6*i, 0, 5, 1 + progress, 5, 256, 256);
+                context.drawTexture(RenderLayer::getGuiTextured, SANGUINITY_BARS, left, top - 6 * i, 0, 5, 1 + progress, 5, 256, 256);
             }
         }
 
         String text = sanguinity + "/" + maxSanguinity;
         int x = left + 84;
         int y = top - 4;
-        context.drawText(this.getTextRenderer(), text, x + 1, y, 0, false);
-        context.drawText(this.getTextRenderer(), text, x - 1, y, 0, false);
-        context.drawText(this.getTextRenderer(), text, x, y + 1, 0, false);
-        context.drawText(this.getTextRenderer(), text, x, y - 1, 0, false);
-        context.drawText(this.getTextRenderer(), text, x, y, 15296377, false);
+        context.drawText(getTextRenderer(), text, x + 1, y, 0, false);
+        context.drawText(getTextRenderer(), text, x - 1, y, 0, false);
+        context.drawText(getTextRenderer(), text, x, y + 1, 0, false);
+        context.drawText(getTextRenderer(), text, x, y - 1, 0, false);
+        context.drawText(getTextRenderer(), text, x, y, 15296377, false);
     }
 
     @ModifyArg(method = "renderStatusBars", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;renderAirBubbles(Lnet/minecraft/client/gui/DrawContext;Lnet/minecraft/entity/player/PlayerEntity;III)V"), index = 3)
     public int shiftBubblesUp(int y, @Local PlayerEntity playerEntity) {
-        return y - (int) (playerEntity.getAttributeValue(MAX_SANGUINITY)/80)*6;
+        return y - (int) (playerEntity.getAttributeValue(MAX_SANGUINITY) / 80) * 6;
     }
 
     @Shadow

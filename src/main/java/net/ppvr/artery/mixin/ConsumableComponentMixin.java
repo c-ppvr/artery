@@ -17,8 +17,8 @@ public abstract class ConsumableComponentMixin {
     public void canConsume(LivingEntity user, ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
         cir.setReturnValue(cir.getReturnValue() || (
                 user instanceof PlayerEntity player
-                && player.artery$getSanguinity() != player.artery$getMaxSanguinity()
-                && stack.getComponents().get(DataComponentTypes.CONSUMABLE).onConsumeEffects().stream().anyMatch(effect -> effect instanceof GainSanguinityConsumeEffect))
+                        && player.artery$getSanguinity() != player.artery$getMaxSanguinity()
+                        && stack.getComponents().get(DataComponentTypes.CONSUMABLE).onConsumeEffects().stream().anyMatch(effect -> effect instanceof GainSanguinityConsumeEffect))
         );
     }
 }

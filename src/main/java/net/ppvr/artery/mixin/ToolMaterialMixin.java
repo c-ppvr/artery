@@ -8,22 +8,19 @@ import net.ppvr.artery.ArteryEntityAttributes;
 import net.ppvr.artery.items.ArteryItems;
 import net.ppvr.artery.items.ArteryToolMaterial;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(ToolMaterial.class)
 public abstract class ToolMaterialMixin {
-    @Shadow public abstract int hashCode();
-
     @Redirect(method = "createToolAttributeModifiers", at = @At(value = "INVOKE", target = "Lnet/minecraft/component/type/AttributeModifiersComponent$Builder;build()Lnet/minecraft/component/type/AttributeModifiersComponent;"))
-    public AttributeModifiersComponent createToolAttributeModifiers(AttributeModifiersComponent.Builder builder){
+    public AttributeModifiersComponent createToolAttributeModifiers(AttributeModifiersComponent.Builder builder) {
         return addTransfusionRateModifier(builder).build();
     }
 
     @Redirect(method = "createSwordAttributeModifiers", at = @At(value = "INVOKE", target = "Lnet/minecraft/component/type/AttributeModifiersComponent$Builder;build()Lnet/minecraft/component/type/AttributeModifiersComponent;"))
-    public AttributeModifiersComponent createSwordAttributeModifiers(AttributeModifiersComponent.Builder builder){
+    public AttributeModifiersComponent createSwordAttributeModifiers(AttributeModifiersComponent.Builder builder) {
         return addTransfusionRateModifier(builder).build();
     }
 

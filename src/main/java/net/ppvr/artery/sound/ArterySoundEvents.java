@@ -10,7 +10,8 @@ import static net.ppvr.artery.Artery.MOD_ID;
 public class ArterySoundEvents {
     public static final SoundEvent BLOCK_PRESSOR_FIRE_CRACKLE = register("block.pressor.fire_crackle");
 
-    public static void initialize() {}
+    public static void initialize() {
+    }
 
     private static SoundEvent register(String id) {
         Identifier identifier = Identifier.of(MOD_ID, id);

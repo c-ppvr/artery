@@ -47,7 +47,7 @@ public class OrganGroup {
 
     public void addAll(Collection<BlockPos> posCollection) {
         for (BlockPos pos : posCollection) {
-            this.add(pos);
+            add(pos);
         }
     }
 
@@ -75,12 +75,12 @@ public class OrganGroup {
                 moveTo(pos, group);
                 for (Direction d : Direction.values()) {
                     if (posSet.contains(pos.offset(d))) {
-                         posStack.push(pos.offset(d));
+                        posStack.push(pos.offset(d));
                     }
                 }
             }
             if (capacity > 0) {
-                group.setSanguinity(sanguinity*group.getCapacity()/capacity);
+                group.setSanguinity(sanguinity * group.getCapacity() / capacity);
             }
         }
         OrganGroupState.get(world).remove(this);
@@ -113,7 +113,7 @@ public class OrganGroup {
 
     public void writeNbt(NbtCompound nbt) {
         NbtCompound compound = new NbtCompound();
-        NbtLongArray blocksNbt = new NbtLongArray(this.posSet.stream().map(BlockPos::asLong).toList());
+        NbtLongArray blocksNbt = new NbtLongArray(posSet.stream().map(BlockPos::asLong).toList());
         compound.put("blocks", blocksNbt);
         compound.putInt("sanguinity", sanguinity);
         nbt.put(uuid.toString(), compound);
@@ -144,7 +144,7 @@ public class OrganGroup {
 
     private void refreshBlockStates() {
         for (BlockPos pos : new HashSet<>(posSet)) {
-            world.setBlockState(pos, world.getBlockState(pos).with(OrganBlock.ACTIVE, this.sanguinity != 0));
+            world.setBlockState(pos, world.getBlockState(pos).with(OrganBlock.ACTIVE, sanguinity != 0));
         }
     }
 
@@ -156,7 +156,7 @@ public class OrganGroup {
     }
 
     private void calculateCapacity() {
-        this.capacity = this.posSet.stream()
+        this.capacity = posSet.stream()
                 .map(pos -> world.getBlockEntity(pos) instanceof OrganBlockEntity blockEntity ? blockEntity.getCapacity() : 0)
                 .reduce(Integer::sum)
                 .orElse(0);

@@ -180,9 +180,9 @@ public class ArteryBlocks {
      */
     static class Builder {
         private final String id;
+        private final RegistryKey<Block> blockKey;
         private Function<AbstractBlock.Settings, Block> factory = Block::new;
         private AbstractBlock.Settings settings = AbstractBlock.Settings.create();
-        private final RegistryKey<Block> blockKey;
         private boolean shouldRegisterItem;
 
         /**

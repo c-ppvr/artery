@@ -9,7 +9,8 @@ import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.display.RecipeDisplay;
 import net.minecraft.recipe.display.SlotDisplay;
 
-public record InfusionRecipeDisplay(SlotDisplay ingredient, SlotDisplay result, SlotDisplay craftingStation, int infusedAmount) implements RecipeDisplay {
+public record InfusionRecipeDisplay(SlotDisplay ingredient, SlotDisplay result,  SlotDisplay craftingStation, int infusedAmount)
+        implements RecipeDisplay {
     public static MapCodec<InfusionRecipeDisplay> CODEC = RecordCodecBuilder.mapCodec(
             instance -> instance.group(
                     SlotDisplay.CODEC.fieldOf("ingredient").forGetter(InfusionRecipeDisplay::ingredient),

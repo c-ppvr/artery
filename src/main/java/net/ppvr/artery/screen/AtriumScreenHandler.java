@@ -23,12 +23,12 @@ public class AtriumScreenHandler extends ScreenHandler {
 
     public void transferSanguinity(int amount) {
         amount = Math.min(amount, getCapacity());
-        if (this.player.isCreative() || player.artery$getSanguinity() >= amount) {
-            this.propertyDelegate.set(0, propertyDelegate.get(0) + amount);
+        if (player.isCreative() || player.artery$getSanguinity() >= amount) {
+            propertyDelegate.set(0, propertyDelegate.get(0) + amount);
             if (!player.isCreative()) {
-                this.player.artery$addSanguinity(-amount);
+                player.artery$addSanguinity(-amount);
             }
-            this.context.run(World::markDirty);
+            context.run(World::markDirty);
         }
     }
 

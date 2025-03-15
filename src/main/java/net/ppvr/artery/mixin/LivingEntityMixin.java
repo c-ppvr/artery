@@ -19,7 +19,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 abstract public class LivingEntityMixin extends Entity {
-    @Unique boolean paid;
+    @Unique
+    boolean paid;
 
     public LivingEntityMixin(EntityType<?> type, World world) {
         super(type, world);
@@ -30,7 +31,7 @@ abstract public class LivingEntityMixin extends Entity {
         PlayerEntity attacker = (PlayerEntity) source.getAttacker();
         double falloff = 1.0;
         if (!source.isDirect()) {
-            falloff = Math.max(1.0, distanceTo(source.getAttacker())/4.0);
+            falloff = Math.max(1.0, distanceTo(source.getAttacker()) / 4.0);
         }
         attacker.artery$addUnconvertedSanguinity((float) (amount / attacker.artery$getTransfusionRate() / falloff));
     }

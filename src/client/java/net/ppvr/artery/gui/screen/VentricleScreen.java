@@ -14,13 +14,14 @@ import static net.ppvr.artery.Artery.MOD_ID;
 
 public class VentricleScreen extends RecipeBookScreen<VentricleScreenHandler> {
     public static final Identifier TEXTURE = Identifier.of(MOD_ID, "textures/gui/ventricle.png");
+
     public VentricleScreen(VentricleScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, new InfusionRecipeBookWidget(handler), inventory, title);
     }
 
     @Override
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
-        context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x, y, 0 ,0, backgroundWidth, backgroundHeight, 256, 256);
+        context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
         int infusedTotalAmount = handler.getInfusedTotalAmount();
         if (infusedTotalAmount > 0) {
             int infusionProgress = 20 * handler.getInfusedAmountDone() / infusedTotalAmount;
@@ -38,6 +39,6 @@ public class VentricleScreen extends RecipeBookScreen<VentricleScreenHandler> {
 
     @Override
     protected ScreenPos getRecipeBookButtonPos() {
-        return new ScreenPos(x + 20, height/2 - 49);
+        return new ScreenPos(x + 20, height / 2 - 49);
     }
 }

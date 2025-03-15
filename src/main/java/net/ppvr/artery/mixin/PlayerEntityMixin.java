@@ -31,7 +31,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
     }
 
     @Inject(method = "createPlayerAttributes", at = @At("RETURN"), cancellable = true)
-    private static void createPlayerAttributes(CallbackInfoReturnable<DefaultAttributeContainer.Builder> cir){
+    private static void createPlayerAttributes(CallbackInfoReturnable<DefaultAttributeContainer.Builder> cir) {
         cir.setReturnValue(
                 cir.getReturnValue()
                         .add(ArteryEntityAttributes.MAX_SANGUINITY, 80.0)
@@ -54,41 +54,49 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
 
     @Inject(method = "writeCustomDataToNbt", at = @At("TAIL"))
     public void writeCustomDataToNbt(NbtCompound nbt, CallbackInfo ci) {
-        nbt.putFloat("Sanguinity", this.artery$getSanguinity());
-        nbt.putFloat("UnconvertedSanguinity", this.artery$getUnconvertedSanguinity());
+        nbt.putFloat("Sanguinity", artery$getSanguinity());
+        nbt.putFloat("UnconvertedSanguinity", artery$getUnconvertedSanguinity());
     }
 
     @Inject(method = "readCustomDataFromNbt", at = @At("TAIL"))
     public void readCustomDataFromNbt(NbtCompound nbt, CallbackInfo ci) {
-        this.dataTracker.set(SANGUINITY, nbt.getFloat("Sanguinity"));
-        this.dataTracker.set(UNCONVERTED_SANGUINITY, nbt.getFloat("UnconvertedSanguinity"));
+        dataTracker.set(SANGUINITY, nbt.getFloat("Sanguinity"));
+        dataTracker.set(UNCONVERTED_SANGUINITY, nbt.getFloat("UnconvertedSanguinity"));
     }
 
     public float artery$getMaxSanguinity() {
         return (float) this.getAttributeValue(ArteryEntityAttributes.MAX_SANGUINITY);
     }
+
     public float artery$getTransfusionRate() {
         return (float) this.getAttributeValue(ArteryEntityAttributes.TRANSFUSION_RATE);
     }
+
     public float artery$getCoagulationRate() {
         return (float) this.getAttributeValue(ArteryEntityAttributes.COAGULATION_RATE);
     }
+
     public float artery$getSanguinity() {
-        return this.dataTracker.get(SANGUINITY);
+        return dataTracker.get(SANGUINITY);
     }
+
     public void artery$setSanguinity(float amount) {
-        this.dataTracker.set(SANGUINITY, MathHelper.clamp(amount, 0.0f, this.artery$getMaxSanguinity()));
+        this.dataTracker.set(SANGUINITY, MathHelper.clamp(amount, 0.0f, artery$getMaxSanguinity()));
     }
+
     public void artery$addSanguinity(float amount) {
-        this.artery$setSanguinity(this.artery$getSanguinity()+amount);
+        this.artery$setSanguinity(artery$getSanguinity() + amount);
     }
+
     public float artery$getUnconvertedSanguinity() {
-        return this.dataTracker.get(UNCONVERTED_SANGUINITY);
+        return dataTracker.get(UNCONVERTED_SANGUINITY);
     }
+
     public void artery$setUnconvertedSanguinity(float amount) {
         this.dataTracker.set(UNCONVERTED_SANGUINITY, Math.max(0.0f, amount));
     }
+
     public void artery$addUnconvertedSanguinity(float amount) {
-        this.artery$setUnconvertedSanguinity(this.artery$getUnconvertedSanguinity()+amount);
+        this.artery$setUnconvertedSanguinity(artery$getUnconvertedSanguinity() + amount);
     }
 }

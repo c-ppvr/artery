@@ -60,7 +60,7 @@ public class PressorScreenHandler extends ScreenHandler {
             if (movedStack.getCount() == originalStack.getCount()) {
                 return ItemStack.EMPTY;
             }
-            
+
             originSlot.onTakeItem(player, movedStack);
         }
         return originalStack;
@@ -85,7 +85,7 @@ public class PressorScreenHandler extends ScreenHandler {
             totalTime = 200;
         }
 
-        return MathHelper.clamp((float) this.propertyDelegate.get(2)/ totalTime, 0.0f, 1.0f);
+        return MathHelper.clamp((float) this.propertyDelegate.get(2) / totalTime, 0.0f, 1.0f);
     }
 
     public int getSanguinity() {

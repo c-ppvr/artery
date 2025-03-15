@@ -11,6 +11,6 @@ public enum ArteryRecipeCategory {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 }

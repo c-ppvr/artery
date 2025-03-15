@@ -10,6 +10,9 @@ import net.minecraft.util.Identifier;
 import static net.ppvr.artery.Artery.MOD_ID;
 
 public class ArteryEntityAttributes {
+    public static void initialize() {
+    }
+
     public static final RegistryEntry<EntityAttribute> MAX_SANGUINITY = register(
             "max_sanguinity",
             (new ClampedEntityAttribute("artery.attribute.name.max_sanguinity", 80.0, 80.0, 800.0)).setTracked(true)
@@ -25,7 +28,5 @@ public class ArteryEntityAttributes {
 
     private static RegistryEntry<EntityAttribute> register(String id, EntityAttribute attribute) {
         return Registry.registerReference(Registries.ATTRIBUTE, Identifier.of(MOD_ID, id), attribute);
-    }
-    public static void initialize() {
     }
 }
