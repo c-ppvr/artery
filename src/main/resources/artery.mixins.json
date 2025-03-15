@@ -10,6 +10,7 @@
     "ItemMixin$Settings",
     "ItemStackMixin",
     "LivingEntityMixin",
+    "ServerWorldMixin",
     "PlayerEntityMixin",
     "ToolMaterialMixin"
   ],

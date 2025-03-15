@@ -22,7 +22,7 @@ public class OrganGroupState extends PersistentState {
     }
 
     public static OrganGroupState get(ServerWorld world) {
-        return world.getPersistentStateManager().getOrCreate(OrganGroupState.getPersistentStateType(world), MOD_ID + "_organ_group");
+        return world.getPersistentStateManager().get(OrganGroupState.getPersistentStateType(world), MOD_ID + "_organ_group");
     }
 
     public OrganGroupState() {
