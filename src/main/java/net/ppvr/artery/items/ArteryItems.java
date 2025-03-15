@@ -14,6 +14,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.ppvr.artery.blocks.ArteryBlocks;
+import net.ppvr.artery.items.components.ArteryConsumableComponents;
+import net.ppvr.artery.items.components.ArteryFoodComponents;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,8 @@ public class ArteryItems  {
     public static final Item LEUKIUM_INGOT = register("leukium_ingot");
     public static final Item RAW_THROMBIUM = register("raw_thrombium");
     public static final Item THROMBIUM_INGOT = register("thrombium_ingot");
+    public static final Item HEMOGLOBIUM_INGOT = register("hemoglobium_ingot");
+    public static final Item FLESH = register("flesh", new Item.Settings().food(ArteryFoodComponents.FLESH, ArteryConsumableComponents.FLESH));
 
     public static final Item LEUKIUM_SWORD = register("leukium_sword", settings -> new SwordItem(ArteryToolMaterial.LEUKIUM, 4.0f, -2.4f, settings));
     public static final Item LEUKIUM_AXE = register("leukium_axe", settings -> new AxeItem(ArteryToolMaterial.LEUKIUM, 6.0f, -2.8f, settings));

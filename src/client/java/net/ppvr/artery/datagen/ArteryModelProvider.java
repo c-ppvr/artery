@@ -186,6 +186,7 @@ public class ArteryModelProvider extends FabricModelProvider {
         blockStateModelGenerator.registerSimpleCubeAll(ArteryBlocks.DEEPSLATE_THROMBIUM_ORE);
         blockStateModelGenerator.registerSimpleCubeAll(ArteryBlocks.RAW_THROMBIUM_BLOCK);
         blockStateModelGenerator.registerSimpleCubeAll(ArteryBlocks.THROMBIUM_BLOCK);
+        blockStateModelGenerator.registerSimpleCubeAll(ArteryBlocks.HEMOGLOBIUM_BLOCK);
     }
 
     @Override
@@ -195,6 +196,8 @@ public class ArteryModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ArteryItems.LEUKIUM_INGOT, Models.GENERATED);
         itemModelGenerator.register(ArteryItems.RAW_THROMBIUM, Models.GENERATED);
         itemModelGenerator.register(ArteryItems.THROMBIUM_INGOT, Models.GENERATED);
+        itemModelGenerator.register(ArteryItems.HEMOGLOBIUM_INGOT, Models.GENERATED);
+        itemModelGenerator.register(ArteryItems.FLESH, Models.GENERATED);
 
         itemModelGenerator.register(ArteryItems.LEUKIUM_SWORD, Models.HANDHELD);
         itemModelGenerator.register(ArteryItems.LEUKIUM_AXE, Models.HANDHELD);

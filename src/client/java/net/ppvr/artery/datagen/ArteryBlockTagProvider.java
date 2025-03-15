@@ -25,7 +25,8 @@ public class ArteryBlockTagProvider extends FabricTagProvider<Block> {
                         ArteryBlocks.PRESSOR,
                         ArteryBlocks.ERYTHRITE_BLOCK,
                         ArteryBlocks.LEUKIUM_BLOCK,
-                        ArteryBlocks.THROMBIUM_BLOCK
+                        ArteryBlocks.THROMBIUM_BLOCK,
+                        ArteryBlocks.HEMOGLOBIUM_BLOCK
                 );
         getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
                 .add(
@@ -42,12 +43,14 @@ public class ArteryBlockTagProvider extends FabricTagProvider<Block> {
                         ArteryBlocks.THROMBIUM_ORE,
                         ArteryBlocks.DEEPSLATE_THROMBIUM_ORE,
                         ArteryBlocks.RAW_THROMBIUM_BLOCK,
-                        ArteryBlocks.THROMBIUM_BLOCK
+                        ArteryBlocks.THROMBIUM_BLOCK,
+                        ArteryBlocks.HEMOGLOBIUM_BLOCK
                 );
         getOrCreateTagBuilder(BlockTags.BEACON_BASE_BLOCKS)
                 .add(
                         ArteryBlocks.LEUKIUM_BLOCK,
-                        ArteryBlocks.THROMBIUM_BLOCK
+                        ArteryBlocks.THROMBIUM_BLOCK,
+                        ArteryBlocks.HEMOGLOBIUM_BLOCK
                 );
         getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL)
                 .add(
@@ -64,7 +67,8 @@ public class ArteryBlockTagProvider extends FabricTagProvider<Block> {
                         ArteryBlocks.THROMBIUM_ORE,
                         ArteryBlocks.DEEPSLATE_THROMBIUM_ORE,
                         ArteryBlocks.RAW_THROMBIUM_BLOCK,
-                        ArteryBlocks.THROMBIUM_BLOCK
+                        ArteryBlocks.THROMBIUM_BLOCK,
+                        ArteryBlocks.HEMOGLOBIUM_BLOCK
                 );
     }
 }
