@@ -117,7 +117,34 @@ public class ArteryRecipeProvider extends FabricRecipeProvider {
                         .pattern("###")
                         .criterion(hasItem(ArteryItems.HEMOGLOBIUM_INGOT), conditionsFromItem(ArteryItems.HEMOGLOBIUM_INGOT))
                         .offerTo(exporter);
-
+                createShaped(RecipeCategory.DECORATIONS, ArteryBlocks.FIBROBLASTER)
+                        .input('#', ArteryItems.FLESH)
+                        .input('D', Items.DIAMOND)
+                        .input('T', ArteryItems.THROMBIUM_INGOT)
+                        .pattern("#T#")
+                        .pattern("#D#")
+                        .pattern("#T#")
+                        .criterion(hasItem(ArteryItems.FLESH), conditionsFromItem(ArteryItems.FLESH))
+                        .offerTo(exporter);
+                createShaped(RecipeCategory.DECORATIONS, ArteryBlocks.PRESSOR)
+                        .input('#', ArteryItems.HEMOGLOBIUM_INGOT)
+                        .input('D', Items.DIAMOND)
+                        .input('F', Items.FURNACE)
+                        .pattern("#D#")
+                        .pattern("#F#")
+                        .pattern("###")
+                        .criterion(hasItem(ArteryItems.FLESH), conditionsFromItem(ArteryItems.FLESH))
+                        .offerTo(exporter);
+                createShaped(RecipeCategory.COMBAT, ArteryItems.TOTEM_OF_REVIVAL)
+                        .input('#', Items.TOTEM_OF_UNDYING)
+                        .input('N', Items.NETHERITE_INGOT)
+                        .input('H', ArteryItems.HEMOGLOBIUM_INGOT)
+                        .input('F', ArteryItems.FLESH)
+                        .pattern("FNF")
+                        .pattern("H#H")
+                        .pattern(" N ")
+                        .criterion(hasItem(ArteryItems.FLESH), conditionsFromItem(ArteryItems.FLESH))
+                        .offerTo(exporter);
             }
 
             public void offerInfusion(ItemConvertible output, ItemConvertible input, int infusedAmount) {
