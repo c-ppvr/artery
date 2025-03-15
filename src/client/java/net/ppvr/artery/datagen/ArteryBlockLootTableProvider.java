@@ -37,6 +37,7 @@ public class ArteryBlockLootTableProvider extends FabricBlockLootTableProvider {
         addDrop(ArteryBlocks.DEEPSLATE_THROMBIUM_ORE, block -> oreDrops(block, ArteryItems.RAW_THROMBIUM));
         addDrop(ArteryBlocks.RAW_THROMBIUM_BLOCK);
         addDrop(ArteryBlocks.THROMBIUM_BLOCK);
+        addDrop(ArteryBlocks.HEMOGLOBIUM_BLOCK);
     }
 
     private LootTable.Builder erythriteOreDrops(Block drop) {
