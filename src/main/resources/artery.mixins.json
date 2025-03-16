@@ -10,8 +10,8 @@
     "ItemMixin$Settings",
     "ItemStackMixin",
     "LivingEntityMixin",
-    "ServerWorldMixin",
     "PlayerEntityMixin",
+    "ServerWorldMixin",
     "ToolMaterialMixin"
   ],
   "injectors": {
