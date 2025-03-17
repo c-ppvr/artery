@@ -47,6 +47,6 @@
 		"fabric-api": "*"
 	},
 	"suggests": {
-		"appleskin": ">=3.0.6"
+		"appleskin": "*"
 	}
 }
