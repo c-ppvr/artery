@@ -25,6 +25,9 @@
 		],
 		"fabric-datagen": [
 			"net.ppvr.artery.datagen.ArteryDataGenerator"
+		],
+		"rei-client": [
+			"net.ppvr.artery.rei.ArteryReiPluginClient"
 		]
 	},
 	"mixins": [
@@ -49,6 +52,6 @@
 		"fabric-api": "*"
 	},
 	"suggests": {
-		"another-mod": "*"
+		"roughlyenoughitems": "*"
 	}
 }
