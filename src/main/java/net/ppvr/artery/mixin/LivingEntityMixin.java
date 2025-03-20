@@ -4,18 +4,22 @@ import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import net.ppvr.artery.ArteryEntityAttributes;
 import net.ppvr.artery.items.ArteryItems;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
@@ -36,6 +40,14 @@ abstract public class LivingEntityMixin extends Entity {
             falloff = Math.max(1.0, distanceTo(source.getAttacker()) / 4.0);
         }
         attacker.artery$addUnconvertedSanguinity((float) (amount / attacker.artery$getTransfusionRate() / falloff));
+    }
+
+    @Inject(method = "updateAttribute", at = @At("TAIL"))
+    public void updateAttribute(RegistryEntry<EntityAttribute> attribute, CallbackInfo ci) {
+        if ((LivingEntity) (Object) this instanceof PlayerEntity player && attribute.matchesKey(ArteryEntityAttributes.MAX_SANGUINITY.getKey().get())) {
+            // setSanguinity will clamp sanguinity, no need to copy vanilla logic
+            player.artery$setSanguinity(player.artery$getSanguinity());
+        }
     }
 
     @Redirect(method = "tryUseDeathProtector", at = @At(value = "INVOKE", target = "Lnet/minecraft/item/ItemStack;decrement(I)V"))
