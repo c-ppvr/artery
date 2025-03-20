@@ -5,6 +5,8 @@
   "mixins": [
     "ArmorMaterialMixin",
     "ConsumableComponentMixin",
+    "FoodComponentMixin",
+    "FoodComponentMixin$Builder",
     "HungerManagerMixin",
     "ItemMixin",
     "ItemMixin$Settings",
