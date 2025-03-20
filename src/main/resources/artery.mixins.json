@@ -7,6 +7,7 @@
     "ConsumableComponentMixin",
     "FoodComponentMixin",
     "FoodComponentMixin$Builder",
+    "FoodComponentsMixin",
     "HungerManagerMixin",
     "ItemMixin",
     "ItemMixin$Settings",
