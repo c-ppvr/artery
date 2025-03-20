@@ -33,7 +33,7 @@ public abstract class InGameHudMixin {
         int fullRows = sanguinity / 80;
         int progress = sanguinity % 80;
 
-        int left = context.getScaledWindowWidth() / 2 + 9;
+        int left = context.getScaledWindowWidth() / 2 + 10;
         int top = context.getScaledWindowHeight() - 45;
         for (int i = 0; i < rows; ++i) {
             context.drawTexture(RenderLayer::getGuiTextured, SANGUINITY_BARS, left, top - 6 * i, 0, 0, 82, 5, 256, 256);

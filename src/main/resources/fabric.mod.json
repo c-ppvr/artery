@@ -3,13 +3,15 @@
 	"id": "artery",
 	"version": "${version}",
 	"name": "Artery",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "a mod of \"organic\" shenanigans for the hit game Minecraft",
 	"authors": [
-		"Me!"
+		"SoL_Papaver"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/c-ppvr/artery",
+		"sources": "https://github.com/c-ppvr/artery",
+		"issues": "https://github.com/c-ppvr/artery/issues",
+		"discord": "https://discord.gg/tMebDH4nJZ"
 	},
 	"license": "LGPL-2.1-only",
 	"icon": "assets/artery/icon.png",
@@ -36,7 +38,9 @@
 		"loom:injected_interfaces": {
 			"net/minecraft/class_1657": ["net/ppvr/artery/hooks/PlayerEntityHooks"],
 			"net/minecraft/class_1792\u0024class_1793": ["net/ppvr/artery/hooks/ItemHooks\u0024Settings"],
-			"net/minecraft/class_1799" : ["net/ppvr/artery/hooks/ItemStackHooks"]
+			"net/minecraft/class_1799": ["net/ppvr/artery/hooks/ItemStackHooks"],
+			"net/minecraft/class_4174": ["net/ppvr/artery/hooks/FoodComponentHooks"],
+			"net/minecraft/class_4174\u0024class_4175": ["net/ppvr/artery/hooks/FoodComponentHooks\u0024Builder"]
 		}
 	},
 	"accessWidener": "artery.accesswidener",
