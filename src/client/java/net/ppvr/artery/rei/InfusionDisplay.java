@@ -10,11 +10,11 @@ import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.util.EntryIngredients;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
+import net.minecraft.recipe.NetworkRecipeId;
 import net.minecraft.util.Identifier;
-import net.ppvr.artery.recipe.InfusionRecipe;
+import net.ppvr.artery.recipe.InfusionRecipeDisplay;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,12 +50,12 @@ public class InfusionDisplay extends BasicDisplay {
         this.infusedAmount = infusedAmount;
     }
 
-    public InfusionDisplay(InfusionRecipe recipe) {
-        super(
-                Collections.singletonList(EntryIngredients.ofIngredient(recipe.ingredient())),
-                Collections.singletonList(EntryIngredients.of(recipe.result()))
+    public InfusionDisplay(InfusionRecipeDisplay recipe, Optional<NetworkRecipeId> id) {
+        this(
+                List.of(EntryIngredients.ofSlotDisplay(recipe.ingredient())),
+                List.of(EntryIngredients.ofSlotDisplay(recipe.result())),
+                recipe.infusedAmount()
         );
-        this.infusedAmount = recipe.getInfusedAmount();
     }
 
     @Override

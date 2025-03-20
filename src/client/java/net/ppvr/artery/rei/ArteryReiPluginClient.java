@@ -6,7 +6,7 @@ import me.shedaniel.rei.api.client.registry.display.DisplayRegistry;
 import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.util.EntryStacks;
 import net.ppvr.artery.blocks.ArteryBlocks;
-import net.ppvr.artery.recipe.InfusionRecipe;
+import net.ppvr.artery.recipe.InfusionRecipeDisplay;
 
 import static net.ppvr.artery.Artery.MOD_ID;
 
@@ -22,7 +22,8 @@ public class ArteryReiPluginClient implements REIClientPlugin {
 
     @Override
     public void registerDisplays(DisplayRegistry registry) {
-        registry.beginFiller(InfusionRecipe.class)
+        registry.beginRecipeFiller(InfusionRecipeDisplay.class)
+                .filterType(InfusionRecipeDisplay.SERIALIZER)
                 .fill(InfusionDisplay::new);
     }
 }
