@@ -36,7 +36,9 @@
 		"loom:injected_interfaces": {
 			"net/minecraft/class_1657": ["net/ppvr/artery/hooks/PlayerEntityHooks"],
 			"net/minecraft/class_1792\u0024class_1793": ["net/ppvr/artery/hooks/ItemHooks\u0024Settings"],
-			"net/minecraft/class_1799" : ["net/ppvr/artery/hooks/ItemStackHooks"]
+			"net/minecraft/class_1799": ["net/ppvr/artery/hooks/ItemStackHooks"],
+			"net/minecraft/class_4174": ["net/ppvr/artery/hooks/FoodComponentHooks"],
+			"net/minecraft/class_4174\u0024class_4175": ["net/ppvr/artery/hooks/FoodComponentHooks\u0024Builder"]
 		}
 	},
 	"accessWidener": "artery.accesswidener",
