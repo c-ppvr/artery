@@ -9,10 +9,8 @@ import net.minecraft.component.type.ConsumableComponent;
 import net.minecraft.component.type.FoodComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.consume.ConsumeEffect;
 import net.minecraft.util.Identifier;
 import net.ppvr.artery.hooks.TooltipOverlayHandlerHooks;
-import net.ppvr.artery.items.components.consume.GainSanguinityConsumeEffect;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -32,13 +30,7 @@ public class TooltipOverlayHandlerMixin {
 
         @Inject(method = "<init>", at = @At("TAIL"))
         public void init(ItemStack itemStack, FoodComponent defaultFood, FoodComponent modifiedFood, ConsumableComponent consumableComponent, PlayerEntity player, CallbackInfo ci) {
-            float totalAmount = 0;
-            for (ConsumeEffect effect : consumableComponent.onConsumeEffects()) {
-                if (effect instanceof GainSanguinityConsumeEffect(float amount)) {
-                    totalAmount += amount;
-                }
-            }
-            this.sanguinityText = "" + (int) totalAmount;
+            this.sanguinityText = "" + modifiedFood.artery$sanguinity();
         }
 
         @Inject(method = "getHeight", at = @At("RETURN"), cancellable = true)
