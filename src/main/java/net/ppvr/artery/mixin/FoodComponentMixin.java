@@ -1,18 +1,25 @@
 package net.ppvr.artery.mixin;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.datafixers.kinds.App;
 import com.mojang.datafixers.util.Function3;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.component.type.ConsumableComponent;
 import net.minecraft.component.type.FoodComponent;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.util.dynamic.Codecs;
+import net.minecraft.world.World;
 import net.ppvr.artery.hooks.FoodComponentHooks;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.function.Function;
@@ -29,7 +36,7 @@ public class FoodComponentMixin implements FoodComponentHooks{
                         Codec.FLOAT.fieldOf("saturation").forGetter(FoodComponent::saturation),
                         Codec.INT.fieldOf("sanguinity").forGetter(FoodComponentHooks::artery$sanguinity),
                         Codec.BOOL.optionalFieldOf("can_always_eat", false).forGetter(FoodComponent::canAlwaysEat)
-                ).apply(instance, FoodComponentMixin::newWithSanguinity));
+                ).apply(instance, FoodComponentMixin::createWithSanguinity));
     }
 
     @Redirect(method = "<clinit>", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/codec/PacketCodec;tuple(Lnet/minecraft/network/codec/PacketCodec;Ljava/util/function/Function;Lnet/minecraft/network/codec/PacketCodec;Ljava/util/function/Function;Lnet/minecraft/network/codec/PacketCodec;Ljava/util/function/Function;Lcom/mojang/datafixers/util/Function3;)Lnet/minecraft/network/codec/PacketCodec;"))
@@ -47,11 +54,17 @@ public class FoodComponentMixin implements FoodComponentHooks{
                 saturationCodec, saturationGetter,
                 PacketCodecs.INTEGER, FoodComponent::artery$sanguinity,
                 canAlwaysEatCodec, canAlwaysEatGetter,
-                FoodComponentMixin::newWithSanguinity
+                FoodComponentMixin::createWithSanguinity
                 );
     }
+
+    @Inject(method = "onConsume", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/HungerManager;eat(Lnet/minecraft/component/type/FoodComponent;)V", shift = At.Shift.AFTER))
+    public void onConsume(World world, LivingEntity user, ItemStack stack, ConsumableComponent consumable, CallbackInfo ci, @Local PlayerEntity player) {
+        player.artery$addSanguinity(sanguinity);
+    }
+
     @Unique
-    private static FoodComponent newWithSanguinity(int nutrition, float saturation, int sanguinity, boolean canAlwaysEat) {
+    private static FoodComponent createWithSanguinity(int nutrition, float saturation, int sanguinity, boolean canAlwaysEat) {
         FoodComponent foodComponent = new FoodComponent(nutrition, saturation, canAlwaysEat);
         foodComponent.artery$setSanguinity(sanguinity);
         return foodComponent;
@@ -77,7 +90,7 @@ public class FoodComponentMixin implements FoodComponentHooks{
             return (FoodComponent.Builder) (Object) this;
         }
 
-        @Inject(method = "build", at = @At(value = "INVOKE", target = "Lnet/minecraft/component/type/FoodComponent;<init>(IFZ)V"))
+        @Inject(method = "build", at = @At(value = "RETURN"))
         public void build(CallbackInfoReturnable<FoodComponent> cir) {
             if (cir.getReturnValue() != null) {
                 cir.getReturnValue().artery$setSanguinity(sanguinity);
