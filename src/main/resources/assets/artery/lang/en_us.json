@@ -1,0 +1,56 @@
+{
+  "item.artery.atrium": "Atrium",
+  "item.artery.ventricle": "Ventricle",
+  "item.artery.fibroblaster": "Fibroblaster",
+  "item.artery.pressor": "Pressor",
+  
+  "item.artery.erythrite_ore": "Erythrite Ore",
+  "item.artery.deepslate_erythrite_ore": "Deepslate Erythrite Ore",
+  "item.artery.erythrite_block": "Block of Erythrite",
+  "item.artery.leukium_ore": "Leukium Ore",
+  "item.artery.deepslate_leukium_ore": "Deepslate Leukium Ore",
+  "item.artery.raw_leukium_block": "Block of Raw Leukium",
+  "item.artery.leukium_block": "Block of Leukium",
+  "item.artery.thrombium_ore": "Thrombium Ore",
+  "item.artery.deepslate_thrombium_ore": "Deepslate Thrombium Ore",
+  "item.artery.raw_thrombium_block": "Block of Raw Thrombium",
+  "item.artery.thrombium_block": "Block of Thrombium",
+  "item.artery.hemoglobium_block": "Block of Hemoglobium",
+
+
+  "item.artery.erythrite": "Erythrite",
+  "item.artery.raw_leukium": "Raw Leukium",
+  "item.artery.leukium_ingot": "Leukium Ingot",
+  "item.artery.raw_thrombium": "Raw Thrombium",
+  "item.artery.thrombium_ingot": "Thrombium Ingot",
+  "item.artery.hemoglobium_ingot": "Hemoglobium Ingot",
+  "item.artery.flesh": "Flesh",
+  "item.artery.leukium_sword": "Leukium Sword",
+  "item.artery.leukium_axe": "Leukium Axe",
+  "item.artery.thrombium_helmet": "Thrombium Helmet",
+  "item.artery.thrombium_chestplate": "Thrombium Chestplate",
+  "item.artery.thrombium_leggings": "Thrombium Leggings",
+  "item.artery.thrombium_boots": "Thrombium Boots",
+  "item.artery.totem_of_revival": "Totem of Revival",
+
+  "item.artery.pressure": "Pressure: %s / %s",
+
+  "itemGroup.artery.artery": "Artery Items",
+
+  "artery.attribute.name.max_sanguinity": "Max Sanguinity",
+  "artery.attribute.name.transfusion_rate": "Transfusion Rate",
+  "artery.attribute.name.coagulation_rate": "Coagulation Rate",
+
+  "container.artery.atrium": "Atrium",
+  "container.artery.atrium.max_button": "Max",
+  "container.artery.ventricle": "Ventricle",
+  "container.artery.fibroblaster": "Fibroblaster",
+  "container.artery.pressor": "Pressor",
+  "gui.artery.recipebook.toggleRecipes.infusible": "Showing Infusible",
+
+  "subtitles.block.pressor.fire_crackle": "Pressor crackles",
+
+  "tag.item.artery.leukium_tool_materials": "Leukium Tool Materials",
+  "tag.item.artery.repairs_thrombium_armor": "Repairs Thrombium Armor"
+
+}

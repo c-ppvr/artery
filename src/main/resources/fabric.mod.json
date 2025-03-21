@@ -1,0 +1,56 @@
+{
+	"schemaVersion": 1,
+	"id": "artery",
+	"version": "${version}",
+	"name": "Artery",
+	"description": "a mod of \"organic\" shenanigans for the hit game Minecraft",
+	"authors": [
+		"SoL_Papaver"
+	],
+	"contact": {
+		"homepage": "https://github.com/c-ppvr/artery",
+		"sources": "https://github.com/c-ppvr/artery",
+		"issues": "https://github.com/c-ppvr/artery/issues",
+		"discord": "https://discord.gg/tMebDH4nJZ"
+	},
+	"license": "LGPL-2.1-only",
+	"icon": "assets/artery/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.ppvr.artery.Artery"
+		],
+		"client": [
+			"net.ppvr.artery.ArteryClient"
+		],
+		"fabric-datagen": [
+			"net.ppvr.artery.datagen.ArteryDataGenerator"
+		]
+	},
+	"mixins": [
+		"artery.mixins.json",
+		{
+			"config": "artery.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"custom": {
+		"loom:injected_interfaces": {
+			"net/minecraft/class_1657": ["net/ppvr/artery/hooks/PlayerEntityHooks"],
+			"net/minecraft/class_1792\u0024class_1793": ["net/ppvr/artery/hooks/ItemHooks\u0024Settings"],
+			"net/minecraft/class_1799": ["net/ppvr/artery/hooks/ItemStackHooks"],
+			"net/minecraft/class_4174": ["net/ppvr/artery/hooks/FoodComponentHooks"],
+			"net/minecraft/class_4174\u0024class_4175": ["net/ppvr/artery/hooks/FoodComponentHooks\u0024Builder"]
+		}
+	},
+	"accessWidener": "artery.accesswidener",
+	"depends": {
+		"fabricloader": ">=0.16.10",
+		"minecraft": "~1.21.4",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"appleskin": "*"
+	}
+}

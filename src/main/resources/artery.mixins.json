@@ -1,0 +1,24 @@
+{
+  "required": true,
+  "package": "net.ppvr.artery.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "ArmorMaterialMixin",
+    "ConsumableComponentMixin",
+    "FoodComponentMixin",
+    "FoodComponentMixin$Builder",
+    "FoodComponentsMixin",
+    "HungerManagerMixin",
+    "ItemMixin",
+    "ItemMixin$Settings",
+    "ItemStackMixin",
+    "LivingEntityMixin",
+    "PlayerEntityMixin",
+    "ServerWorldMixin",
+    "ToolMaterialMixin",
+    "appleskin.FoodHelperMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+	}
+}
