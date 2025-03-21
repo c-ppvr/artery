@@ -24,21 +24,21 @@ import java.util.List;
 import static net.ppvr.artery.Artery.MOD_ID;
 
 public class InfusionRecipe extends SingleStackRecipe {
-    private static final Identifier id = Identifier.of(MOD_ID, "infusion");
+    private static final Identifier ID = Identifier.of(MOD_ID, "infusion");
     public static final int DEFAULT_INFUSED_AMOUNT = 25;
-    public static final RecipeType<InfusionRecipe> TYPE = Registry.register(Registries.RECIPE_TYPE, id,
+    public static final RecipeType<InfusionRecipe> TYPE = Registry.register(Registries.RECIPE_TYPE, ID,
             new RecipeType<InfusionRecipe>() {
                 @Override
                 public String toString() {
-                    return id.toString();
+                    return ID.toString();
                 }
             });
-    public static final RecipeSerializer<InfusionRecipe> SERIALIZER = Registry.register(Registries.RECIPE_SERIALIZER, id, new Serializer<>(InfusionRecipe::new, DEFAULT_INFUSED_AMOUNT));
-    public static final RecipeBookCategory BOOK_CATEGORY = Registry.register(Registries.RECIPE_BOOK_CATEGORY, id, new RecipeBookCategory());
+    public static final RecipeSerializer<InfusionRecipe> SERIALIZER = Registry.register(Registries.RECIPE_SERIALIZER, ID, new Serializer<>(InfusionRecipe::new, DEFAULT_INFUSED_AMOUNT));
+    public static final RecipeBookCategory BOOK_CATEGORY = Registry.register(Registries.RECIPE_BOOK_CATEGORY, ID, new RecipeBookCategory());
     private final int infusedAmount;
 
     public static void initialize() {
-        Registry.register(Registries.RECIPE_DISPLAY, id, InfusionRecipeDisplay.SERIALIZER);
+        Registry.register(Registries.RECIPE_DISPLAY, ID, InfusionRecipeDisplay.SERIALIZER);
     }
     public InfusionRecipe(String group, Ingredient ingredient, ItemStack result, int infusedAmount) {
         super(group, ingredient, result);
