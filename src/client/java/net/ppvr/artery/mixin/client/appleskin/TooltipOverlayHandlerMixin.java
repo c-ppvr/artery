@@ -58,7 +58,7 @@ public class TooltipOverlayHandlerMixin {
         matrixStack.push();
         matrixStack.translate(x, y, tooltipZ);
         matrixStack.scale(0.75f, 0.75f, 0.75f);
-        context.drawTextWithShadow(textRenderer, ((TooltipOverlayHandlerHooks.FoodOverlay) foodOverlay).artery$getSanguinityText(), 2, 2, 0xFFFFCCCC);
+        context.drawTextWithShadow(textRenderer, ((TooltipOverlayHandlerHooks.FoodOverlay) foodOverlay).artery$getSanguinityText(), 2, 2, 0xFFE96779);
         matrixStack.pop();
     }
 }
