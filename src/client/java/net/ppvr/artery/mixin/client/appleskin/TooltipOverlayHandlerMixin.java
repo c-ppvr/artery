@@ -53,7 +53,7 @@ public class TooltipOverlayHandlerMixin {
     public void onRenderToolTip(DrawContext context, TooltipOverlayHandler.FoodOverlay foodOverlay, int toolTipX, int toolTipY, int tooltipZ, TextRenderer textRenderer, CallbackInfo ci, @Local(name = "matrixStack") MatrixStack matrixStack, @Local(name = "y") int y) {
         int x = toolTipX;
         y += 8;
-        context.drawTexture(RenderLayer::getGuiTextured, Identifier.of(MOD_ID, "textures/gui/singular_bar.png"), x, y + 2, 0, 0, 11, 5, 16, 16);
+        context.drawTexture(RenderLayer::getGuiTextured, Identifier.of(MOD_ID, "textures/gui/singular_bars.png"), x, y + 2, 0, 10, 11, 5, 16, 16);
         x += 11;
         matrixStack.push();
         matrixStack.translate(x, y, tooltipZ);
