@@ -55,16 +55,15 @@ public class AtriumScreen extends HandledScreen<AtriumScreenHandler> {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        drawBackground(context, delta, mouseX, mouseY);
+        super.render(context, mouseX, mouseY, delta);
         confirmButton.render(context, mouseX, mouseY, delta);
         amountField.render(context, mouseX, mouseY, delta);
         maxButton.render(context, mouseX, mouseY, delta);
-        drawForeground(context, mouseX, mouseY);
     }
 
     @Override
     protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
-        context.drawText(textRenderer, title, x + titleX, y + titleY, 0xFF000000, false);
+        context.drawText(textRenderer, title, titleX, titleY, 0xFF000000, false);
         int width = context.getScaledWindowWidth();
         int sanguinity = handler.getPlayerSanguinity();
         int stored = handler.getSanguinity();
@@ -79,13 +78,12 @@ public class AtriumScreen extends HandledScreen<AtriumScreenHandler> {
             left = sanguinity;
             right = stored;
         }
-        context.drawText(textRenderer, Text.of("" + left), width / 2 - 20 - textRenderer.getWidth("" + left), y + 49, color, false);
-        context.drawText(textRenderer, Text.of("%d/%d".formatted(right, handler.getCapacity())), width / 2 + 20, y + 49, color, false);
+        context.drawText(textRenderer, Text.of("" + left), width / 2 - 20 - textRenderer.getWidth("" + left) - x, 49, color, false);
+        context.drawText(textRenderer, Text.of("%d/%d".formatted(right, handler.getCapacity())), width / 2 + 20 - x, 49, color, false);
     }
 
     @Override
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
-        renderInGameBackground(context);
         context.drawTexture(RenderLayer::getGuiTextured, ATRIUM_CONTAINER, x, y, 0, 0, 176, 135, 256, 256);
     }
 
