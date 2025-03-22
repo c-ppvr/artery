@@ -12,6 +12,13 @@ base {
 
 repositories {
 	maven { url "https://maven.ryanliptak.com/" }
+	maven {
+		url "https://maven2.bai.lol"
+		content {
+			includeGroup "lol.bai"
+			includeGroup "mcp.mobius.waila"
+		}
+	}
 }
 
 loom {
@@ -45,6 +52,7 @@ dependencies {
 	modCompileOnly("squeek.appleskin:appleskin-fabric:${project.appleskin_version}") {
 		transitive = false
 	}
+	modCompileOnly "mcp.mobius.waila:wthit-api:fabric-${project.wthit_version}"
 }
 
 processResources {
