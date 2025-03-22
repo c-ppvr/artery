@@ -51,6 +51,7 @@
 		"fabric-api": "*"
 	},
 	"suggests": {
-		"appleskin": "*"
+		"appleskin": "*",
+		"wthit": "*"
 	}
 }

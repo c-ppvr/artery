@@ -3,7 +3,11 @@
   "item.artery.ventricle": "Ventricle",
   "item.artery.fibroblaster": "Fibroblaster",
   "item.artery.pressor": "Pressor",
-  
+  "block.artery.atrium": "Atrium",
+  "block.artery.ventricle": "Ventricle",
+  "block.artery.fibroblaster": "Fibroblaster",
+  "block.artery.pressor": "Pressor",
+
   "item.artery.erythrite_ore": "Erythrite Ore",
   "item.artery.deepslate_erythrite_ore": "Deepslate Erythrite Ore",
   "item.artery.erythrite_block": "Block of Erythrite",
@@ -16,7 +20,18 @@
   "item.artery.raw_thrombium_block": "Block of Raw Thrombium",
   "item.artery.thrombium_block": "Block of Thrombium",
   "item.artery.hemoglobium_block": "Block of Hemoglobium",
-
+  "block.artery.erythrite_ore": "Erythrite Ore",
+  "block.artery.deepslate_erythrite_ore": "Deepslate Erythrite Ore",
+  "block.artery.erythrite_block": "Block of Erythrite",
+  "block.artery.leukium_ore": "Leukium Ore",
+  "block.artery.deepslate_leukium_ore": "Deepslate Leukium Ore",
+  "block.artery.raw_leukium_block": "Block of Raw Leukium",
+  "block.artery.leukium_block": "Block of Leukium",
+  "block.artery.thrombium_ore": "Thrombium Ore",
+  "block.artery.deepslate_thrombium_ore": "Deepslate Thrombium Ore",
+  "block.artery.raw_thrombium_block": "Block of Raw Thrombium",
+  "block.artery.thrombium_block": "Block of Thrombium",
+  "block.artery.hemoglobium_block": "Block of Hemoglobium",
 
   "item.artery.erythrite": "Erythrite",
   "item.artery.raw_leukium": "Raw Leukium",
@@ -51,6 +66,9 @@
   "subtitles.block.pressor.fire_crackle": "Pressor crackles",
 
   "tag.item.artery.leukium_tool_materials": "Leukium Tool Materials",
-  "tag.item.artery.repairs_thrombium_armor": "Repairs Thrombium Armor"
+  "tag.item.artery.repairs_thrombium_armor": "Repairs Thrombium Armor",
 
+  "waila.artery.atrium": "System Storage: %s/%s",
+  "config.waila.plugin_artery": "Artery",
+  "config.waila.plugin_artery.atrium": "Show Atrium Storage"
 }

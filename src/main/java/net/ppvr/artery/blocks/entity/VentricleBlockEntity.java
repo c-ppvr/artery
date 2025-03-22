@@ -34,8 +34,8 @@ public class VentricleBlockEntity extends OrganBlockEntity implements NamedScree
     private DefaultedList<ItemStack> inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
     private final ServerRecipeManager.MatchGetter<SingleStackRecipeInput, InfusionRecipe> matchGetter;
     int infuseTimer;
-    int infuseAmountDone;
-    int infuseTotalAmount;
+    public int infuseAmountDone;
+    public int infuseTotalAmount;
 
     private final PropertyDelegate propertyDelegate = new PropertyDelegate() {
         @Override
