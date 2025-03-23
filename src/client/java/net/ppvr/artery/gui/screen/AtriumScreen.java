@@ -39,7 +39,14 @@ public class AtriumScreen extends HandledScreen<AtriumScreenHandler> {
         this.addSelectableChild(confirmButton);
         this.maxButton = ButtonWidget.builder(
                         Text.translatable("container.artery.atrium.max_button"),
-                        button -> amountField.setInt(handler.getPlayerSanguinity()))
+                        button -> {
+                            if (client.player.isCreative()) {
+                                amountField.setInt(handler.getCapacity() - handler.getSanguinity());
+                            } else {
+                                amountField.setInt(handler.getPlayerSanguinity());
+                            }
+                        }
+                )
                 .dimensions(x + 30, y + 72, 40, 16)
                 .build();
         this.addSelectableChild(maxButton);
@@ -68,9 +75,9 @@ public class AtriumScreen extends HandledScreen<AtriumScreenHandler> {
         int sanguinity = handler.getPlayerSanguinity();
         int stored = handler.getSanguinity();
         int left, right, color;
-        if (confirmButton.isHovered()) {
+        int d = amountField.getInt();
+        if (confirmButton.isHovered() && d > 0) {
             color = confirmButton.active ? 0xFF0000C0 : 0xFFFF0000;
-            int d = amountField.getInt();
             left = client.player.isCreative() ? sanguinity : sanguinity - d;
             right = stored + d;
         } else {
