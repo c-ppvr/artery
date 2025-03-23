@@ -99,7 +99,7 @@ public class FibroblasterBlockEntity extends OrganBlockEntity implements SidedIn
 
     @Override
     public int getCapacity() {
-        return 0;
+        return 40;
     }
 
     @Override

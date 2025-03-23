@@ -161,7 +161,7 @@ public class VentricleBlockEntity extends OrganBlockEntity implements NamedScree
 
     @Override
     public int getCapacity() {
-        return 0;
+        return 80;
     }
 
     @Override
