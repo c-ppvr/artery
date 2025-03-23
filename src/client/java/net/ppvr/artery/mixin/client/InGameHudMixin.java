@@ -29,19 +29,26 @@ public abstract class InGameHudMixin {
         Profilers.get().swap("sanguinity");
         int sanguinity = (int) playerEntity.artery$getSanguinity();
         int maxSanguinity = (int) playerEntity.getAttributeValue(MAX_SANGUINITY);
-        int rows = maxSanguinity / 80;
-        int fullRows = sanguinity / 80;
+        int totalRows = maxSanguinity / 80;
+        int rowPart = maxSanguinity % 80;
+        int filledRows = sanguinity / 80;
         int progress = sanguinity % 80;
 
         int left = context.getScaledWindowWidth() / 2 + 10;
         int top = context.getScaledWindowHeight() - 45;
-        for (int i = 0; i < rows; ++i) {
-            context.drawTexture(RenderLayer::getGuiTextured, SANGUINITY_BARS, left, top - 6 * i, 0, 0, 82, 5, 256, 256);
-            if (i < fullRows) {
-                context.drawTexture(RenderLayer::getGuiTextured, SANGUINITY_BARS, left, top - 6 * i, 0, 10, 82, 5, 256, 256);
-            } else if (i == fullRows) {
-                context.drawTexture(RenderLayer::getGuiTextured, SANGUINITY_BARS, left, top - 6 * i, 0, 5, 1 + progress, 5, 256, 256);
+        for (int row = 0; row < totalRows; ++ row) {
+            if (row < filledRows) {
+                drawBar(context, left, top - 6 * row, 10, 82);
+                continue;
             }
+            drawBar(context, left, top - 6 * row, 0, 82);
+            if (row == filledRows) {
+                drawBar(context, left, top - 6 * row, 5, 1 + progress);
+            }
+        }
+
+        if (rowPart > 0) {
+            drawShortBar(context, left, top - 6 * totalRows, filledRows == totalRows ? progress : 0, rowPart);
         }
 
         String text = sanguinity + "/" + maxSanguinity;
@@ -61,4 +68,16 @@ public abstract class InGameHudMixin {
 
     @Shadow
     public abstract TextRenderer getTextRenderer();
+
+    @Unique
+    private void drawBar(DrawContext context, int x, int y, int v, int width) {
+        context.drawTexture(RenderLayer::getGuiTextured, SANGUINITY_BARS, x, y, 0, v, width, 5, 256, 256);
+    }
+
+    @Unique
+    private void drawShortBar(DrawContext context, int x, int y, int progress, int part) {
+        context.drawTexture(RenderLayer::getGuiTextured, SANGUINITY_BARS, x, y, 0,  0, 1 + part, 5, 256, 256);
+        context.drawTexture(RenderLayer::getGuiTextured, SANGUINITY_BARS, x + 81, y, 81, progress == part ? 10 : 0, 1, 5, 256, 256);
+        context.drawTexture(RenderLayer::getGuiTextured, SANGUINITY_BARS, x, y, 0, progress == part ? 10 : 5, 1 + progress, 5, 256, 256);
+    }
 }

@@ -12,6 +12,14 @@ base {
 
 repositories {
 	maven { url "https://maven.ryanliptak.com/" }
+
+	maven {
+		url "https://maven2.bai.lol"
+		content {
+			includeGroup "lol.bai"
+			includeGroup "mcp.mobius.waila"
+		}
+	}
 }
 
 loom {
@@ -42,9 +50,8 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	modCompileOnly("squeek.appleskin:appleskin-fabric:${project.appleskin_version}") {
-		transitive = false
-	}
+	modCompileOnly("squeek.appleskin:appleskin-fabric:${project.appleskin_version}")
+	modCompileOnly "mcp.mobius.waila:wthit-api:fabric-${project.wthit_version}"
 }
 
 processResources {

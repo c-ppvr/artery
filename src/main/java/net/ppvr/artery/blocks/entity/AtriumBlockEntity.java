@@ -43,7 +43,7 @@ public class AtriumBlockEntity extends OrganBlockEntity implements NamedScreenHa
 
     @Override
     public int getCapacity() {
-        return 800;
+        return 320;
     }
 
     @Override

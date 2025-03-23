@@ -1,0 +1,10 @@
+{
+  "artery:plugin": {
+    "entrypoints": {
+      "common": "net.ppvr.artery.integration.wthit.ArteryWailaCommonPlugin",
+      "client": "net.ppvr.artery.integration.wthit.ArteryWailaClientPlugin"
+    },
+    "side": "*",
+    "required": []
+  }
+}

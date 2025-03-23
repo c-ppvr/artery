@@ -133,7 +133,7 @@ public class PressorBlockEntity extends OrganBlockEntity implements NamedScreenH
 
     @Override
     public int getCapacity() {
-        return 0;
+        return 40;
     }
 
     @Override
