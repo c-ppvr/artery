@@ -28,7 +28,7 @@ jobs:
       - name: make gradle wrapper executable
         run: chmod +x ./gradlew
       - name: run datagen
-        if: endsWith(github.ref_name, '/main') || github.event_name == 'pull_request'
+        if: endsWith(github.ref, '/main') || github.event_name == 'pull_request'
         run: ./gradlew runDatagen
       - name: build
         run: ./gradlew clean build
