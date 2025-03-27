@@ -21,8 +21,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.List;
 import java.util.concurrent.Executor;
 
-import static net.ppvr.artery.Artery.MOD_ID;
-
 @Mixin(ServerWorld.class)
 public abstract class ServerWorldMixin {
     @Shadow

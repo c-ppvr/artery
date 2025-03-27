@@ -1,7 +1,6 @@
 package net.ppvr.artery.mixin;
 
 
-import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.component.ComponentHolder;
 import net.minecraft.component.ComponentType;
 import net.minecraft.component.type.TooltipDisplayComponent;
@@ -25,9 +24,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 @Mixin(ItemStack.class)
