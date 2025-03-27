@@ -15,7 +15,6 @@ import static net.ppvr.artery.Artery.MOD_ID;
 
 public class OrganGroupState extends PersistentState {
     private final Set<OrganGroup> groups;
-    private final ServerWorld world;
     public static PersistentStateType<OrganGroupState> getPersistentStateType() {
         return new PersistentStateType<>(MOD_ID + "_organ_group", OrganGroupState::new, OrganGroupState::createCodec, null);
     }
@@ -36,12 +35,10 @@ public class OrganGroupState extends PersistentState {
     @Deprecated
     public OrganGroupState() {
         this.groups = new HashSet<>();
-        this.world = null;
     }
 
     public OrganGroupState(Context context) {
         this.groups = new HashSet<>();
-        this.world = context.world();
     }
 
     public OrganGroupState(Context context, Collection<OrganGroup> groups) {
