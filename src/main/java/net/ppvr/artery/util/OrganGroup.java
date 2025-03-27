@@ -113,7 +113,7 @@ public class OrganGroup {
 
     public void writeNbt(NbtCompound nbt) {
         NbtCompound compound = new NbtCompound();
-        NbtLongArray blocksNbt = new NbtLongArray(posSet.stream().map(BlockPos::asLong).toList());
+        NbtLongArray blocksNbt = new NbtLongArray(posSet.stream().map(BlockPos::asLong).mapToLong(l -> l).toArray());
         compound.put("blocks", blocksNbt);
         compound.putInt("sanguinity", sanguinity);
         nbt.put(uuid.toString(), compound);

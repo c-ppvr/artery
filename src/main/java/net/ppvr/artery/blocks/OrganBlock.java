@@ -18,7 +18,7 @@ import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 
 public abstract class OrganBlock extends BlockWithEntity {
-    public static final BooleanProperty ACTIVE = Properties.ACTIVE;
+    public static final BooleanProperty ACTIVE = ArteryProperties.ACTIVE;
 
     public OrganBlock(Settings settings) {
         super(settings);
@@ -38,12 +38,13 @@ public abstract class OrganBlock extends BlockWithEntity {
     }
 
     @Override
-    protected void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+    protected void onStateReplaced(BlockState state, ServerWorld world, BlockPos pos, boolean moved) {
+        BlockState newState = world.getBlockState(pos);
         if (world.getBlockEntity(pos) instanceof OrganBlockEntity blockEntity && !state.isOf(newState.getBlock())) {
             blockEntity.getGroup().remove(pos);
             blockEntity.getGroup().redistribute();
         }
-        super.onStateReplaced(state, world, pos, newState, moved);
+        super.onStateReplaced(state, world, pos, moved);
     }
 
     @Override
@@ -55,6 +56,6 @@ public abstract class OrganBlock extends BlockWithEntity {
     }
 
     public static ToIntFunction<BlockState> getLuminanceSupplier(int luminance) {
-        return state -> state.get(Properties.ACTIVE) ? luminance : 0;
+        return state -> state.get(ArteryProperties.ACTIVE) ? luminance : 0;
     }
 }

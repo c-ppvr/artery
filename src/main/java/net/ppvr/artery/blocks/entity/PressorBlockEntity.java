@@ -120,8 +120,8 @@ public class PressorBlockEntity extends OrganBlockEntity implements NamedScreenH
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         inventory = DefaultedList.ofSize(size(), ItemStack.EMPTY);
         Inventories.readNbt(nbt, inventory, registries);
-        litTimeRemaining = nbt.getShort("lit_time_remaining");
-        litTotalTime = nbt.getShort("lit_total_time");
+        litTimeRemaining = nbt.getShort("lit_time_remaining", (short) 0);
+        litTotalTime = nbt.getShort("lit_total_time", (short) 0);
     }
 
     @Override

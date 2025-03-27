@@ -4,6 +4,7 @@ package net.ppvr.artery.mixin;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.component.ComponentHolder;
 import net.minecraft.component.ComponentType;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
@@ -48,11 +49,11 @@ public abstract class ItemStackMixin implements ComponentHolder, ItemStackHooks 
         return addition != shouldFlipColor;
     }
 
-    @Inject(method = "getTooltip", at = @At(value = "INVOKE", target = "Ljava/util/List;add(Ljava/lang/Object;)Z", ordinal = 3))
-    public void getTooltip(Item.TooltipContext context, @Nullable PlayerEntity player, TooltipType type, CallbackInfoReturnable<List<Text>> cir, @Local List<Text> list) {
+    @Inject(method = "appendTooltip", at = @At(value = "INVOKE", target="Ljava/util/function/Consumer;accept(Ljava/lang/Object;)V", ordinal = 6))
+    public void appendTooltip(Item.TooltipContext context, TooltipDisplayComponent displayComponent, @Nullable PlayerEntity player, TooltipType type, Consumer<Text> textConsumer, CallbackInfo ci) {
         ItemStack itemStack = (ItemStack) (Object) this;
         if (itemStack.contains(ArteryDataComponentTypes.MAX_PRESSURE)) {
-            list.add(Text.translatable("item.artery.pressure", artery$getPressure(), artery$getMaxPressure()));
+            textConsumer.accept(Text.translatable("item.artery.pressure", artery$getPressure(), artery$getMaxPressure()));
         }
     }
 

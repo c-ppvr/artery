@@ -5,11 +5,9 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.PersistentState;
+import net.minecraft.world.PersistentStateType;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static net.ppvr.artery.Artery.MOD_ID;
@@ -17,8 +15,8 @@ import static net.ppvr.artery.Artery.MOD_ID;
 public class OrganGroupState extends PersistentState {
     private final Set<OrganGroup> groups;
 
-    public static Type<OrganGroupState> getPersistentStateType(ServerWorld world) {
-        return new Type<>(OrganGroupState::new, (nbt, registries) -> OrganGroupState.fromNbt(world, nbt), null);
+    public static PersistentStateType<OrganGroupState> getPersistentStateType(ServerWorld world) {
+        return new PersistentStateType<>(MOD_ID + "_organ_group", OrganGroupState::new, (nbt, registries) -> OrganGroupState.fromNbt(world, nbt), null);
     }
 
     public static OrganGroupState get(ServerWorld world) {
@@ -51,13 +49,17 @@ public class OrganGroupState extends PersistentState {
     public static OrganGroupState fromNbt(ServerWorld world, NbtCompound nbt) {
         OrganGroupState groupState = new OrganGroupState();
         for (String uuid : nbt.getKeys()) {
-            NbtCompound compound = nbt.getCompound(uuid);
-            if (compound.getLongArray("blocks").length == 0) {
+            Optional<NbtCompound> compound = nbt.getCompound(uuid);
+            if (compound.isEmpty()) {
+                continue;
+            }
+            Optional<long[]> blocks = compound.get().getLongArray("blocks");
+            if (blocks.isEmpty()) {
                 continue;
             }
             OrganGroup group = new OrganGroup(world, UUID.fromString(uuid));
-            group.addAll(Arrays.stream(compound.getLongArray("blocks")).mapToObj(BlockPos::fromLong).collect(Collectors.toSet()));
-            group.initializeSanguinity(compound.getInt("sanguinity"));
+            group.addAll(Arrays.stream(blocks.get()).mapToObj(BlockPos::fromLong).collect(Collectors.toSet()));
+            group.initializeSanguinity(compound.get().getInt("sanguinity", 0));
             groupState.add(group);
         }
         return groupState;

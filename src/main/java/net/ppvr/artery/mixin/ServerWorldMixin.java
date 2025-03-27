@@ -30,6 +30,6 @@ public abstract class ServerWorldMixin {
 
     @Inject(method = "<init>", at = @At("TAIL"))
     public void init(MinecraftServer server, Executor workerExecutor, LevelStorage.Session session, ServerWorldProperties properties, RegistryKey<World> worldKey, DimensionOptions dimensionOptions, WorldGenerationProgressListener worldGenerationProgressListener, boolean debugWorld, long seed, List<SpecialSpawner> spawners, boolean shouldTickTime, RandomSequencesState randomSequencesState, CallbackInfo ci) {
-        getPersistentStateManager().getOrCreate(OrganGroupState.getPersistentStateType((ServerWorld) (Object) this), MOD_ID + "_organ_group");
+        getPersistentStateManager().getOrCreate(OrganGroupState.getPersistentStateType((ServerWorld) (Object) this));
     }
 }

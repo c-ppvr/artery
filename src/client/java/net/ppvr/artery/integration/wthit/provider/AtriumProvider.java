@@ -17,8 +17,8 @@ public enum AtriumProvider implements IBlockComponentProvider {
         if (!storageNbt.contains("sanguinity") || !storageNbt.contains("capacity")) {
             return;
         }
-        int sanguinity = accessor.getData().raw().getInt("sanguinity");
-        int capacity = accessor.getData().raw().getInt("capacity");
+        int sanguinity = accessor.getData().raw().getInt("sanguinity",0);
+        int capacity = accessor.getData().raw().getInt("capacity",0);
         tooltip.setLine(Options.ATRIUM, new SanguinityComponent(sanguinity, capacity));
     }
 }
