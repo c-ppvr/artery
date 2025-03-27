@@ -10,6 +10,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.ppvr.artery.blocks.entity.OrganBlockEntity;
 import net.ppvr.artery.util.OrganGroup;
+import net.ppvr.artery.util.OrganGroupState;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -39,9 +40,12 @@ public abstract class OrganBlock extends BlockWithEntity {
     @Override
     protected void onStateReplaced(BlockState state, ServerWorld world, BlockPos pos, boolean moved) {
         BlockState newState = world.getBlockState(pos);
-        if (world.getBlockEntity(pos) instanceof OrganBlockEntity blockEntity && !state.isOf(newState.getBlock())) {
-            blockEntity.getGroup().remove(pos);
-            blockEntity.getGroup().redistribute();
+        if (!state.isOf(newState.getBlock())) {
+            OrganGroup group = OrganGroupState.get(world).get(pos);
+            if (group != null) {
+                group.remove(pos);
+                group.redistribute();
+            }
         }
         super.onStateReplaced(state, world, pos, moved);
     }
