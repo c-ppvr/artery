@@ -1,7 +1,8 @@
 package net.ppvr.artery.util;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.PersistentState;
@@ -14,17 +15,38 @@ import static net.ppvr.artery.Artery.MOD_ID;
 
 public class OrganGroupState extends PersistentState {
     private final Set<OrganGroup> groups;
+    private final ServerWorld world;
+    public static PersistentStateType<OrganGroupState> getPersistentStateType() {
+        return new PersistentStateType<>(MOD_ID + "_organ_group", OrganGroupState::new, OrganGroupState::createCodec, null);
+    }
 
-    public static PersistentStateType<OrganGroupState> getPersistentStateType(ServerWorld world) {
-        return new PersistentStateType<>(MOD_ID + "_organ_group", OrganGroupState::new, (nbt, registries) -> OrganGroupState.fromNbt(world, nbt), null);
+    private static Codec<OrganGroupState> createCodec(Context context) {
+        Codec<OrganGroup> groupCodec = OrganGroup.createCodec(context);
+        return RecordCodecBuilder.create(
+                instance -> instance.group(
+                        groupCodec.listOf().fieldOf("groups").forGetter(state -> state.groups.stream().toList())
+                ).apply(instance, groups -> new OrganGroupState(context, groups))
+        );
     }
 
     public static OrganGroupState get(ServerWorld world) {
-        return world.getPersistentStateManager().get(OrganGroupState.getPersistentStateType(world), MOD_ID + "_organ_group");
+        return world.getPersistentStateManager().get(OrganGroupState.getPersistentStateType());
     }
 
+    @Deprecated
     public OrganGroupState() {
         this.groups = new HashSet<>();
+        this.world = null;
+    }
+
+    public OrganGroupState(Context context) {
+        this.groups = new HashSet<>();
+        this.world = context.world();
+    }
+
+    public OrganGroupState(Context context, Collection<OrganGroup> groups) {
+        this(context);
+        this.groups.addAll(groups);
     }
 
     public void add(OrganGroup group) {
@@ -46,7 +68,9 @@ public class OrganGroupState extends PersistentState {
         return null;
     }
 
-    public static OrganGroupState fromNbt(ServerWorld world, NbtCompound nbt) {
+    @Deprecated
+    public static OrganGroupState fromNbt(Context context, NbtCompound nbt) {
+        ServerWorld world = context.world();
         OrganGroupState groupState = new OrganGroupState();
         for (String uuid : nbt.getKeys()) {
             Optional<NbtCompound> compound = nbt.getCompound(uuid);
@@ -65,8 +89,8 @@ public class OrganGroupState extends PersistentState {
         return groupState;
     }
 
-    @Override
-    public NbtCompound writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+    @Deprecated
+    public NbtCompound writeNbt(NbtCompound nbt) {
         groups.forEach(group -> group.writeNbt(nbt));
         return nbt;
     }
