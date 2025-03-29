@@ -1,6 +1,7 @@
 package net.ppvr.artery.util;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.PersistentState;
@@ -18,7 +19,11 @@ public class OrganGroupState extends PersistentState {
 
     private static Codec<OrganGroupState> createCodec(Context context) {
         Codec<OrganGroup> groupCodec = OrganGroup.createCodec(context);
-        return groupCodec.listOf().xmap(OrganGroupState::new, state -> state.groups.stream().toList());
+        return RecordCodecBuilder.create(
+                instance -> instance.group(
+                        groupCodec.listOf().fieldOf("groups").forGetter(state -> state.groups.stream().toList())
+                ).apply(instance, OrganGroupState::new)
+        );
     }
 
     public static OrganGroupState get(ServerWorld world) {
