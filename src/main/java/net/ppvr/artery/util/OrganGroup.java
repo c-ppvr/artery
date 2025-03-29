@@ -2,8 +2,6 @@ package net.ppvr.artery.util;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtLongArray;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -12,41 +10,35 @@ import net.ppvr.artery.blocks.OrganBlock;
 import net.ppvr.artery.blocks.entity.OrganBlockEntity;
 
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.LongStream;
 
 public class OrganGroup {
     public static Codec<OrganGroup> createCodec(PersistentState.Context context) {
         return RecordCodecBuilder.create(
                 instance -> instance.group(
-                        Codec.STRING.fieldOf("uuid").forGetter(group -> group.uuid.toString()),
-                        Codec.LONG_STREAM.fieldOf("posSet").forGetter(OrganGroup::getPosLongStream),
+                        Codec.LONG_STREAM.fieldOf("blocks").forGetter(OrganGroup::getPosLongStream),
                         Codec.INT.fieldOf("sanguinity").forGetter(OrganGroup::getSanguinity)
-                ).apply(instance, (uuid, posSet, sanguinity) -> {
-                            OrganGroup group = new OrganGroup(context.world(), UUID.fromString(uuid));
-                            group.addAll(posSet.mapToObj(BlockPos::fromLong).collect(Collectors.toSet()));
-                            group.initializeSanguinity(sanguinity);
-                            return group;
-                        }
+                ).apply(instance,  (blocks, sanguinity) -> new OrganGroup(context.world(), blocks.mapToObj(BlockPos::fromLong).toList(), sanguinity)
                 )
         );
     }
 
-    public final UUID uuid;
     private int sanguinity;
     private int capacity;
     private boolean modified;
     private final ServerWorld world;
     private final Set<BlockPos> posSet;
 
-    public OrganGroup(ServerWorld world, UUID uuid) {
+    public OrganGroup(ServerWorld world) {
         this.world = world;
         this.posSet = new HashSet<>();
-        this.uuid = uuid;
     }
 
-    private OrganGroup(ServerWorld world) {
-        this(world, UUID.randomUUID());
+    public OrganGroup(ServerWorld world, Collection<BlockPos> posCollection, int sanguinity) {
+        this(world);
+        addAll(posCollection);
+        this.sanguinity = sanguinity;
+        refreshBlockStates();
     }
 
     public static OrganGroup create(ServerWorld world) {
@@ -131,14 +123,6 @@ public class OrganGroup {
         OrganGroupState.get(world).remove(this);
     }
 
-    public void writeNbt(NbtCompound nbt) {
-        NbtCompound compound = new NbtCompound();
-        NbtLongArray blocksNbt = new NbtLongArray(getPosLongStream().toArray());
-        compound.put("blocks", blocksNbt);
-        compound.putInt("sanguinity", sanguinity);
-        nbt.put(uuid.toString(), compound);
-    }
-
     public LongStream getPosLongStream() {
         return posSet.stream().map(BlockPos::asLong).mapToLong(l -> l);
     }
@@ -151,10 +135,6 @@ public class OrganGroup {
         return sanguinity;
     }
 
-    public void initializeSanguinity(int sanguinity) {
-        this.sanguinity = sanguinity;
-        refreshBlockStates();
-    }
 
     public void setSanguinity(int sanguinity) {
         this.sanguinity = Math.min(sanguinity, getCapacity());
