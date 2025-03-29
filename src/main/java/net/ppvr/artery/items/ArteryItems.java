@@ -35,12 +35,12 @@ public class ArteryItems {
     public static final Item HEMOGLOBIUM_INGOT = register("hemoglobium_ingot");
     public static final Item FLESH = register("flesh", new Item.Settings().food(ArteryFoodComponents.FLESH, ArteryConsumableComponents.FLESH));
 
-    public static final Item LEUKIUM_SWORD = register("leukium_sword", settings -> new SwordItem(ArteryToolMaterial.LEUKIUM, 4.0f, -2.4f, settings));
+    public static final Item LEUKIUM_SWORD = register("leukium_sword", new Item.Settings().sword(ArteryToolMaterial.LEUKIUM, 4.0f, -2.4f));
     public static final Item LEUKIUM_AXE = register("leukium_axe", settings -> new AxeItem(ArteryToolMaterial.LEUKIUM, 6.0f, -2.8f, settings));
-    public static final Item THROMBIUM_HELMET = register("thrombium_helmet", settings -> new ArmorItem(ArteryArmorMaterial.THROMBIUM, EquipmentType.HELMET, settings));
-    public static final Item THROMBIUM_CHESTPLATE = register("thrombium_chestplate", settings -> new ArmorItem(ArteryArmorMaterial.THROMBIUM, EquipmentType.CHESTPLATE, settings));
-    public static final Item THROMBIUM_LEGGINGS = register("thrombium_leggings", settings -> new ArmorItem(ArteryArmorMaterial.THROMBIUM, EquipmentType.LEGGINGS, settings));
-    public static final Item THROMBIUM_BOOTS = register("thrombium_boots", settings -> new ArmorItem(ArteryArmorMaterial.THROMBIUM, EquipmentType.BOOTS, settings));
+    public static final Item THROMBIUM_HELMET = register("thrombium_helmet", new Item.Settings().armor(ArteryArmorMaterial.THROMBIUM, EquipmentType.HELMET));
+    public static final Item THROMBIUM_CHESTPLATE = register("thrombium_chestplate", new Item.Settings().armor(ArteryArmorMaterial.THROMBIUM, EquipmentType.CHESTPLATE));
+    public static final Item THROMBIUM_LEGGINGS = register("thrombium_leggings", new Item.Settings().armor(ArteryArmorMaterial.THROMBIUM, EquipmentType.LEGGINGS));
+    public static final Item THROMBIUM_BOOTS = register("thrombium_boots", new Item.Settings().armor(ArteryArmorMaterial.THROMBIUM, EquipmentType.BOOTS));
 
     public static final Item TOTEM_OF_REVIVAL = register("totem_of_revival", new Item.Settings().rarity(Rarity.UNCOMMON).maxDamage(32).artery$maxPressure(1440).component(DataComponentTypes.DEATH_PROTECTION, DeathProtectionComponent.TOTEM_OF_UNDYING));
 

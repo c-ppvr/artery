@@ -4,9 +4,13 @@ import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.client.data.*;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.math.Direction;
 import net.ppvr.artery.blocks.ArteryBlocks;
+import net.ppvr.artery.blocks.ArteryProperties;
 import net.ppvr.artery.items.ArteryEquipmentAssetKeys;
 import net.ppvr.artery.items.ArteryItems;
+
+import static net.minecraft.client.data.BlockStateModelGenerator.*;
 
 public class ArteryModelProvider extends FabricModelProvider {
     public ArteryModelProvider(FabricDataOutput output) {
@@ -16,16 +20,14 @@ public class ArteryModelProvider extends FabricModelProvider {
     @Override
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
         blockStateModelGenerator.blockStateCollector.accept(
-                VariantsBlockStateSupplier.create(ArteryBlocks.ATRIUM)
-                        .coordinate(
-                                BlockStateVariantMap.create(Properties.ACTIVE)
-                                        .register(true, BlockStateVariant.create().put(
-                                                        VariantSettings.MODEL,
+                VariantsBlockModelDefinitionCreator.of(ArteryBlocks.ATRIUM)
+                        .with(
+                                BlockStateVariantMap.models(ArteryProperties.ACTIVE)
+                                        .register(true, BlockStateModelGenerator.createWeightedVariant(
                                                         TexturedModel.CUBE_ALL.upload(ArteryBlocks.ATRIUM, blockStateModelGenerator.modelCollector)
                                                 )
                                         )
-                                        .register(false, BlockStateVariant.create().put(
-                                                        VariantSettings.MODEL,
+                                        .register(false, BlockStateModelGenerator.createWeightedVariant(
                                                         TexturedModel.CUBE_ALL
                                                                 .get(ArteryBlocks.ATRIUM)
                                                                 .textures(textureMap -> textureMap.put(TextureKey.ALL, TextureMap.getSubId(ArteryBlocks.ATRIUM, "_empty")))
@@ -35,18 +37,16 @@ public class ArteryModelProvider extends FabricModelProvider {
                         )
         );
         blockStateModelGenerator.blockStateCollector.accept(
-                VariantsBlockStateSupplier.create(ArteryBlocks.VENTRICLE)
-                        .coordinate(
-                                BlockStateVariantMap.create(Properties.LIT, Properties.ACTIVE)
+                VariantsBlockModelDefinitionCreator.of(ArteryBlocks.VENTRICLE)
+                        .with(
+                                BlockStateVariantMap.models(Properties.LIT, ArteryProperties.ACTIVE)
                                         .register(false, true,
-                                                BlockStateVariant.create().put(
-                                                        VariantSettings.MODEL,
+                                                BlockStateModelGenerator.createWeightedVariant(
                                                         TexturedModel.CUBE_BOTTOM_TOP.upload(ArteryBlocks.VENTRICLE, blockStateModelGenerator.modelCollector)
                                                 )
                                         )
                                         .register(true, true,
-                                                BlockStateVariant.create().put(
-                                                        VariantSettings.MODEL,
+                                                BlockStateModelGenerator.createWeightedVariant(
                                                         TexturedModel.CUBE_BOTTOM_TOP
                                                                 .get(ArteryBlocks.VENTRICLE)
                                                                 .textures(textureMap -> textureMap
@@ -57,8 +57,7 @@ public class ArteryModelProvider extends FabricModelProvider {
                                                 )
                                         )
                                         .register(false, false,
-                                                BlockStateVariant.create().put(
-                                                        VariantSettings.MODEL,
+                                                BlockStateModelGenerator.createWeightedVariant(
                                                         TexturedModel.CUBE_BOTTOM_TOP
                                                                 .get(ArteryBlocks.VENTRICLE)
                                                                 .textures(textureMap -> textureMap
@@ -69,8 +68,7 @@ public class ArteryModelProvider extends FabricModelProvider {
                                                 )
                                         )
                                         .register(true, false,
-                                                BlockStateVariant.create().put(
-                                                        VariantSettings.MODEL,
+                                                BlockStateModelGenerator.createWeightedVariant(
                                                         TexturedModel.CUBE_BOTTOM_TOP
                                                                 .get(ArteryBlocks.VENTRICLE)
                                                                 .textures(textureMap -> textureMap
@@ -83,18 +81,16 @@ public class ArteryModelProvider extends FabricModelProvider {
                         )
         );
         blockStateModelGenerator.blockStateCollector.accept(
-                VariantsBlockStateSupplier.create(ArteryBlocks.FIBROBLASTER)
-                        .coordinate(
-                                BlockStateVariantMap.create(Properties.LIT, Properties.ACTIVE)
+                VariantsBlockModelDefinitionCreator.of(ArteryBlocks.FIBROBLASTER)
+                        .with(
+                                BlockStateVariantMap.models(Properties.LIT, ArteryProperties.ACTIVE)
                                         .register(false, true,
-                                                BlockStateVariant.create().put(
-                                                        VariantSettings.MODEL,
+                                                BlockStateModelGenerator.createWeightedVariant(
                                                         TexturedModel.CUBE_COLUMN.upload(ArteryBlocks.FIBROBLASTER, blockStateModelGenerator.modelCollector)
                                                 )
                                         )
                                         .register(true, true,
-                                                BlockStateVariant.create().put(
-                                                        VariantSettings.MODEL,
+                                                BlockStateModelGenerator.createWeightedVariant(
                                                         TexturedModel.CUBE_COLUMN
                                                                 .get(ArteryBlocks.FIBROBLASTER)
                                                                 .textures(textureMap -> textureMap
@@ -104,8 +100,7 @@ public class ArteryModelProvider extends FabricModelProvider {
                                                 )
                                         )
                                         .register(false, false,
-                                                BlockStateVariant.create().put(
-                                                        VariantSettings.MODEL,
+                                                BlockStateModelGenerator.createWeightedVariant(
                                                         TexturedModel.CUBE_COLUMN
                                                                 .get(ArteryBlocks.FIBROBLASTER)
                                                                 .textures(textureMap -> textureMap
@@ -115,8 +110,7 @@ public class ArteryModelProvider extends FabricModelProvider {
                                                 )
                                         )
                                         .register(true, false,
-                                                BlockStateVariant.create().put(
-                                                        VariantSettings.MODEL,
+                                                BlockStateModelGenerator.createWeightedVariant(
                                                         TexturedModel.CUBE_COLUMN
                                                                 .get(ArteryBlocks.FIBROBLASTER)
                                                                 .textures(textureMap -> textureMap
@@ -128,18 +122,16 @@ public class ArteryModelProvider extends FabricModelProvider {
                         )
         );
         blockStateModelGenerator.blockStateCollector.accept(
-                VariantsBlockStateSupplier.create(ArteryBlocks.PRESSOR)
-                        .coordinate(
-                                BlockStateVariantMap.create(Properties.LIT, Properties.ACTIVE)
+                VariantsBlockModelDefinitionCreator.of(ArteryBlocks.PRESSOR)
+                        .with(
+                                BlockStateVariantMap.models(Properties.LIT, ArteryProperties.ACTIVE)
                                         .register(false, true,
-                                                BlockStateVariant.create().put(
-                                                        VariantSettings.MODEL,
+                                                BlockStateModelGenerator.createWeightedVariant(
                                                         TexturedModel.ORIENTABLE.upload(ArteryBlocks.PRESSOR, blockStateModelGenerator.modelCollector)
                                                 )
                                         )
                                         .register(true, true,
-                                                BlockStateVariant.create().put(
-                                                        VariantSettings.MODEL,
+                                                BlockStateModelGenerator.createWeightedVariant(
                                                         TexturedModel.ORIENTABLE
                                                                 .get(ArteryBlocks.PRESSOR)
                                                                 .textures(textureMap -> textureMap
@@ -149,8 +141,7 @@ public class ArteryModelProvider extends FabricModelProvider {
                                                 )
                                         )
                                         .register(false, false,
-                                                BlockStateVariant.create().put(
-                                                        VariantSettings.MODEL,
+                                                BlockStateModelGenerator.createWeightedVariant(
                                                         TexturedModel.ORIENTABLE
                                                                 .get(ArteryBlocks.PRESSOR)
                                                                 .textures(textureMap -> textureMap
@@ -161,8 +152,7 @@ public class ArteryModelProvider extends FabricModelProvider {
                                                 )
                                         )
                                         .register(true, false,
-                                                BlockStateVariant.create().put(
-                                                        VariantSettings.MODEL,
+                                                BlockStateModelGenerator.createWeightedVariant(
                                                         TexturedModel.ORIENTABLE
                                                                 .get(ArteryBlocks.PRESSOR)
                                                                 .textures(textureMap -> textureMap
@@ -173,7 +163,12 @@ public class ArteryModelProvider extends FabricModelProvider {
                                                 )
                                         )
                         )
-                        .coordinate(BlockStateModelGenerator.createNorthDefaultHorizontalRotationStates())
+                        .coordinate(BlockStateVariantMap.operations(Properties.HORIZONTAL_FACING)
+                                        .register(Direction.EAST, ROTATE_Y_90)
+                                        .register(Direction.SOUTH, ROTATE_Y_180)
+                                        .register(Direction.WEST, ROTATE_Y_270)
+                                        .register(Direction.NORTH, NO_OP)
+                        )
         );
         blockStateModelGenerator.registerSimpleCubeAll(ArteryBlocks.ERYTHRITE_ORE);
         blockStateModelGenerator.registerSimpleCubeAll(ArteryBlocks.DEEPSLATE_ERYTHRITE_ORE);
@@ -202,10 +197,10 @@ public class ArteryModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ArteryItems.LEUKIUM_SWORD, Models.HANDHELD);
         itemModelGenerator.register(ArteryItems.LEUKIUM_AXE, Models.HANDHELD);
 
-        itemModelGenerator.registerArmor(ArteryItems.THROMBIUM_HELMET, ArteryEquipmentAssetKeys.THROMBIUM, "helmet", false);
-        itemModelGenerator.registerArmor(ArteryItems.THROMBIUM_CHESTPLATE, ArteryEquipmentAssetKeys.THROMBIUM, "chestplate", false);
-        itemModelGenerator.registerArmor(ArteryItems.THROMBIUM_LEGGINGS, ArteryEquipmentAssetKeys.THROMBIUM, "leggings", false);
-        itemModelGenerator.registerArmor(ArteryItems.THROMBIUM_BOOTS, ArteryEquipmentAssetKeys.THROMBIUM, "boots", false);
+        itemModelGenerator.registerArmor(ArteryItems.THROMBIUM_HELMET, ArteryEquipmentAssetKeys.THROMBIUM, ItemModelGenerator.HELMET_TRIM_ID_PREFIX, false);
+        itemModelGenerator.registerArmor(ArteryItems.THROMBIUM_CHESTPLATE, ArteryEquipmentAssetKeys.THROMBIUM, ItemModelGenerator.CHESTPLATE_TRIM_ID_PREFIX, false);
+        itemModelGenerator.registerArmor(ArteryItems.THROMBIUM_LEGGINGS, ArteryEquipmentAssetKeys.THROMBIUM, ItemModelGenerator.LEGGINGS_TRIM_ID_PREFIX, false);
+        itemModelGenerator.registerArmor(ArteryItems.THROMBIUM_BOOTS, ArteryEquipmentAssetKeys.THROMBIUM, ItemModelGenerator.BOOTS_TRIM_ID_PREFIX, false);
 
         itemModelGenerator.register(ArteryItems.TOTEM_OF_REVIVAL, Models.GENERATED);
     }

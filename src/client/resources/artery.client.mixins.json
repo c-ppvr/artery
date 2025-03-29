@@ -8,9 +8,5 @@
   ],
   "injectors": {
     "defaultRequire": 1
-  },
-  "mixins": [
-    "appleskin.TooltipOverlayHandlerMixin",
-    "appleskin.TooltipOverlayHandlerMixin$FoodOverlayMixin"
-  ]
+  }
 }

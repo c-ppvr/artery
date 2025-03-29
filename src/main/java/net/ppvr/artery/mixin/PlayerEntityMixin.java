@@ -60,8 +60,8 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
 
     @Inject(method = "readCustomDataFromNbt", at = @At("TAIL"))
     public void readCustomDataFromNbt(NbtCompound nbt, CallbackInfo ci) {
-        dataTracker.set(SANGUINITY, nbt.getFloat("Sanguinity"));
-        dataTracker.set(UNCONVERTED_SANGUINITY, nbt.getFloat("UnconvertedSanguinity"));
+        dataTracker.set(SANGUINITY, nbt.getFloat("Sanguinity", 0f));
+        dataTracker.set(UNCONVERTED_SANGUINITY, nbt.getFloat("UnconvertedSanguinity", 0f));
     }
 
     public float artery$getMaxSanguinity() {

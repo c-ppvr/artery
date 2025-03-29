@@ -6,11 +6,11 @@ import net.minecraft.block.BlockWithEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.ppvr.artery.blocks.entity.OrganBlockEntity;
 import net.ppvr.artery.util.OrganGroup;
+import net.ppvr.artery.util.OrganGroupState;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -18,7 +18,7 @@ import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 
 public abstract class OrganBlock extends BlockWithEntity {
-    public static final BooleanProperty ACTIVE = Properties.ACTIVE;
+    public static final BooleanProperty ACTIVE = ArteryProperties.ACTIVE;
 
     public OrganBlock(Settings settings) {
         super(settings);
@@ -38,12 +38,16 @@ public abstract class OrganBlock extends BlockWithEntity {
     }
 
     @Override
-    protected void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        if (world.getBlockEntity(pos) instanceof OrganBlockEntity blockEntity && !state.isOf(newState.getBlock())) {
-            blockEntity.getGroup().remove(pos);
-            blockEntity.getGroup().redistribute();
+    protected void onStateReplaced(BlockState state, ServerWorld world, BlockPos pos, boolean moved) {
+        BlockState newState = world.getBlockState(pos);
+        if (!state.isOf(newState.getBlock())) {
+            OrganGroup group = OrganGroupState.get(world).get(pos);
+            if (group != null) {
+                group.remove(pos);
+                group.redistribute();
+            }
         }
-        super.onStateReplaced(state, world, pos, newState, moved);
+        super.onStateReplaced(state, world, pos, moved);
     }
 
     @Override
@@ -55,6 +59,6 @@ public abstract class OrganBlock extends BlockWithEntity {
     }
 
     public static ToIntFunction<BlockState> getLuminanceSupplier(int luminance) {
-        return state -> state.get(Properties.ACTIVE) ? luminance : 0;
+        return state -> state.get(ArteryProperties.ACTIVE) ? luminance : 0;
     }
 }
