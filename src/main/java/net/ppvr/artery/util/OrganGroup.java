@@ -1,6 +1,7 @@
 package net.ppvr.artery.util;
 
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtLongArray;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -12,21 +13,15 @@ import java.util.*;
 
 public class OrganGroup {
 
-    public final UUID uuid;
     private int sanguinity;
     private int capacity;
     private boolean modified;
     private final ServerWorld world;
     private final Set<BlockPos> posSet;
 
-    public OrganGroup(ServerWorld world, UUID uuid) {
+    public OrganGroup(ServerWorld world) {
         this.world = world;
         this.posSet = new HashSet<>();
-        this.uuid = uuid;
-    }
-
-    private OrganGroup(ServerWorld world) {
-        this(world, UUID.randomUUID());
     }
 
     public static OrganGroup create(ServerWorld world) {
@@ -111,12 +106,12 @@ public class OrganGroup {
         OrganGroupState.get(world).remove(this);
     }
 
-    public void writeNbt(NbtCompound nbt) {
-        NbtCompound compound = new NbtCompound();
+    public void writeNbtList(NbtList list) {
+        NbtCompound nbt = new NbtCompound();
         NbtLongArray blocksNbt = new NbtLongArray(posSet.stream().map(BlockPos::asLong).toList());
-        compound.put("blocks", blocksNbt);
-        compound.putInt("sanguinity", sanguinity);
-        nbt.put(uuid.toString(), compound);
+        nbt.put("blocks", blocksNbt);
+        nbt.putInt("sanguinity", sanguinity);
+        list.add(nbt);
     }
 
     public boolean contains(BlockPos pos) {

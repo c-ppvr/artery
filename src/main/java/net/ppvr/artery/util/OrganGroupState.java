@@ -1,6 +1,8 @@
 package net.ppvr.artery.util;
 
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -9,7 +11,6 @@ import net.minecraft.world.PersistentState;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static net.ppvr.artery.Artery.MOD_ID;
@@ -50,12 +51,14 @@ public class OrganGroupState extends PersistentState {
 
     public static OrganGroupState fromNbt(ServerWorld world, NbtCompound nbt) {
         OrganGroupState groupState = new OrganGroupState();
-        for (String uuid : nbt.getKeys()) {
-            NbtCompound compound = nbt.getCompound(uuid);
+        NbtList list = nbt.getList("groups", NbtElement.COMPOUND_TYPE);
+        int end = list.size();
+        for (int i = 0; i < end; ++i) {
+            NbtCompound compound = list.getCompound(i);
             if (compound.getLongArray("blocks").length == 0) {
                 continue;
             }
-            OrganGroup group = new OrganGroup(world, UUID.fromString(uuid));
+            OrganGroup group = new OrganGroup(world);
             group.addAll(Arrays.stream(compound.getLongArray("blocks")).mapToObj(BlockPos::fromLong).collect(Collectors.toSet()));
             group.initializeSanguinity(compound.getInt("sanguinity"));
             groupState.add(group);
@@ -65,7 +68,9 @@ public class OrganGroupState extends PersistentState {
 
     @Override
     public NbtCompound writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
-        groups.forEach(group -> group.writeNbt(nbt));
+        NbtList list = new NbtList();
+        groups.forEach(group -> group.writeNbtList(list));
+        nbt.put("groups", list);
         return nbt;
     }
 }
