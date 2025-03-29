@@ -17,6 +17,8 @@ import net.ppvr.artery.blocks.FibroblasterBlock;
 import net.ppvr.artery.screen.FibroblasterScreenHandler;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Optional;
+
 public class FibroblasterBlockEntity extends OrganBlockEntity implements SidedInventory {
     private ItemStack inventoryStack = ItemStack.EMPTY;
     int repairTime;
@@ -80,11 +82,12 @@ public class FibroblasterBlockEntity extends OrganBlockEntity implements SidedIn
     @Override
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         super.readNbt(nbt, registries);
-        this.inventoryStack = ItemStack.fromNbtOrEmpty(registries, nbt.getCompound("item"));
-        this.repairTime = nbt.getShort("repair_time");
-        this.repairTimer = nbt.getShort("repair_timer");
-        this.accelerationTimer = nbt.getShort("acceleration_timer");
-        this.progress = nbt.getShort("progress");
+        Optional<NbtCompound> itemNbt = nbt.getCompound("item");
+        this.inventoryStack = itemNbt.map(nbtCompound -> ItemStack.fromNbt(registries, nbtCompound).orElse(ItemStack.EMPTY)).orElse(ItemStack.EMPTY);
+        this.repairTime = nbt.getShort("repair_time", (short) 0);
+        this.repairTimer = nbt.getShort("repair_timer", (short) 0);
+        this.accelerationTimer = nbt.getShort("acceleration_timer", (short) 0);
+        this.progress = nbt.getShort("progress", (short) 0);
     }
 
     @Override
@@ -94,7 +97,9 @@ public class FibroblasterBlockEntity extends OrganBlockEntity implements SidedIn
         nbt.putShort("repair_timer", (short) repairTimer);
         nbt.putShort("acceleration_timer", (short) accelerationTimer);
         nbt.putShort("progress", (short) progress);
-        nbt.put("item", inventoryStack.toNbtAllowEmpty(registries));
+        if (!inventoryStack.isEmpty()) {
+            nbt.put("item", inventoryStack.toNbt(registries));
+        }
     }
 
     @Override

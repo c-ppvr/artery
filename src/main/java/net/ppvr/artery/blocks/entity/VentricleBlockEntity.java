@@ -196,9 +196,9 @@ public class VentricleBlockEntity extends OrganBlockEntity implements NamedScree
     @Override
     protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
         super.readNbt(nbt, registries);
-        this.infuseTimer = nbt.getShort("infuse_timer");
-        this.infuseAmountDone = nbt.getShort("infuse_amount_done");
-        this.infuseTotalAmount = nbt.getShort("infuse_total_amount");
+        this.infuseTimer = nbt.getShort("infuse_timer", (short) 0);
+        this.infuseAmountDone = nbt.getShort("infuse_amount_done", (short) 0);
+        this.infuseTotalAmount = nbt.getShort("infuse_total_amount", (short) 0);
         this.inventory = DefaultedList.ofSize(2, ItemStack.EMPTY);
         Inventories.readNbt(nbt, inventory, registries);
     }

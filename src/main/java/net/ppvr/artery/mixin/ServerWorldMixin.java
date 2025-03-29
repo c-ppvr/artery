@@ -21,8 +21,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.List;
 import java.util.concurrent.Executor;
 
-import static net.ppvr.artery.Artery.MOD_ID;
-
 @Mixin(ServerWorld.class)
 public abstract class ServerWorldMixin {
     @Shadow
@@ -30,6 +28,6 @@ public abstract class ServerWorldMixin {
 
     @Inject(method = "<init>", at = @At("TAIL"))
     public void init(MinecraftServer server, Executor workerExecutor, LevelStorage.Session session, ServerWorldProperties properties, RegistryKey<World> worldKey, DimensionOptions dimensionOptions, WorldGenerationProgressListener worldGenerationProgressListener, boolean debugWorld, long seed, List<SpecialSpawner> spawners, boolean shouldTickTime, RandomSequencesState randomSequencesState, CallbackInfo ci) {
-        getPersistentStateManager().getOrCreate(OrganGroupState.getPersistentStateType((ServerWorld) (Object) this), MOD_ID + "_organ_group");
+        getPersistentStateManager().getOrCreate(OrganGroupState.getPersistentStateType());
     }
 }

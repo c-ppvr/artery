@@ -11,6 +11,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
@@ -56,9 +57,9 @@ public class PressorBlock extends OrganBlock {
     }
 
     @Override
-    protected void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        ItemScatterer.onStateReplaced(state, newState, world, pos);
-        super.onStateReplaced(state, world, pos, newState, moved);
+    protected void onStateReplaced(BlockState state, ServerWorld world, BlockPos pos, boolean moved) {
+        ItemScatterer.onStateReplaced(state, world, pos);
+        super.onStateReplaced(state, world, pos, moved);
     }
 
     @Override
@@ -83,7 +84,7 @@ public class PressorBlock extends OrganBlock {
             double y = pos.getY();
             double z = pos.getZ() + 0.5;
             if (random.nextDouble() < 0.1) {
-                world.playSound(x, y, z, ArterySoundEvents.BLOCK_PRESSOR_FIRE_CRACKLE, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
+                world.playSoundClient(x, y, z, ArterySoundEvents.BLOCK_PRESSOR_FIRE_CRACKLE, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
             }
 
             Direction direction = state.get(FACING);
@@ -92,8 +93,8 @@ public class PressorBlock extends OrganBlock {
             double dx = axis == Direction.Axis.X ? direction.getOffsetX() * 0.52 : d;
             double dy = random.nextDouble() * 9.0 / 16.0;
             double dz = axis == Direction.Axis.Z ? direction.getOffsetZ() * 0.52 : d;
-            world.addParticle(ParticleTypes.SMOKE, x + dx, y + dy, z + dz, 0.0, 0.0, 0.0);
-            world.addParticle(ParticleTypes.FLAME, x + dx, y + dy, z + dz, 0.0, 0.0, 0.0);
+            world.addParticleClient(ParticleTypes.SMOKE, x + dx, y + dy, z + dz, 0.0, 0.0, 0.0);
+            world.addParticleClient(ParticleTypes.FLAME, x + dx, y + dy, z + dz, 0.0, 0.0, 0.0);
         }
     }
 
@@ -114,6 +115,6 @@ public class PressorBlock extends OrganBlock {
     }
 
     public static ToIntFunction<BlockState> getLuminanceSupplier(int luminance) {
-        return state -> state.get(Properties.LIT) ? 13 : state.get(Properties.ACTIVE) ? luminance : 0;
+        return state -> state.get(Properties.LIT) ? 13 : state.get(ArteryProperties.ACTIVE) ? luminance : 0;
     }
 }
