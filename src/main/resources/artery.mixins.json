@@ -15,7 +15,8 @@
     "LivingEntityMixin",
     "PlayerEntityMixin",
     "ServerWorldMixin",
-    "ToolMaterialMixin"
+    "ToolMaterialMixin",
+    "appleskin.FoodHelperMixin"
   ],
   "injectors": {
     "defaultRequire": 1

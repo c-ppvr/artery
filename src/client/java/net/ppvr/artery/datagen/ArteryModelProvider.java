@@ -3,6 +3,7 @@ package net.ppvr.artery.datagen;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.client.data.*;
+import net.minecraft.item.Item;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.Direction;
 import net.ppvr.artery.blocks.ArteryBlocks;
@@ -203,5 +204,9 @@ public class ArteryModelProvider extends FabricModelProvider {
         itemModelGenerator.registerArmor(ArteryItems.THROMBIUM_BOOTS, ArteryEquipmentAssetKeys.THROMBIUM, ItemModelGenerator.BOOTS_TRIM_ID_PREFIX, false);
 
         itemModelGenerator.register(ArteryItems.TOTEM_OF_REVIVAL, Models.GENERATED);
+
+        for (Item item : ArteryItems.WANDS) {
+            itemModelGenerator.register(item, Models.GENERATED);
+        }
     }
 }
