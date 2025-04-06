@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.recipe.CookingRecipeJsonBuilder;
 import net.minecraft.data.recipe.RecipeExporter;
 import net.minecraft.data.recipe.RecipeGenerator;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.*;
@@ -153,6 +154,31 @@ public class ArteryRecipeProvider extends FabricRecipeProvider {
                         .pattern(" N ")
                         .criterion(hasItem(ArteryItems.FLESH), conditionsFromItem(ArteryItems.FLESH))
                         .offerTo(exporter);
+
+                offerMobWandCraftingRecipe(ArteryItems.BREEZE_WAND, Items.BREEZE_ROD);
+                offerMobWandCraftingRecipe(ArteryItems.BLAZE_WAND, Items.BLAZE_ROD);
+                offerMobWandCraftingRecipe(ArteryItems.CHICKEN_WAND, Items.CHICKEN);
+                offerMobWandCraftingRecipe(ArteryItems.COD_WAND, Items.COD);
+                offerMobWandCraftingRecipe(ArteryItems.COW_WAND, Items.BEEF);
+                offerMobWandCraftingRecipe(ArteryItems.CREEPER_WAND, Items.GUNPOWDER);
+                offerMobWandCraftingRecipe(ArteryItems.ENDERMAN_WAND, Items.ENDER_EYE);
+                offerMobWandCraftingRecipe(ArteryItems.GHAST_WAND, Items.GHAST_TEAR);
+                offerMobWandCraftingRecipe(ArteryItems.GLOW_SQUID_WAND, Items.GLOW_INK_SAC);
+                offerMobWandCraftingRecipe(ArteryItems.GUARDIAN_WAND, Items.PRISMARINE_SHARD);
+                offerMobWandCraftingRecipe(ArteryItems.MAGMA_CUBE_WAND, Items.MAGMA_CREAM);
+                offerMobWandCraftingRecipe(ArteryItems.PHANTOM_WAND, Items.PHANTOM_MEMBRANE);
+                offerMobWandCraftingRecipe(ArteryItems.PIG_WAND, Items.PORKCHOP);
+                offerMobWandCraftingRecipe(ArteryItems.PUFFERFISH_WAND, Items.PUFFERFISH);
+                offerMobWandCraftingRecipe(ArteryItems.RABBIT_WAND, Items.RABBIT);
+                offerMobWandCraftingRecipe(ArteryItems.SALMON_WAND, Items.SALMON);
+                offerMobWandCraftingRecipe(ArteryItems.SHEEP_WAND, Items.MUTTON);
+                offerMobWandCraftingRecipe(ArteryItems.SHULKER_WAND, Items.SHULKER_SHELL);
+                offerMobWandCraftingRecipe(ArteryItems.SKELETON_WAND, Items.BONE);
+                offerMobWandCraftingRecipe(ArteryItems.SLIME_WAND, Items.SLIME_BALL);
+                offerMobWandCraftingRecipe(ArteryItems.SPIDER_WAND, Items.SPIDER_EYE);
+                offerMobWandCraftingRecipe(ArteryItems.SQUID_WAND, Items.INK_SAC);
+                offerMobWandCraftingRecipe(ArteryItems.TROPICAL_FISH_WAND, Items.TROPICAL_FISH);
+                offerMobWandCraftingRecipe(ArteryItems.ZOMBIE_WAND, Items.ROTTEN_FLESH);
             }
 
             public void offerInfusion(ItemConvertible output, ItemConvertible input, int infusedAmount) {
@@ -230,6 +256,18 @@ public class ArteryRecipeProvider extends FabricRecipeProvider {
                         .group(compactingGroup)
                         .criterion(hasItem(baseItem), conditionsFromItem(baseItem))
                         .offerTo(exporter, RegistryKey.of(RegistryKeys.RECIPE, Identifier.of(MOD_ID, compactingId)));
+            }
+
+            public void offerMobWandCraftingRecipe(Item item, Item material) {
+                createShaped(RecipeCategory.MISC, item)
+                        .input('#', material)
+                        .input('H', ArteryItems.HEMOGLOBIUM_INGOT)
+                        .input('/', Items.STICK)
+                        .pattern(" #H")
+                        .pattern("#H#")
+                        .pattern("/# ")
+                        .criterion(hasItem(material), conditionsFromItem(material))
+                        .offerTo(exporter);
             }
         };
     }
