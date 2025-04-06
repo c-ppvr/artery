@@ -38,7 +38,7 @@ public class MobWandItem extends Item {
             if (world.isClient) {
                 Random random = world.getRandom();
                 for (int i = 0; i < 3; ++i) {
-                    world.addParticleClient(
+                    world.addParticle(
                             ParticleTypes.WHITE_SMOKE,
                             vec.getX(),
                             vec.getY(),
@@ -73,7 +73,7 @@ public class MobWandItem extends Item {
             if (world.isClient) {
                 Random random = world.getRandom();
                 for (int i = 0; i < 3; ++i){
-                    world.addParticleClient(
+                    world.addParticle(
                             ParticleTypes.WHITE_SMOKE,
                             pos.getX() + (double) side.getOffsetX() / 2 + (side.getAxis() == Direction.Axis.X ? 0.52 : random.nextDouble() * 0.4 + 0.3),
                             pos.getY() + (double) side.getOffsetY() / 2 + (side.getAxis() == Direction.Axis.Y ? 0.52 : random.nextDouble() * 0.4 + 0.3),
