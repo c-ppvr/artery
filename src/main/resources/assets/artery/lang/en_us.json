@@ -94,6 +94,8 @@
   "tag.item.artery.leukium_tool_materials": "Leukium Tool Materials",
   "tag.item.artery.repairs_thrombium_armor": "Repairs Thrombium Armor",
 
+  "trim_material.artery.thrombium": "Thrombium Material",
+
   "waila.artery.atrium": "System Storage: %s/%s",
   "config.waila.plugin_artery": "Artery",
   "config.waila.plugin_artery.atrium": "Show Atrium Storage"

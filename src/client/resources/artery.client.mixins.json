@@ -4,7 +4,8 @@
   "compatibilityLevel": "JAVA_21",
   "client": [
     "DrawContextMixin",
-    "InGameHudMixin"
+    "InGameHudMixin",
+    "ItemModelGeneratorMixin"
   ],
   "injectors": {
     "defaultRequire": 1
