@@ -1,3 +1,5 @@
 accessWidener v2 named
 accessible method net/minecraft/client/gui/screen/recipebook/GhostRecipe addResults (Lnet/minecraft/screen/slot/Slot;Lnet/minecraft/util/context/ContextParameterMap;Lnet/minecraft/recipe/display/SlotDisplay;)V
 accessible method net/minecraft/client/gui/screen/recipebook/GhostRecipe addInputs (Lnet/minecraft/screen/slot/Slot;Lnet/minecraft/util/context/ContextParameterMap;Lnet/minecraft/recipe/display/SlotDisplay;)V
+accessible class net/minecraft/client/data/ItemModelGenerator$TrimMaterial
+accessible method net/minecraft/client/data/ItemModelGenerator$TrimMaterial <init> (Ljava/lang/String;Lnet/minecraft/registry/RegistryKey;Ljava/util/Map;)V

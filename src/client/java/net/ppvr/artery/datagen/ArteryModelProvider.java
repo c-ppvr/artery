@@ -4,12 +4,23 @@ import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.client.data.*;
 import net.minecraft.item.Item;
+import net.minecraft.item.Items;
+import net.minecraft.item.equipment.EquipmentAssetKeys;
 import net.minecraft.state.property.Properties;
 import net.ppvr.artery.blocks.ArteryBlocks;
+import net.ppvr.artery.items.ArteryArmorTrimMaterials;
 import net.ppvr.artery.items.ArteryEquipmentAssetKeys;
 import net.ppvr.artery.items.ArteryItems;
 
+import java.util.List;
+import java.util.Map;
+
+
 public class ArteryModelProvider extends FabricModelProvider {
+    public static final List<ItemModelGenerator.TrimMaterial> EXTRA_TRIM_MATERIALS = List.of(
+            new ItemModelGenerator.TrimMaterial("thrombium", ArteryArmorTrimMaterials.THROMBIUM, Map.of())
+    );
+
     public ArteryModelProvider(FabricDataOutput output) {
         super(output);
     }
@@ -209,6 +220,33 @@ public class ArteryModelProvider extends FabricModelProvider {
         itemModelGenerator.registerArmor(ArteryItems.THROMBIUM_BOOTS, ArteryEquipmentAssetKeys.THROMBIUM, "boots", false);
 
         itemModelGenerator.register(ArteryItems.TOTEM_OF_REVIVAL, Models.GENERATED);
+
+        // have to do this to register trims added by the mod
+        itemModelGenerator.registerArmor(Items.TURTLE_HELMET, EquipmentAssetKeys.TURTLE_SCUTE, "helmet", false);
+        itemModelGenerator.registerArmor(Items.LEATHER_HELMET, EquipmentAssetKeys.LEATHER, "helmet", true);
+        itemModelGenerator.registerArmor(Items.LEATHER_CHESTPLATE, EquipmentAssetKeys.LEATHER, "chestplate", true);
+        itemModelGenerator.registerArmor(Items.LEATHER_LEGGINGS, EquipmentAssetKeys.LEATHER, "leggings", true);
+        itemModelGenerator.registerArmor(Items.LEATHER_BOOTS, EquipmentAssetKeys.LEATHER, "boots", true);
+        itemModelGenerator.registerArmor(Items.CHAINMAIL_HELMET, EquipmentAssetKeys.CHAINMAIL, "helmet", false);
+        itemModelGenerator.registerArmor(Items.CHAINMAIL_CHESTPLATE, EquipmentAssetKeys.CHAINMAIL, "chestplate", false);
+        itemModelGenerator.registerArmor(Items.CHAINMAIL_LEGGINGS, EquipmentAssetKeys.CHAINMAIL, "leggings", false);
+        itemModelGenerator.registerArmor(Items.CHAINMAIL_BOOTS, EquipmentAssetKeys.CHAINMAIL, "boots", false);
+        itemModelGenerator.registerArmor(Items.IRON_HELMET, EquipmentAssetKeys.IRON, "helmet", false);
+        itemModelGenerator.registerArmor(Items.IRON_CHESTPLATE, EquipmentAssetKeys.IRON, "chestplate", false);
+        itemModelGenerator.registerArmor(Items.IRON_LEGGINGS, EquipmentAssetKeys.IRON, "leggings", false);
+        itemModelGenerator.registerArmor(Items.IRON_BOOTS, EquipmentAssetKeys.IRON, "boots", false);
+        itemModelGenerator.registerArmor(Items.DIAMOND_HELMET, EquipmentAssetKeys.DIAMOND, "helmet", false);
+        itemModelGenerator.registerArmor(Items.DIAMOND_CHESTPLATE, EquipmentAssetKeys.DIAMOND, "chestplate", false);
+        itemModelGenerator.registerArmor(Items.DIAMOND_LEGGINGS, EquipmentAssetKeys.DIAMOND, "leggings", false);
+        itemModelGenerator.registerArmor(Items.DIAMOND_BOOTS, EquipmentAssetKeys.DIAMOND, "boots", false);
+        itemModelGenerator.registerArmor(Items.GOLDEN_HELMET, EquipmentAssetKeys.GOLD, "helmet", false);
+        itemModelGenerator.registerArmor(Items.GOLDEN_CHESTPLATE, EquipmentAssetKeys.GOLD, "chestplate", false);
+        itemModelGenerator.registerArmor(Items.GOLDEN_LEGGINGS, EquipmentAssetKeys.GOLD, "leggings", false);
+        itemModelGenerator.registerArmor(Items.GOLDEN_BOOTS, EquipmentAssetKeys.GOLD, "boots", false);
+        itemModelGenerator.registerArmor(Items.NETHERITE_HELMET, EquipmentAssetKeys.NETHERITE, "helmet", false);
+        itemModelGenerator.registerArmor(Items.NETHERITE_CHESTPLATE, EquipmentAssetKeys.NETHERITE, "chestplate", false);
+        itemModelGenerator.registerArmor(Items.NETHERITE_LEGGINGS, EquipmentAssetKeys.NETHERITE, "leggings", false);
+        itemModelGenerator.registerArmor(Items.NETHERITE_BOOTS, EquipmentAssetKeys.NETHERITE, "boots", false);
 
         for (Item item : ArteryItems.WANDS) {
             itemModelGenerator.register(item, Models.GENERATED);
