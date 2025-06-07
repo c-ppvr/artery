@@ -34,7 +34,7 @@ public class ArteryItems {
     public static final Item RAW_LEUKIUM = register("raw_leukium");
     public static final Item RAW_THROMBIUM = register("raw_thrombium");
     public static final Item LEUKIUM_INGOT = register("leukium_ingot");
-    public static final Item THROMBIUM_INGOT = register("thrombium_ingot");
+    public static final Item THROMBIUM_INGOT = register("thrombium_ingot", new Item.Settings().trimMaterial(ArteryArmorTrimMaterials.THROMBIUM));
     public static final Item HEMOGLOBIUM_INGOT = register("hemoglobium_ingot");
     public static final Item FLESH = register("flesh", new Item.Settings().food(ArteryFoodComponents.FLESH, ArteryConsumableComponents.FLESH));
 
