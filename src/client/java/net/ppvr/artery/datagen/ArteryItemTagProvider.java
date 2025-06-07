@@ -28,5 +28,7 @@ public class ArteryItemTagProvider extends FabricTagProvider<Item> {
         getOrCreateTagBuilder(ItemTags.CHEST_ARMOR).add(ArteryItems.THROMBIUM_CHESTPLATE);
         getOrCreateTagBuilder(ItemTags.LEG_ARMOR).add(ArteryItems.THROMBIUM_LEGGINGS);
         getOrCreateTagBuilder(ItemTags.FOOT_ARMOR).add(ArteryItems.THROMBIUM_BOOTS);
+
+        getOrCreateTagBuilder(ItemTags.TRIM_MATERIALS).add(ArteryItems.THROMBIUM_INGOT);
     }
 }

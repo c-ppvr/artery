@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "ArmorMaterialMixin",
+    "ArmorTrimMaterialsMixin",
     "ConsumableComponentMixin",
     "FoodComponentMixin",
     "FoodComponentMixin$Builder",
